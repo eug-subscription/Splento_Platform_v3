@@ -14,6 +14,7 @@ import { FormTextField } from '../../components/admin/FormTextField';
 import { CountrySelect } from '../../components/admin/CountrySelect';
 import { TextField } from '../../components/ui/text-field';
 import { InputGroup } from '../../components/ui/input-group';
+import { ThemeSwitcher } from '../../components/ThemeSwitcher';
 import type { Manager } from '../../types';
 
 export default function AccountSettings() {
@@ -154,9 +155,10 @@ export default function AccountSettings() {
                         </h1>
                         <p className="text-foreground/50 mt-1">Manage company details, preferences, and team members.</p>
                     </div>
-                    <div className="flex gap-3">
-                        <Button variant="ghost" className="bg-gray-200 hover:bg-gray-300 text-foreground font-medium transition-colors">Discard</Button>
-                        <Button onPress={handleSave} className="font-medium shadow-sm bg-primary hover:opacity-90 text-white transition-opacity">
+                    <div className="flex gap-3 items-center">
+                        <ThemeSwitcher />
+                        <Button variant="secondary">Discard</Button>
+                        <Button variant="primary" onPress={handleSave}>
                             Save
                         </Button>
                     </div>
@@ -340,8 +342,9 @@ export default function AccountSettings() {
                                 </div>
                                 <Modal>
                                     <Button
+                                        variant="primary"
                                         size="sm"
-                                        className="font-medium bg-primary text-white"
+                                        aria-label="Add new manager"
                                     >
                                         <Icon icon="gravity-ui:plus" className="w-4 h-4 mr-1" />
                                         Add Manager
@@ -350,7 +353,7 @@ export default function AccountSettings() {
                                         <Modal.Dialog className="sm:max-w-md">
                                             {({ close }) => (
                                                 <>
-                                                    <Modal.CloseTrigger />
+                                                    <Modal.CloseTrigger aria-label="Close modal" />
                                                     <Modal.Header className="border-b border-default-200">
                                                         <Modal.Icon className="bg-primary/10 text-primary">
                                                             <Icon className="size-5" icon="gravity-ui:user-plus" />
@@ -391,10 +394,11 @@ export default function AccountSettings() {
                                                         </form>
                                                     </Modal.Body>
                                                     <Modal.Footer className="border-t border-default-200">
-                                                        <Button variant="secondary" onPress={close}>
+                                                        <Button variant="tertiary" onPress={close}>
                                                             Cancel
                                                         </Button>
                                                         <Button
+                                                            variant="primary"
                                                             onPress={() => {
                                                                 handleAddManager();
                                                                 close();
@@ -460,9 +464,9 @@ export default function AccountSettings() {
                                                             <AlertDialog>
                                                                 <Button
                                                                     isIconOnly
-                                                                    variant="ghost"
+                                                                    variant="danger"
                                                                     size="sm"
-                                                                    className="text-danger hover:bg-danger/10"
+                                                                    aria-label="Delete manager"
                                                                 >
                                                                     <Icon icon="gravity-ui:trash-bin" className="w-4 h-4" />
                                                                 </Button>
@@ -482,10 +486,10 @@ export default function AccountSettings() {
                                                                                     </p>
                                                                                 </AlertDialog.Body>
                                                                                 <AlertDialog.Footer>
-                                                                                    <Button variant="ghost" onPress={close}>
+                                                                                    <Button variant="tertiary" onPress={close}>
                                                                                         Cancel
                                                                                     </Button>
-                                                                                    <Button className="bg-danger text-white" onPress={() => { handleDeleteManager(manager.id); close(); }}>
+                                                                                    <Button variant="danger" onPress={() => { handleDeleteManager(manager.id); close(); }}>
                                                                                         Delete
                                                                                     </Button>
                                                                                 </AlertDialog.Footer>

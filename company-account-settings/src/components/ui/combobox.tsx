@@ -1,6 +1,6 @@
 import { ComboBox as HComboBox, type ComboBoxProps as HComboBoxProps } from "@heroui/react";
 
-export interface ComboBoxProps<T extends object = object> extends HComboBoxProps<T> { }
+export type ComboBoxProps<T extends object = object> = HComboBoxProps<T>;
 
 export function ComboBox<T extends object>(props: ComboBoxProps<T>) {
     return <HComboBox {...props} />;

@@ -1,6 +1,6 @@
 import { AlertDialog as HAlertDialog, type AlertDialogProps as HAlertDialogProps } from "@heroui/react";
 
-export interface AlertDialogProps extends HAlertDialogProps { }
+export type AlertDialogProps = HAlertDialogProps;
 
 export function AlertDialog(props: AlertDialogProps) {
     return <HAlertDialog {...props} />;

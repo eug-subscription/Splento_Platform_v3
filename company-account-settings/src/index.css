@@ -1,28 +1,266 @@
 @import "tailwindcss";
-@import "@heroui/react/styles";
+@import "@heroui/styles";
 
-@theme {
-  --color-default-100: #FCFCFD;
-  --color-focus: #006FEE;
-  --color-primary: #006FEE;
-  --color-danger: #f31260;
-  --color-success: #17c964;
-  --color-background: #FFFFFF;
-  --color-foreground: #11181C;
+/* ============================================
+   THEME DEFINITIONS
+   Following HeroUI v3 theming best practices
+   Reference: https://raw.githubusercontent.com/heroui-inc/heroui/refs/heads/v3/apps/docs/content/docs/handbook/theming.mdx
+   ============================================ */
 
-  --radius-small: 8px;
-  --radius-medium: 12px;
-  --radius-large: 14px;
+@layer theme {
 
-  --shadow-soft: 0px 2px 10px 0px rgb(0 0 0 / 0.06);
-  --shadow-small: 0px 0px 5px 0px rgb(0 0 0 / 0.02), 0px 2px 10px 0px rgb(0 0 0 / 0.06);
-  --shadow-medium: 0px 0px 15px 0px rgb(0 0 0 / 0.03), 0px 2px 30px 0px rgb(0 0 0 / 0.08);
+  /* === LIGHT THEME === */
+  :root,
+  [data-theme="light"] {
+    color-scheme: light;
+
+    /* Primitive Colors (non-changing) */
+    --white: oklch(100% 0 0);
+    --black: oklch(0% 0 0);
+    --snow: oklch(0.9911 0 0);
+    --eclipse: oklch(0.2103 0.0059 285.89);
+
+    /* Spacing & Layout */
+    --spacing: 0.25rem;
+    --border-width: 1px;
+    --field-border-width: var(--border-width);
+    --disabled-opacity: 0.5;
+    --ring-offset-width: 2px;
+
+    /* Radius */
+    --radius: 0.75rem;
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.25rem;
+    --field-radius: calc(var(--radius) * 1.5);
+
+    /* Base Colors */
+    --background: oklch(0.99 0 0);
+    --foreground: var(--eclipse);
+
+    /* Surface: Used for non-overlay components */
+    --surface: var(--white);
+    --surface-foreground: var(--foreground);
+
+    /* Overlay: Used for floating/overlay components */
+    --overlay: var(--white);
+    --overlay-foreground: var(--foreground);
+
+    /* Utility Colors */
+    --muted: oklch(0.5517 0.0138 285.94);
+    --scrollbar: oklch(87.1% 0.006 286.286);
+
+    /* Default (neutral) */
+    --default: oklch(94% 0.001 286.375);
+    --default-foreground: var(--eclipse);
+
+    /* Semantic Colors */
+    --accent: oklch(0.550 0.220 262);
+    /* Blue accent */
+    --accent-foreground: var(--snow);
+
+    --success: oklch(0.7329 0.1935 150.81);
+    --success-foreground: var(--eclipse);
+
+    --warning: oklch(0.7819 0.1585 72.33);
+    --warning-foreground: var(--eclipse);
+
+    --danger: oklch(0.6532 0.2328 25.74);
+    --danger-foreground: var(--snow);
+
+    /* Form Field Defaults */
+    --field-background: var(--white);
+    --field-foreground: var(--eclipse);
+    --field-placeholder: var(--muted);
+    --field-border: oklch(0.90 0.001 286.375);
+
+    /* Component Colors */
+    --segment: var(--white);
+    --segment-foreground: var(--foreground);
+
+    /* Misc */
+    --border: oklch(0.90 0.001 286.375);
+    --separator: oklch(92% 0.004 286.32);
+    --focus: var(--accent);
+    --link: var(--accent);
+
+    /* Shadows */
+    --surface-shadow:
+      0 2px 4px 0 rgb(0 0 0 / 0.04),
+      0 1px 2px 0 rgb(0 0 0 / 0.06),
+      0 0 1px 0 rgb(0 0 0 / 0.06);
+    --overlay-shadow:
+      0 4px 16px 0 rgb(24 24 27 / 0.08),
+      0 8px 24px 0 rgb(24 24 27 / 0.09);
+    --field-shadow:
+      0 2px 4px 0 rgb(0 0 0 / 0.04),
+      0 1px 2px 0 rgb(0 0 0 / 0.06),
+      0 0 1px 0 rgb(0 0 0 / 0.06);
+
+    /* Skeleton Animation */
+    --skeleton-animation: shimmer;
+    /* shimmer | pulse | none */
+  }
+
+  /* === DARK THEME === */
+  .dark,
+  [data-theme="dark"] {
+    color-scheme: dark;
+
+    /* Base Colors */
+    --background: oklch(0.140 0.005 285.89);
+    --foreground: var(--snow);
+
+    /* Surface: Used for non-overlay components */
+    --surface: oklch(0.2103 0.0059 285.89);
+    --surface-foreground: var(--foreground);
+
+    /* Overlay: Used for floating/overlay components */
+    --overlay: oklch(0.22 0.0059 285.89);
+    --overlay-foreground: var(--foreground);
+
+    /* Utility Colors */
+    --muted: oklch(70.5% 0.015 286.067);
+    --scrollbar: oklch(30% 0.006 286.286);
+
+    /* Default (neutral) */
+    --default: oklch(27.4% 0.006 286.033);
+    --default-foreground: var(--snow);
+
+    /* Semantic Colors - Adjusted for dark mode */
+    --accent: oklch(0.650 0.200 262);
+    /* Brighter blue for dark */
+    --accent-foreground: var(--eclipse);
+
+    --success: oklch(0.7329 0.1935 150.81);
+    --success-foreground: var(--eclipse);
+
+    --warning: oklch(0.8203 0.1388 76.34);
+    --warning-foreground: var(--eclipse);
+
+    --danger: oklch(0.594 0.1967 24.63);
+    --danger-foreground: var(--snow);
+
+    /* Form Field Defaults */
+    --field-background: var(--default);
+    --field-foreground: var(--foreground);
+    --field-placeholder: var(--muted);
+    --field-border: oklch(30% 0.006 286.033);
+
+    /* Component Colors */
+    --segment: oklch(0.3964 0.01 285.93);
+    --segment-foreground: var(--foreground);
+
+    /* Misc */
+    --border: oklch(30% 0.006 286.033);
+    --separator: oklch(22% 0.006 286.033);
+    --focus: var(--accent);
+    --link: var(--accent);
+
+    /* Shadows - Softer for dark mode */
+    --surface-shadow: 0 0 0 0 transparent inset;
+    --overlay-shadow: 0 8px 24px 0 rgb(0 0 0 / 0.4);
+    --field-shadow: 0 0 0 0 transparent inset;
+  }
 }
 
-:root {
-  /* HeroUI CSS Variables - customize as needed */
-  --radius: 0.5rem;
+/* ============================================
+   TAILWIND THEME INTEGRATION
+   Maps CSS variables to Tailwind utilities
+   ============================================ */
+
+@theme inline {
+  /* Base Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+
+  --color-overlay: var(--overlay);
+  --color-overlay-foreground: var(--overlay-foreground);
+
+  /* Utility Colors */
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-separator: var(--separator);
+  --color-focus: var(--focus);
+  --color-link: var(--link);
+
+  /* Semantic Colors */
+  --color-default: var(--default);
+  --color-default-foreground: var(--default-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+
+  /* Legacy mappings for compatibility */
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-foreground);
+
+  /* Shadows */
+  --shadow-surface: var(--surface-shadow);
+  --shadow-overlay: var(--overlay-shadow);
+  --shadow-field: var(--field-shadow);
+
+  /* Form Field Tokens */
+  --color-field: var(--field-background);
+  --color-field-foreground: var(--field-foreground);
+  --color-field-placeholder: var(--field-placeholder);
+  --color-field-border: var(--field-border);
+  --radius-field: var(--field-radius);
+  --border-width-field: var(--field-border-width);
+
+  /* Calculated Hover States */
+  --color-default-hover: color-mix(in oklab,
+      var(--color-default) 80%,
+      transparent);
+
+  --color-accent-hover: color-mix(in oklab,
+      var(--color-accent) 90%,
+      var(--color-accent-foreground) 10%);
+
+  --color-success-hover: color-mix(in oklab,
+      var(--color-success) 90%,
+      var(--color-success-foreground) 10%);
+
+  --color-warning-hover: color-mix(in oklab,
+      var(--color-warning) 90%,
+      var(--color-warning-foreground) 10%);
+
+  --color-danger-hover: color-mix(in oklab,
+      var(--color-danger) 90%,
+      var(--color-danger-foreground) 10%);
+
+  /* Field Hover/Focus States */
+  --color-field-hover: color-mix(in oklab,
+      var(--color-field) 90%,
+      var(--color-field-foreground) 2%);
+
+  --color-field-focus: var(--color-field);
+
+  --color-field-border-hover: color-mix(in oklab,
+      var(--color-field-border) 88%,
+      var(--color-field-foreground) 10%);
+
+  --color-field-border-focus: color-mix(in oklab,
+      var(--color-field-border) 74%,
+      var(--color-field-foreground) 22%);
 }
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
 
 body {
   margin: 0;
@@ -31,5 +269,120 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* ============================================
+   COMPONENT CUSTOMIZATIONS (BEM)
+   Following HeroUI v3 best practices
+   ============================================ */
+
+@layer components {
+
+  /* === Button Component === */
+  .button {
+    @apply font-medium transition-colors duration-200;
+  }
+
+  .button--large {
+    @apply px-6 py-3 text-lg;
+  }
+
+  .button--small {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  /* === Select Component === */
+  .select-trigger {
+    @apply bg-field shadow-field;
+    transition: background-color 200ms ease, border-color 200ms ease;
+  }
+
+  .select-trigger:hover {
+    @apply bg-field-hover;
+  }
+
+  /* === Card Component === */
+  .card {
+    @apply bg-surface shadow-surface rounded-lg;
+    transition: box-shadow 200ms ease;
+  }
+
+  .card__header {
+    @apply border-b border-separator px-6 py-4;
+  }
+
+  .card__body {
+    @apply px-6 py-4;
+  }
+
+  .card__footer {
+    @apply border-t border-separator px-6 py-4;
+  }
+
+  /* === Modal Component === */
+  .modal__overlay {
+    @apply bg-black/50;
+    transition: opacity 200ms ease;
+  }
+
+  .modal__dialog {
+    @apply bg-overlay shadow-overlay rounded-xl;
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+
+  .modal__dialog--small {
+    @apply max-w-sm;
+  }
+
+  .modal__dialog--large {
+    @apply max-w-4xl;
+  }
+
+  /* === Form Components === */
+  .field {
+    @apply bg-field border border-field-border rounded-field;
+    transition: background-color 200ms ease, border-color 200ms ease;
+  }
+
+  .field:hover {
+    @apply bg-field-hover border-field-border-hover;
+  }
+
+  .field:focus-within {
+    @apply bg-field-focus border-field-border-focus ring-2 ring-focus/20;
+  }
+
+  /* === Alert/Badge Components === */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge--accent {
+    @apply bg-accent/10 text-accent;
+  }
+
+  .badge--success {
+    @apply bg-success/10 text-success;
+  }
+
+  .badge--warning {
+    @apply bg-warning/10 text-warning;
+  }
+
+  .badge--danger {
+    @apply bg-danger/10 text-danger;
+  }
+
+  /* === Divider/Separator === */
+  .divider {
+    @apply border-separator;
+  }
+
+  /* === Link Component === */
+  .link {
+    @apply text-link hover:underline transition-colors;
+  }
 }

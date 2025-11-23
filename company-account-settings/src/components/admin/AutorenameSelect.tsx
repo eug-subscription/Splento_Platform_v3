@@ -13,13 +13,7 @@ export function AutorenameSelect({ value, onChange, label = 'Autorename Mode', c
         <Select
             className={className}
             selectedKey={value}
-            onSelectionChange={(key) => {
-                onChange(key as string);
-                // Blur the trigger to remove focus state after selection
-                setTimeout(() => {
-                    (document.activeElement as HTMLElement)?.blur();
-                }, 100);
-            }}
+            onSelectionChange={(key) => onChange(key as string)}
         >
             {label && <Label>{label}</Label>}
             <Select.Trigger>

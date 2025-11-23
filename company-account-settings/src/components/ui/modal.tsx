@@ -1,6 +1,6 @@
 import { Modal as HModal, type ModalProps as HModalProps } from "@heroui/react";
 
-export interface ModalProps extends HModalProps { }
+export type ModalProps = HModalProps;
 
 export function Modal(props: ModalProps) {
     return <HModal {...props} />;

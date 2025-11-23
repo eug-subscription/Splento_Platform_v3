@@ -13,13 +13,7 @@ export function RoleSelect({ value, onChange, label = 'Role', className }: RoleS
         <Select
             className={className}
             selectedKey={value}
-            onSelectionChange={(key) => {
-                onChange(key as 'Admin' | 'Edit' | 'Read Only');
-                // Blur the trigger to remove focus state after selection
-                setTimeout(() => {
-                    (document.activeElement as HTMLElement)?.blur();
-                }, 100);
-            }}
+            onSelectionChange={(key) => onChange(key as 'Admin' | 'Edit' | 'Read Only')}
         >
             {label && <Label>{label}</Label>}
             <Select.Trigger>
