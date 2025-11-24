@@ -1,7 +1,4 @@
-import { TextField } from '../ui/text-field';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { FieldError } from '../ui/field-error';
+import { TextField, Label, Input, FieldError } from "@heroui/react";
 import React from 'react';
 
 interface FormTextFieldProps {

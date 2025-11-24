@@ -1,5 +1,4 @@
-import { Select, ListBox } from '../ui/select';
-import { Label } from '../ui/label';
+import { Select, ListBox, Label } from "@heroui/react";
 
 interface RoleSelectProps {
     value: 'Admin' | 'Edit' | 'Read Only';

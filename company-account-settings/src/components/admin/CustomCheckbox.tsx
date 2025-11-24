@@ -1,6 +1,4 @@
-import { Checkbox, type CheckboxProps } from "../ui/checkbox";
-import { Label } from "../ui/label";
-import { Description, cn } from "@heroui/react";
+import { Checkbox, type CheckboxProps, Label, Description, cn } from "@heroui/react";
 
 interface CustomCheckboxProps extends Omit<CheckboxProps, 'children'> {
     label?: React.ReactNode;

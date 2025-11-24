@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { Button, CloseButton } from '../../components/ui/button';
-import { Card } from '../../components/ui/card';
-import { Chip } from '../../components/ui/chip';
-import { Modal } from '../../components/ui/modal';
-import { AlertDialog } from '../../components/ui/alert-dialog';
-import { Avatar, Description, Surface } from "@heroui/react";
-import { Label } from "../../components/ui/label";
+import { Button, CloseButton } from "@heroui/react";
+import { Card } from "@heroui/react";
+
+
+
+import { Avatar, Description, Surface, Label, TextField, Modal, Chip, InputGroup, AlertDialog } from "@heroui/react";
+
 import { Icon } from '@iconify/react';
 import { CustomCheckbox } from '../../components/admin/CustomCheckbox';
 import { RoleSelect } from '../../components/admin/RoleSelect';
 import { AutorenameSelect } from '../../components/admin/AutorenameSelect';
 import { FormTextField } from '../../components/admin/FormTextField';
 import { CountrySelect } from '../../components/admin/CountrySelect';
-import { TextField } from '../../components/ui/text-field';
-import { InputGroup } from '../../components/ui/input-group';
+
+
 import { ThemeSwitcher } from '../../components/ThemeSwitcher';
 import type { Manager } from '../../types';
 
@@ -477,10 +477,10 @@ export default function AccountSettings() {
                                                                         {({ close }) => (
                                                                             <>
                                                                                 <AlertDialog.Header>
-                                                                                    <AlertDialog.Icon status="danger">
+                                                                                    <div className="flex items-center justify-center rounded-full p-2 w-fit bg-danger/10 text-danger">
                                                                                         <Icon icon="gravity-ui:trash-bin" className="w-5 h-5" />
-                                                                                    </AlertDialog.Icon>
-                                                                                    <AlertDialog.Heading>Delete Manager?</AlertDialog.Heading>
+                                                                                    </div>
+                                                                                    <h3 className="text-lg font-semibold">Delete Manager?</h3>
                                                                                 </AlertDialog.Header>
                                                                                 <AlertDialog.Body>
                                                                                     <p>

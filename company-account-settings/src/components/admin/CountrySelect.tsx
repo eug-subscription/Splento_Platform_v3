@@ -1,8 +1,4 @@
-import { ComboBox } from '../ui/combobox';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { ListBox } from '../ui/select';
-import { Header, Separator } from '@heroui/react';
+import { ComboBox, Input, Label, ListBox, Header, Separator } from '@heroui/react';
 
 interface CountrySelectProps {
     value: string;
