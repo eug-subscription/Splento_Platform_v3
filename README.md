@@ -159,7 +159,7 @@ These components add real business value, not just re-export HeroUI:
 
 - **[dev_instruction_v1.5.md](./company-account-settings/dev_instruction_v1.5.md)** - Complete development standards (**REQUIRED READING**)
 - **[THEMING.md](./company-account-settings/THEMING.md)** - Theming system guide
-- **[HeroUI v3 Docs](https://v3.heroui.com/)** - Official HeroUI documentation
+- **[HeroUI v3 Docs](https://v3.heroui.com/docs/introduction)** - Official HeroUI documentation
 
 ## 🔍 Code Quality
 
