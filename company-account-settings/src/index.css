@@ -283,49 +283,6 @@ body {
 
 @layer components {
 
-  /* === Button Component === */
-  .button {
-    @apply font-medium transition-colors duration-200;
-  }
-
-  .button--large {
-    @apply px-6 py-3 text-lg;
-  }
-
-  .button--small {
-    @apply px-3 py-1.5 text-sm;
-  }
-
-  /* === Card Component === */
-
-  /* === Alert/Badge Components === */
-  .badge {
-    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
-  }
-
-  .badge--accent {
-    @apply bg-accent/10 text-accent;
-  }
-
-  .badge--success {
-    @apply bg-success/10 text-success;
-  }
-
-  .badge--warning {
-    @apply bg-warning/10 text-warning;
-  }
-
-  .badge--danger {
-    @apply bg-danger/10 text-danger;
-  }
-
-  /* === Divider/Separator === */
-  .divider {
-    @apply border-separator;
-  }
-
-  /* === Link Component === */
-  .link {
-    @apply text-link hover:underline transition-colors;
-  }
+  /* === Custom Components === */
+  /* Add custom component styles here if needed */
 }
