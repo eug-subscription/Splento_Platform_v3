@@ -34,7 +34,6 @@ company-account-settings/
 │   ├── App.tsx                        # Root component
 │   └── main.tsx                       # Application entry point
 ├── dev_instruction_v1.5.md            # Development standards (REQUIRED READING)
-├── CONTRIBUTING.md                    # Contribution guidelines
 ├── THEMING.md                         # Theming documentation
 └── README.md                          # This file
 ```
@@ -158,8 +157,7 @@ These components add real business value, not just re-export HeroUI:
 
 ## 📚 Documentation
 
-- **[dev_instruction_v1.5.md](./company-account-settings/dev_instruction_v1.5.md)** - Complete development standards
-- **[CONTRIBUTING.md](./company-account-settings/CONTRIBUTING.md)** - How to contribute
+- **[dev_instruction_v1.5.md](./company-account-settings/dev_instruction_v1.5.md)** - Complete development standards (**REQUIRED READING**)
 - **[THEMING.md](./company-account-settings/THEMING.md)** - Theming system guide
 - **[HeroUI v3 Docs](https://v3.heroui.com/)** - Official HeroUI documentation
 
