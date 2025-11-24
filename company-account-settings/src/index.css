@@ -22,18 +22,20 @@
 
     /* Spacing & Layout */
     --spacing: 0.25rem;
-    --border-width: 1px;
+    --border-width: 0px;
     --field-border-width: var(--border-width);
     --disabled-opacity: 0.5;
     --ring-offset-width: 2px;
 
     /* Radius */
-    --radius: 0.75rem;
-    --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1rem;
-    --radius-xl: 1.25rem;
-    --field-radius: calc(var(--radius) * 1.5);
+    --radius: 0.5rem;
+    --radius-sm: calc(var(--radius) * 0.5);
+    --radius-md: calc(var(--radius) * 0.75);
+    --radius-lg: calc(var(--radius) * 1);
+    --radius-xl: calc(var(--radius) * 1.5);
+    --radius-2xl: calc(var(--radius) * 2);
+    --radius-3xl: calc(var(--radius) * 3);
+    --radius-4xl: calc(var(--radius) * 4);
 
     /* Base Colors */
     --background: oklch(0.99 0 0);
@@ -294,66 +296,7 @@ body {
     @apply px-3 py-1.5 text-sm;
   }
 
-  /* === Select Component === */
-  .select-trigger {
-    @apply bg-field text-field-foreground border border-field-border rounded-field shadow-field flex items-center justify-between;
-    transition: background-color 200ms ease, border-color 200ms ease;
-  }
-
-  .select-trigger:hover {
-    @apply bg-field-hover;
-  }
-
   /* === Card Component === */
-  .card {
-    @apply bg-surface shadow-surface rounded-lg;
-    transition: box-shadow 200ms ease;
-  }
-
-  .card__header {
-    @apply border-b border-separator px-6 py-4;
-  }
-
-  .card__body {
-    @apply px-6 py-4;
-  }
-
-  .card__footer {
-    @apply border-t border-separator px-6 py-4;
-  }
-
-  /* === Modal Component === */
-  .modal__overlay {
-    @apply bg-black/50;
-    transition: opacity 200ms ease;
-  }
-
-  .modal__dialog {
-    @apply bg-overlay shadow-overlay rounded-xl;
-    transition: transform 200ms ease, opacity 200ms ease;
-  }
-
-  .modal__dialog--small {
-    @apply max-w-sm;
-  }
-
-  .modal__dialog--large {
-    @apply max-w-4xl;
-  }
-
-  /* === Form Components === */
-  .field {
-    @apply bg-field border border-field-border rounded-field;
-    transition: background-color 200ms ease, border-color 200ms ease;
-  }
-
-  .field:hover {
-    @apply bg-field-hover border-field-border-hover;
-  }
-
-  .field:focus-within {
-    @apply bg-field-focus border-field-border-focus ring-2 ring-focus/20;
-  }
 
   /* === Alert/Badge Components === */
   .badge {

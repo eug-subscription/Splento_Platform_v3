@@ -6,9 +6,9 @@ export function Select<T extends object>(props: SelectProps<T>) {
     return <HSelect {...props} />;
 }
 
-// Custom Trigger with styling from CSS layer
+// Custom Trigger wrapper
 const StyledTrigger = ({ className, ...props }: React.ComponentProps<typeof HSelect.Trigger>) => {
-    return <HSelect.Trigger className={`select-trigger ${className || ''}`} {...props} />;
+    return <HSelect.Trigger className={className} {...props} />;
 };
 
 Select.Trigger = StyledTrigger;

@@ -1,6 +1,6 @@
 import { TextField } from '../ui/text-field';
 import { Label } from '../ui/label';
-import { InputGroup } from '../ui/input-group';
+import { Input } from '../ui/input';
 import { FieldError } from '../ui/field-error';
 import React from 'react';
 
@@ -37,14 +37,12 @@ export function FormTextField({
             isInvalid={isInvalid}
         >
             {label && <Label>{label}</Label>}
-            <InputGroup>
-                <InputGroup.Input
-                    placeholder={placeholder}
-                    value={value}
-                    onChange={onChange}
-                    onKeyDown={onKeyDown}
-                />
-            </InputGroup>
+            <Input
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                onKeyDown={onKeyDown}
+            />
             {isInvalid && errorMessage && (
                 <FieldError>{errorMessage}</FieldError>
             )}
