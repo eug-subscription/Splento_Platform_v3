@@ -4,7 +4,7 @@ import { Card } from '../../components/ui/card';
 import { Chip } from '../../components/ui/chip';
 import { Modal } from '../../components/ui/modal';
 import { AlertDialog } from '../../components/ui/alert-dialog';
-import { Avatar, Description } from "@heroui/react";
+import { Avatar, Description, Surface } from "@heroui/react";
 import { Label } from "../../components/ui/label";
 import { Icon } from '@iconify/react';
 import { CustomCheckbox } from '../../components/admin/CustomCheckbox';
@@ -354,8 +354,8 @@ export default function AccountSettings() {
                                             {({ close }) => (
                                                 <>
                                                     <Modal.CloseTrigger aria-label="Close modal" />
-                                                    <Modal.Header className="border-b border-default-200">
-                                                        <Modal.Icon className="bg-primary/10 text-primary">
+                                                    <Modal.Header>
+                                                        <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
                                                             <Icon className="size-5" icon="gravity-ui:user-plus" />
                                                         </Modal.Icon>
                                                         <Modal.Heading>Add New Manager</Modal.Heading>
@@ -363,37 +363,39 @@ export default function AccountSettings() {
                                                             Add a new manager to the account with the appropriate permissions.
                                                         </p>
                                                     </Modal.Header>
-                                                    <Modal.Body className="p-2">
-                                                        <form className="flex flex-col gap-4">
-                                                            <FormTextField
-                                                                label="Name *"
-                                                                name="name"
-                                                                placeholder="Enter manager name"
-                                                                value={newManager.name}
-                                                                onChange={(e) => setNewManager({ ...newManager, name: e.target.value })}
-                                                                isInvalid={newManager.name.length > 0 && newManager.name.length < 2}
-                                                                errorMessage="Name must be at least 2 characters"
-                                                            />
+                                                    <Modal.Body className="p-6">
+                                                        <Surface variant="default">
+                                                            <form className="flex flex-col gap-4">
+                                                                <FormTextField
+                                                                    label="Name *"
+                                                                    name="name"
+                                                                    placeholder="Enter manager name"
+                                                                    value={newManager.name}
+                                                                    onChange={(e) => setNewManager({ ...newManager, name: e.target.value })}
+                                                                    isInvalid={newManager.name.length > 0 && newManager.name.length < 2}
+                                                                    errorMessage="Name must be at least 2 characters"
+                                                                />
 
-                                                            <FormTextField
-                                                                label="Email *"
-                                                                name="email"
-                                                                type="email"
-                                                                placeholder="manager@company.com"
-                                                                value={newManager.email}
-                                                                onChange={(e) => setNewManager({ ...newManager, email: e.target.value })}
-                                                                isInvalid={newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)}
-                                                                errorMessage="Please enter a valid email address"
-                                                            />
+                                                                <FormTextField
+                                                                    label="Email *"
+                                                                    name="email"
+                                                                    type="email"
+                                                                    placeholder="manager@company.com"
+                                                                    value={newManager.email}
+                                                                    onChange={(e) => setNewManager({ ...newManager, email: e.target.value })}
+                                                                    isInvalid={newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)}
+                                                                    errorMessage="Please enter a valid email address"
+                                                                />
 
-                                                            <RoleSelect
-                                                                value={newManager.role}
-                                                                onChange={(role) => setNewManager({ ...newManager, role })}
-                                                                label="Role *"
-                                                            />
-                                                        </form>
+                                                                <RoleSelect
+                                                                    value={newManager.role}
+                                                                    onChange={(role) => setNewManager({ ...newManager, role })}
+                                                                    label="Role *"
+                                                                />
+                                                            </form>
+                                                        </Surface>
                                                     </Modal.Body>
-                                                    <Modal.Footer className="border-t border-default-200">
+                                                    <Modal.Footer>
                                                         <Button variant="tertiary" onPress={close}>
                                                             Cancel
                                                         </Button>
