@@ -116,20 +116,10 @@ export default function AccountSettings() {
     };
 
     const handleSave = () => {
-        const allData = {
-            companyInfo,
-            autorenameMode,
-            unpaidInvoicesLimit,
-            mailSettings,
-            fileNamePrefixes,
-            prebookingSettings,
-            otherSettings,
-            managers,
-            billingAddress,
-            socialLinks,
-            tags
-        };
-        console.log('Saving data:', allData);
+        // TODO: Implement actual save logic
+        // This will send: companyInfo, autorenameMode, unpaidInvoicesLimit,
+        // mailSettings, fileNamePrefixes, prebookingSettings, otherSettings,
+        // managers, billingAddress, socialLinks, tags
     };
 
     // Helper to get initials for Avatar

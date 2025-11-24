@@ -314,12 +314,22 @@ src/
 ### Naming Conventions
 
 | Type | Convention | Example |
-|------|-----------|---------|
+|------|-----------|------------|
 | **Components** | PascalCase | `UserProfile.tsx` |
-| **Files** | kebab-case | `user-profile.tsx` |
+| **Files** | kebab-case or PascalCase* | `user-profile.tsx` or `UserProfile.tsx` |
 | **Variables** | camelCase | `isLoading`, `userData` |
 | **Constants** | UPPER_SNAKE_CASE | `API_URL`, `MAX_ITEMS` |
 | **CSS Classes** | BEM | `.button--primary`, `.card__header` |
+
+> [!NOTE]
+> **Project Convention: PascalCase Component Files**
+>
+> This project uses PascalCase for component files (e.g., `UserProfile.tsx`).
+> This is a valid convention widely used in React/Next.js projects.
+>
+> ✅ DO: Use PascalCase for component files
+> ✅ DO: Use kebab-case for utility/helper files
+> ❌ DON'T: Mix conventions (pick one and stick to it)
 
 ### Import Order
 
