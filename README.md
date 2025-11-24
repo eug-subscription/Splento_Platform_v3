@@ -7,7 +7,7 @@ This repository contains the frontend implementation for the **Splento Platform 
 - **Framework**: [React](https://react.dev/) with [Vite](https://vitejs.dev/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with CSS Variables
-- **UI Library**: [HeroUI v3](https://v3.heroui.com/) (Beta)
+- **UI Library**: [HeroUI v3](https://v3.heroui.com/docs/introduction) (Beta)
 - **Icons**: [Iconify](https://iconify.design/) with `gravity-ui` collection
 
 ## 📂 Project Structure
