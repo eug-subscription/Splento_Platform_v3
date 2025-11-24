@@ -14,7 +14,7 @@ export const CustomCheckbox = ({ className, label, description, children, ...pro
             {...props}
             className={cn("items-start w-full", className)}
         >
-            <Checkbox.Control>
+            <Checkbox.Control className="rounded-[4px] before:rounded-[4px] data-[selected=true]:rounded-[4px]">
                 <Checkbox.Indicator />
             </Checkbox.Control>
             <Checkbox.Content>

@@ -171,7 +171,7 @@ export default function AccountSettings() {
                     <div className="lg:col-span-2 space-y-6">
 
                         {/* ========== BASIC INFORMATION CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="pb-0 pt-2 px-2">
                                 <Card.Title className="text-base font-semibold">
                                     Identity
@@ -229,7 +229,7 @@ export default function AccountSettings() {
                         </Card>
 
                         {/* ========== BILLING & INVOICES CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="pb-0 pt-2 px-2">
                                 <Card.Title className="text-base font-semibold">
                                     Billing & Invoices
@@ -291,7 +291,7 @@ export default function AccountSettings() {
                         </Card>
 
                         {/* ========== FILE SETTINGS CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="pb-0 pt-2 px-2">
                                 <Card.Title className="text-base font-semibold">
                                     File Processing & Naming
@@ -332,7 +332,7 @@ export default function AccountSettings() {
                         </Card>
 
                         {/* ========== COMPANY MANAGERS CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="flex flex-row justify-between items-center pb-0 pt-2 px-2">
                                 <div className="flex flex-col">
                                     <Card.Title className="text-base font-semibold">
@@ -514,7 +514,7 @@ export default function AccountSettings() {
                     <div className="space-y-6">
 
                         {/* ========== MAIL SETTINGS CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="pb-0 pt-2 px-2">
                                 <Card.Title className="text-base font-semibold">
                                     Mail Configuration
@@ -541,7 +541,7 @@ export default function AccountSettings() {
                         </Card>
 
                         {/* ========== PREBOOKING FILES CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="pb-0 pt-2 px-2">
                                 <Card.Title className="text-base font-semibold">
                                     Prebooking Files
@@ -559,7 +559,7 @@ export default function AccountSettings() {
                         </Card>
 
                         {/* ========== OTHER SETTINGS CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="pb-0 pt-2 px-2">
                                 <Card.Title className="text-base font-semibold">
                                     Display Settings
@@ -578,7 +578,7 @@ export default function AccountSettings() {
 
 
                         {/* ========== COMPANY TAGS CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="pb-0 pt-2 px-2">
                                 <Card.Title className="text-base font-semibold">
                                     Company Tags
@@ -593,7 +593,7 @@ export default function AccountSettings() {
                                             key={index}
                                             size="sm"
                                             variant="secondary"
-                                            className="bg-blue-50 pl-2"
+                                            className="pl-2"
                                         >
                                             {tag}
                                             <CloseButton onPress={() => handleRemoveTag(tag)}>
@@ -619,7 +619,7 @@ export default function AccountSettings() {
                         </Card >
 
                         {/* ========== SOCIAL LINKS CARD ========== */}
-                        <Card className="border-2 border-default-300 rounded-large bg-background hover:shadow-md transition-shadow">
+                        <Card variant="default" className="rounded-large hover:shadow-md transition-shadow">
                             <Card.Header className="pb-0 pt-2 px-2">
                                 <Card.Title className="text-base font-semibold">
                                     Social Links

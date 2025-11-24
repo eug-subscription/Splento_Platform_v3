@@ -81,15 +81,15 @@
 
     /* Misc */
     --border: oklch(0.90 0.001 286.375);
-    --separator: oklch(92% 0.004 286.32);
+    --separator: oklch(96% 0.002 286.32);
     --focus: var(--accent);
     --link: var(--accent);
 
     /* Shadows */
     --surface-shadow:
-      0 2px 4px 0 rgb(0 0 0 / 0.04),
-      0 1px 2px 0 rgb(0 0 0 / 0.06),
-      0 0 1px 0 rgb(0 0 0 / 0.06);
+      0 2px 4px 0 rgb(0 0 0 / 0.02),
+      0 1px 2px 0 rgb(0 0 0 / 0.03),
+      0 0 1px 0 rgb(0 0 0 / 0.03);
     --overlay-shadow:
       0 4px 16px 0 rgb(24 24 27 / 0.08),
       0 8px 24px 0 rgb(24 24 27 / 0.09);
@@ -296,7 +296,7 @@ body {
 
   /* === Select Component === */
   .select-trigger {
-    @apply bg-field shadow-field;
+    @apply bg-field text-field-foreground border border-field-border rounded-field shadow-field flex items-center justify-between;
     transition: background-color 200ms ease, border-color 200ms ease;
   }
 
