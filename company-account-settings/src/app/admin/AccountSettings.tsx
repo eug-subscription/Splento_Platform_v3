@@ -4,14 +4,11 @@ import { Card } from "@heroui/react";
 
 
 
-import { Avatar, Description, Surface, Label, TextField, Modal, Chip, InputGroup, AlertDialog } from "@heroui/react";
+import React from 'react';
+import { Avatar, Description, Surface, Label, TextField, Modal, Chip, InputGroup, AlertDialog, Input, FieldError, Checkbox, Select, ListBox, ComboBox, Header, Separator } from "@heroui/react";
 
 import { Icon } from '@iconify/react';
-import { CustomCheckbox } from '../../components/admin/CustomCheckbox';
-import { RoleSelect } from '../../components/admin/RoleSelect';
-import { AutorenameSelect } from '../../components/admin/AutorenameSelect';
-import { FormTextField } from '../../components/admin/FormTextField';
-import { CountrySelect } from '../../components/admin/CountrySelect';
+import { COUNTRY_REGIONS } from '../../data/countries';
 
 
 import { ThemeSwitcher } from '../../components/ThemeSwitcher';
@@ -171,49 +168,53 @@ export default function AccountSettings() {
 
                             <Card.Content className="p-2">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <FormTextField
-                                        label="Company Name"
-                                        name="companyName"
-                                        placeholder="Enter company name"
-                                        value={companyInfo.companyName}
-                                        onChange={(e) => setCompanyInfo({ ...companyInfo, companyName: e.target.value })}
-                                    />
+                                    <TextField name="companyName" className="w-full">
+                                        <Label>Company Name</Label>
+                                        <Input
+                                            placeholder="Enter company name"
+                                            value={companyInfo.companyName}
+                                            onChange={(e) => setCompanyInfo({ ...companyInfo, companyName: e.target.value })}
+                                        />
+                                    </TextField>
 
-                                    <FormTextField
-                                        label="Company E-mail"
-                                        name="companyEmail"
-                                        type="email"
-                                        placeholder="company@example.com"
-                                        value={companyInfo.companyEmail}
-                                        onChange={(e) => setCompanyInfo({ ...companyInfo, companyEmail: e.target.value })}
-                                    />
+                                    <TextField name="companyEmail" className="w-full">
+                                        <Label>Company E-mail</Label>
+                                        <Input
+                                            type="email"
+                                            placeholder="company@example.com"
+                                            value={companyInfo.companyEmail}
+                                            onChange={(e) => setCompanyInfo({ ...companyInfo, companyEmail: e.target.value })}
+                                        />
+                                    </TextField>
 
-                                    <FormTextField
-                                        label="Coordinator E-mail"
-                                        name="coordinatorEmail"
-                                        type="email"
-                                        placeholder="coordinator@example.com"
-                                        value={companyInfo.coordinatorEmail}
-                                        onChange={(e) => setCompanyInfo({ ...companyInfo, coordinatorEmail: e.target.value })}
-                                    />
+                                    <TextField name="coordinatorEmail" className="w-full">
+                                        <Label>Coordinator E-mail</Label>
+                                        <Input
+                                            type="email"
+                                            placeholder="coordinator@example.com"
+                                            value={companyInfo.coordinatorEmail}
+                                            onChange={(e) => setCompanyInfo({ ...companyInfo, coordinatorEmail: e.target.value })}
+                                        />
+                                    </TextField>
 
-                                    <FormTextField
-                                        label="Phone"
-                                        name="phone"
-                                        type="tel"
-                                        placeholder="+1 (555) 000-0000"
-                                        value={companyInfo.phone}
-                                        onChange={(e) => setCompanyInfo({ ...companyInfo, phone: e.target.value })}
-                                    />
+                                    <TextField name="phone" className="w-full">
+                                        <Label>Phone</Label>
+                                        <Input
+                                            type="tel"
+                                            placeholder="+1 (555) 000-0000"
+                                            value={companyInfo.phone}
+                                            onChange={(e) => setCompanyInfo({ ...companyInfo, phone: e.target.value })}
+                                        />
+                                    </TextField>
 
-                                    <FormTextField
-                                        label="VAT Number"
-                                        name="vatNumber"
-                                        placeholder="Enter VAT number"
-                                        value={companyInfo.vatNumber}
-                                        onChange={(e) => setCompanyInfo({ ...companyInfo, vatNumber: e.target.value })}
-                                        className="md:col-span-2 w-full"
-                                    />
+                                    <TextField name="vatNumber" className="md:col-span-2 w-full">
+                                        <Label>VAT Number</Label>
+                                        <Input
+                                            placeholder="Enter VAT number"
+                                            value={companyInfo.vatNumber}
+                                            onChange={(e) => setCompanyInfo({ ...companyInfo, vatNumber: e.target.value })}
+                                        />
+                                    </TextField>
                                 </div>
                             </Card.Content>
                         </Card>
@@ -228,54 +229,82 @@ export default function AccountSettings() {
 
                             <Card.Content className="p-2">
                                 <div className="space-y-4">
-                                    <FormTextField
-                                        label="Limit on unpaid invoices"
-                                        name="unpaidInvoicesLimit"
-                                        type="number"
-                                        placeholder="0"
-                                        value={unpaidInvoicesLimit}
-                                        onChange={(e) => setUnpaidInvoicesLimit(e.target.value)}
-                                    />
+                                    <TextField name="unpaidInvoicesLimit" className="w-full">
+                                        <Label>Limit on unpaid invoices</Label>
+                                        <Input
+                                            type="number"
+                                            placeholder="0"
+                                            value={unpaidInvoicesLimit}
+                                            onChange={(e) => setUnpaidInvoicesLimit(e.target.value)}
+                                        />
+                                    </TextField>
 
-                                    <FormTextField
-                                        label="Street Address"
-                                        name="street"
-                                        placeholder="123 Main St"
-                                        value={billingAddress.street}
-                                        onChange={(e) => setBillingAddress({ ...billingAddress, street: e.target.value })}
-                                    />
+                                    <TextField name="street" className="w-full">
+                                        <Label>Street Address</Label>
+                                        <Input
+                                            placeholder="123 Main St"
+                                            value={billingAddress.street}
+                                            onChange={(e) => setBillingAddress({ ...billingAddress, street: e.target.value })}
+                                        />
+                                    </TextField>
 
-                                    <FormTextField
-                                        label="City"
-                                        name="city"
-                                        placeholder="San Francisco"
-                                        value={billingAddress.city}
-                                        onChange={(e) => setBillingAddress({ ...billingAddress, city: e.target.value })}
-                                    />
+                                    <TextField name="city" className="w-full">
+                                        <Label>City</Label>
+                                        <Input
+                                            placeholder="San Francisco"
+                                            value={billingAddress.city}
+                                            onChange={(e) => setBillingAddress({ ...billingAddress, city: e.target.value })}
+                                        />
+                                    </TextField>
 
                                     <div className="grid grid-cols-2 gap-4">
-                                        <FormTextField
-                                            label="State/Province"
-                                            name="state"
-                                            placeholder="CA"
-                                            value={billingAddress.state}
-                                            onChange={(e) => setBillingAddress({ ...billingAddress, state: e.target.value })}
-                                        />
+                                        <TextField name="state" className="w-full">
+                                            <Label>State/Province</Label>
+                                            <Input
+                                                placeholder="CA"
+                                                value={billingAddress.state}
+                                                onChange={(e) => setBillingAddress({ ...billingAddress, state: e.target.value })}
+                                            />
+                                        </TextField>
 
-                                        <FormTextField
-                                            label="Postal Code"
-                                            name="postalCode"
-                                            placeholder="94102"
-                                            value={billingAddress.postalCode}
-                                            onChange={(e) => setBillingAddress({ ...billingAddress, postalCode: e.target.value })}
-                                        />
+                                        <TextField name="postalCode" className="w-full">
+                                            <Label>Postal Code</Label>
+                                            <Input
+                                                placeholder="94102"
+                                                value={billingAddress.postalCode}
+                                                onChange={(e) => setBillingAddress({ ...billingAddress, postalCode: e.target.value })}
+                                            />
+                                        </TextField>
                                     </div>
 
 
-                                    <CountrySelect
-                                        value={billingAddress.country}
-                                        onChange={(country) => setBillingAddress({ ...billingAddress, country })}
-                                    />
+                                    <ComboBox
+                                        className="w-full"
+                                        selectedKey={billingAddress.country}
+                                        onSelectionChange={(key) => setBillingAddress({ ...billingAddress, country: key as string })}
+                                    >
+                                        <Label>Country</Label>
+                                        <ComboBox.InputGroup>
+                                            <Input placeholder="Search countries..." />
+                                            <ComboBox.Trigger />
+                                        </ComboBox.InputGroup>
+                                        <ComboBox.Popover>
+                                            <ListBox>
+                                                {COUNTRY_REGIONS.map((region, index) => (
+                                                    <React.Fragment key={region.name}>
+                                                        <Header>{region.name}</Header>
+                                                        {region.countries.map((country) => (
+                                                            <ListBox.Item key={country.id} textValue={country.name} id={country.id}>
+                                                                {country.name}
+                                                                <ListBox.ItemIndicator />
+                                                            </ListBox.Item>
+                                                        ))}
+                                                        {index < COUNTRY_REGIONS.length - 1 && <Separator />}
+                                                    </React.Fragment>
+                                                ))}
+                                            </ListBox>
+                                        </ComboBox.Popover>
+                                    </ComboBox>
                                 </div>
                             </Card.Content>
                         </Card>
@@ -291,10 +320,32 @@ export default function AccountSettings() {
 
                             <Card.Content className="p-2 space-y-6">
                                 {/* Autorename Mode Dropdown */}
-                                <AutorenameSelect
-                                    value={autorenameMode}
-                                    onChange={setAutorenameMode}
-                                />
+                                <Select
+                                    selectedKey={autorenameMode}
+                                    onSelectionChange={(key) => setAutorenameMode(key as string)}
+                                >
+                                    <Label>Autorename Mode</Label>
+                                    <Select.Trigger>
+                                        <Select.Value />
+                                        <Select.Indicator />
+                                    </Select.Trigger>
+                                    <Select.Popover>
+                                        <ListBox>
+                                            <ListBox.Item id="external-id" textValue="File names are based on External ID">
+                                                File names are based on External ID
+                                                <ListBox.ItemIndicator />
+                                            </ListBox.Item>
+                                            <ListBox.Item id="dish-name" textValue="File names are based on Dish Name">
+                                                File names are based on Dish Name
+                                                <ListBox.ItemIndicator />
+                                            </ListBox.Item>
+                                            <ListBox.Item id="external-id-dish-name" textValue="File names are based on External ID (first) / Dish name (second)">
+                                                File names are based on External ID (first) / Dish name (second)
+                                                <ListBox.ItemIndicator />
+                                            </ListBox.Item>
+                                        </ListBox>
+                                    </Select.Popover>
+                                </Select>
 
                                 {/* File Name Prefixes */}
                                 <div>
@@ -305,17 +356,31 @@ export default function AccountSettings() {
                                         Select which types of orders should receive an automatic name prefix.
                                     </p>
                                     <div className="flex flex-row gap-6">
-                                        <CustomCheckbox
+                                        <Checkbox
                                             isSelected={fileNamePrefixes.webAppPhotography}
                                             onChange={(isSelected: boolean) => setFileNamePrefixes({ ...fileNamePrefixes, webAppPhotography: isSelected })}
-                                            label="WebApp photography"
-                                        />
+                                            className="items-start w-full"
+                                        >
+                                            <Checkbox.Control className="rounded-[4px] before:rounded-[4px] data-[selected=true]:rounded-[4px]">
+                                                <Checkbox.Indicator />
+                                            </Checkbox.Control>
+                                            <Checkbox.Content>
+                                                <Label>WebApp photography</Label>
+                                            </Checkbox.Content>
+                                        </Checkbox>
 
-                                        <CustomCheckbox
+                                        <Checkbox
                                             isSelected={fileNamePrefixes.professionalPhotography}
                                             onChange={(isSelected: boolean) => setFileNamePrefixes({ ...fileNamePrefixes, professionalPhotography: isSelected })}
-                                            label="Professional photography"
-                                        />
+                                            className="items-start w-full"
+                                        >
+                                            <Checkbox.Control className="rounded-[4px] before:rounded-[4px] data-[selected=true]:rounded-[4px]">
+                                                <Checkbox.Indicator />
+                                            </Checkbox.Control>
+                                            <Checkbox.Content>
+                                                <Label>Professional photography</Label>
+                                            </Checkbox.Content>
+                                        </Checkbox>
                                     </div>
                                 </div>
                             </Card.Content>
@@ -356,32 +421,57 @@ export default function AccountSettings() {
                                                     <Modal.Body className="p-6">
                                                         <Surface variant="default">
                                                             <form className="flex flex-col gap-4">
-                                                                <FormTextField
-                                                                    label="Name *"
-                                                                    name="name"
-                                                                    placeholder="Enter manager name"
-                                                                    value={newManager.name}
-                                                                    onChange={(e) => setNewManager({ ...newManager, name: e.target.value })}
-                                                                    isInvalid={newManager.name.length > 0 && newManager.name.length < 2}
-                                                                    errorMessage="Name must be at least 2 characters"
-                                                                />
+                                                                <TextField name="name" isInvalid={newManager.name.length > 0 && newManager.name.length < 2} className="w-full">
+                                                                    <Label>Name *</Label>
+                                                                    <Input
+                                                                        placeholder="Enter manager name"
+                                                                        value={newManager.name}
+                                                                        onChange={(e) => setNewManager({ ...newManager, name: e.target.value })}
+                                                                    />
+                                                                    {newManager.name.length > 0 && newManager.name.length < 2 && (
+                                                                        <FieldError>Name must be at least 2 characters</FieldError>
+                                                                    )}
+                                                                </TextField>
 
-                                                                <FormTextField
-                                                                    label="Email *"
-                                                                    name="email"
-                                                                    type="email"
-                                                                    placeholder="manager@company.com"
-                                                                    value={newManager.email}
-                                                                    onChange={(e) => setNewManager({ ...newManager, email: e.target.value })}
-                                                                    isInvalid={newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)}
-                                                                    errorMessage="Please enter a valid email address"
-                                                                />
+                                                                <TextField name="email" isInvalid={newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)} className="w-full">
+                                                                    <Label>Email *</Label>
+                                                                    <Input
+                                                                        type="email"
+                                                                        placeholder="manager@company.com"
+                                                                        value={newManager.email}
+                                                                        onChange={(e) => setNewManager({ ...newManager, email: e.target.value })}
+                                                                    />
+                                                                    {newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) && (
+                                                                        <FieldError>Please enter a valid email address</FieldError>
+                                                                    )}
+                                                                </TextField>
 
-                                                                <RoleSelect
-                                                                    value={newManager.role}
-                                                                    onChange={(role) => setNewManager({ ...newManager, role })}
-                                                                    label="Role *"
-                                                                />
+                                                                <Select
+                                                                    selectedKey={newManager.role}
+                                                                    onSelectionChange={(key) => setNewManager({ ...newManager, role: key as Manager['role'] })}
+                                                                >
+                                                                    <Label>Role *</Label>
+                                                                    <Select.Trigger>
+                                                                        <Select.Value />
+                                                                        <Select.Indicator />
+                                                                    </Select.Trigger>
+                                                                    <Select.Popover>
+                                                                        <ListBox>
+                                                                            <ListBox.Item id="Admin" textValue="Admin">
+                                                                                Admin
+                                                                                <ListBox.ItemIndicator />
+                                                                            </ListBox.Item>
+                                                                            <ListBox.Item id="Edit" textValue="Edit">
+                                                                                Edit
+                                                                                <ListBox.ItemIndicator />
+                                                                            </ListBox.Item>
+                                                                            <ListBox.Item id="Read Only" textValue="Read Only">
+                                                                                Read Only
+                                                                                <ListBox.ItemIndicator />
+                                                                            </ListBox.Item>
+                                                                        </ListBox>
+                                                                    </Select.Popover>
+                                                                </Select>
                                                             </form>
                                                         </Surface>
                                                     </Modal.Body>
@@ -444,12 +534,33 @@ export default function AccountSettings() {
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
-                                                        <RoleSelect
-                                                            value={manager.role}
-                                                            onChange={(role) => handleRoleChange(manager.id, role)}
+                                                        <Select
+                                                            selectedKey={manager.role}
+                                                            onSelectionChange={(key) => handleRoleChange(manager.id, key as string)}
                                                             className="w-32"
-                                                            label=""
-                                                        />
+                                                            aria-label="Role"
+                                                        >
+                                                            <Select.Trigger>
+                                                                <Select.Value />
+                                                                <Select.Indicator />
+                                                            </Select.Trigger>
+                                                            <Select.Popover>
+                                                                <ListBox>
+                                                                    <ListBox.Item id="Admin" textValue="Admin">
+                                                                        Admin
+                                                                        <ListBox.ItemIndicator />
+                                                                    </ListBox.Item>
+                                                                    <ListBox.Item id="Edit" textValue="Edit">
+                                                                        Edit
+                                                                        <ListBox.ItemIndicator />
+                                                                    </ListBox.Item>
+                                                                    <ListBox.Item id="Read Only" textValue="Read Only">
+                                                                        Read Only
+                                                                        <ListBox.ItemIndicator />
+                                                                    </ListBox.Item>
+                                                                </ListBox>
+                                                            </Select.Popover>
+                                                        </Select>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                                         <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
@@ -515,19 +626,33 @@ export default function AccountSettings() {
 
                             <Card.Content className="p-2">
                                 <div className="space-y-3">
-                                    <CustomCheckbox
+                                    <Checkbox
                                         isSelected={mailSettings.disableAllEmails}
                                         onChange={(isSelected: boolean) => setMailSettings({ ...mailSettings, disableAllEmails: isSelected })}
-                                        label="Disable all enterprise emails"
-                                        description="Stop all automated system emails."
-                                    />
+                                        className="items-start w-full"
+                                    >
+                                        <Checkbox.Control className="rounded-[4px] before:rounded-[4px] data-[selected=true]:rounded-[4px]">
+                                            <Checkbox.Indicator />
+                                        </Checkbox.Control>
+                                        <Checkbox.Content>
+                                            <Label>Disable all enterprise emails</Label>
+                                            <Description>Stop all automated system emails.</Description>
+                                        </Checkbox.Content>
+                                    </Checkbox>
 
-                                    <CustomCheckbox
+                                    <Checkbox
                                         isSelected={mailSettings.sendChatNotifications}
                                         onChange={(isSelected: boolean) => setMailSettings({ ...mailSettings, sendChatNotifications: isSelected })}
-                                        label="Chat notifications"
-                                        description="Send emails for new chat messages."
-                                    />
+                                        className="items-start w-full"
+                                    >
+                                        <Checkbox.Control className="rounded-[4px] before:rounded-[4px] data-[selected=true]:rounded-[4px]">
+                                            <Checkbox.Indicator />
+                                        </Checkbox.Control>
+                                        <Checkbox.Content>
+                                            <Label>Chat notifications</Label>
+                                            <Description>Send emails for new chat messages.</Description>
+                                        </Checkbox.Content>
+                                    </Checkbox>
                                 </div>
                             </Card.Content>
                         </Card>
@@ -541,12 +666,19 @@ export default function AccountSettings() {
                             </Card.Header>
 
                             <Card.Content className="p-2">
-                                <CustomCheckbox
+                                <Checkbox
                                     isSelected={prebookingSettings.enableSessionDateInCSV}
                                     onChange={(isSelected: boolean) => setPrebookingSettings({ ...prebookingSettings, enableSessionDateInCSV: isSelected })}
-                                    label="Enable session date in CSV"
-                                    description="Includes the session date column in exported CSVs."
-                                />
+                                    className="items-start w-full"
+                                >
+                                    <Checkbox.Control className="rounded-[4px] before:rounded-[4px] data-[selected=true]:rounded-[4px]">
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    <Checkbox.Content>
+                                        <Label>Enable session date in CSV</Label>
+                                        <Description>Includes the session date column in exported CSVs.</Description>
+                                    </Checkbox.Content>
+                                </Checkbox>
                             </Card.Content>
                         </Card>
 
@@ -559,12 +691,19 @@ export default function AccountSettings() {
                             </Card.Header>
 
                             <Card.Content className="p-2">
-                                <CustomCheckbox
+                                <Checkbox
                                     isSelected={otherSettings.showPhotographerDetails}
                                     onChange={(isSelected: boolean) => setOtherSettings({ ...otherSettings, showPhotographerDetails: isSelected })}
-                                    label="Show photographer details"
-                                    description="Display assigned photographer info in business profile."
-                                />
+                                    className="items-start w-full"
+                                >
+                                    <Checkbox.Control className="rounded-[4px] before:rounded-[4px] data-[selected=true]:rounded-[4px]">
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    <Checkbox.Content>
+                                        <Label>Show photographer details</Label>
+                                        <Description>Display assigned photographer info in business profile.</Description>
+                                    </Checkbox.Content>
+                                </Checkbox>
                             </Card.Content>
                         </Card>
 
