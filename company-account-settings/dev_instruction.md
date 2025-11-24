@@ -55,7 +55,7 @@ We build **premium, accessible, and maintainable** interfaces. We do not build "
 
 **Before creating ANY component, styling, or pattern:**
 
-1. **Check** the [Components List](https://raw.githubusercontent.com/heroui-inc/heroui/refs/heads/v3/apps/docs/content/docs/components-list.mdx)
+1. **Check** the [Components List](https://raw.githubusercontent.com/heroui-inc/heroui/refs/heads/v3/apps/docs/content/docs/components-list.mdx) or [Official Docs](https://v3.heroui.com/docs/components-list)
 2. **Search** the [Full Documentation](./heroui-docs.txt)
 3. **Review** existing project components
 
@@ -168,7 +168,7 @@ interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
    - Why HeroUI v3 works this way
    - Core design philosophy
 
-2. **[Components List](https://raw.githubusercontent.com/heroui-inc/heroui/refs/heads/v3/apps/docs/content/docs/components-list.mdx)**
+2. **[Components List](https://raw.githubusercontent.com/heroui-inc/heroui/refs/heads/v3/apps/docs/content/docs/components-list.mdx)** ([Official Docs](https://v3.heroui.com/docs/components-list))
    - Available components catalog
    - Check here first (Rule #0)
 
@@ -354,7 +354,7 @@ import Link from 'next/link';
 
 ### 🎨 Extending Components
 
-**Method 1: Using tailwind-variants**
+#### Method 1: Using tailwind-variants
 
 ```tsx
 import { Button, buttonVariants } from '@heroui/react';
@@ -372,7 +372,7 @@ const customButton = tv({
 <Button className={customButton({ variant: 'gradient' })}>Click</Button>
 ```
 
-**Method 2: Wrapper Component**
+#### Method 2: Wrapper Component
 
 ```tsx
 function CTAButton({ intent, ...props }) {
