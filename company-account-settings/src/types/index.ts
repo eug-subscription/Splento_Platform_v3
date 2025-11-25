@@ -40,5 +40,70 @@ export interface CompanySettings {
         twitter: string;
         facebook: string;
     };
-    tags: string[];
 }
+
+// ========== HomePage Types ==========
+
+/**
+ * Organization data for org switcher
+ */
+export interface Organization {
+    id: string;
+    name: string;
+    slug: string;
+}
+
+/**
+ * Metric card data with trend indicator
+ */
+export interface MetricData {
+    label: string;
+    value: string | number;
+    change: number; // Percentage change
+    trend: 'up' | 'down';
+}
+
+/**
+ * Tool/Product card data
+ */
+export interface ToolData {
+    id: string;
+    name: string;
+    description: string;
+    image: string;
+    category?: string; // Optional category chip (e.g., "Photography", "Editing")
+    href?: string; // Optional link to tool
+}
+
+/**
+ * Quick access link item
+ */
+export interface QuickAccessLink {
+    id: string;
+    label: string;
+    href: string;
+    icon?: string; // Iconify icon name
+}
+
+/**
+ * Quick access section
+ */
+export interface QuickAccessSection {
+    id: string;
+    title: string;
+    description: string;
+    icon: string; // Iconify icon name
+    links?: QuickAccessLink[];
+    sdkBadges?: string[]; // For SDK section (JS, Python, Go)
+    avatars?: string[]; // For data sources section (user avatars)
+}
+
+/**
+ * HomePage component props
+ */
+export interface HomePageProps {
+    onOrgChange?: (org: Organization) => void;
+    onToolClick?: (tool: ToolData) => void;
+    className?: string;
+}
+
