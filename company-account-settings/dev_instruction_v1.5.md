@@ -281,6 +281,7 @@ interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
 2. **[Components List](https://raw.githubusercontent.com/heroui-inc/heroui/refs/heads/v3/apps/docs/content/docs/components-list.mdx)** ([Official Docs](https://v3.heroui.com/docs/components-list))
    - Available components catalog
    - Check here first (Rule #0)
+   - [Full Components List for LLMs](https://v3.heroui.com/llms.txt) - Comprehensive component descriptions
 
 3. **[Full Documentation](./heroui-docs.txt)**
    - Complete API reference (Local File)
