@@ -288,6 +288,16 @@ interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
    - All examples
    - [Online Mirror](https://v3.heroui.com/llms-full.txt)
 
+4. **[Component Source Code](https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components)**
+   - React component implementations
+   - TypeScript types and interfaces
+   - Component anatomy and structure
+
+5. **[Component Styles](https://github.com/heroui-inc/heroui/tree/v3/packages/styles/components)**
+   - CSS and theme definitions
+   - Variant implementations
+   - Default styling
+
 ---
 
 ## File Structure & Naming
@@ -402,6 +412,7 @@ const [formData, setFormData] = useState({ email: '', password: '' });
 
 ```tsx
 // ✅ CORRECT: Compound components with dot notation
+// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/accordion
 <Accordion>
   <Accordion.Item id="1">
     <Accordion.Heading>
@@ -417,6 +428,7 @@ const [formData, setFormData] = useState({ email: '', password: '' });
 </Accordion>
 
 // ✅ CORRECT: TextField composition
+// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/text-field
 <TextField>
   <TextField.Label>Email</TextField.Label>
   <TextField.Input type="email" placeholder="you@example.com" />
@@ -424,6 +436,7 @@ const [formData, setFormData] = useState({ email: '', password: '' });
 </TextField>
 
 // ✅ CORRECT: Tabs structure
+// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/tabs
 <Tabs defaultSelectedKey="profile">
   <Tabs.ListWrapper>
     <Tabs.List aria-label="Settings">
@@ -476,6 +489,7 @@ import { Button } from '@heroui/react';
 import Link from 'next/link';
 
 // Renders as Next.js Link, looks like Button
+// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/button
 <Button asChild>
   <Link href="/about">About</Link>
 </Button>
@@ -489,6 +503,7 @@ import Link from 'next/link';
 import { Button, buttonVariants } from '@heroui/react';
 import { tv } from 'tailwind-variants';
 
+// Extend Button variants: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/button
 const customButton = tv({
   extend: buttonVariants,
   variants: {
@@ -854,6 +869,7 @@ export function MyComponent({ onSubmit }: MyComponentProps) {
 **Button with Icon:**
 
 ```tsx
+// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/button
 <Button variant="primary">
   <Icon icon="gravity-ui:check" className="mr-2" />
   Submit
@@ -879,6 +895,7 @@ export function MyComponent({ onSubmit }: MyComponentProps) {
 **Form with Validation:**
 
 ```tsx
+// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/text-field
 <TextField isInvalid={!!error}>
   <TextField.Label>Email</TextField.Label>
   <TextField.Input type="email" />
@@ -903,7 +920,8 @@ export function MyComponent({ onSubmit }: MyComponentProps) {
 - **Documentation:** <https://v3.heroui.com/>
 - **Storybook:** <https://storybook.heroui.com>
 - **GitHub:** <https://github.com/heroui-inc/heroui>
-- **Components:** <https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components>
+- **Component Source (React):** <https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components>
+- **Component Styles (CSS):** <https://github.com/heroui-inc/heroui/tree/v3/packages/styles/components>
 - **Tailwind v4:** <https://tailwindcss.com/docs>
 - **React Aria:** <https://react-spectrum.adobe.com/react-aria/>
 
