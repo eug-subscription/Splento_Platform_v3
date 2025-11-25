@@ -15,6 +15,8 @@ import {
     QuickAccessCards,
 } from '../components/home';
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
+import { CommandPalette } from '../components/CommandPalette';
+import { enterpriseCommands } from '../data/enterprise-commands';
 
 /**
  * HomePage Component
@@ -33,7 +35,6 @@ export default function HomePage({ onOrgChange, onToolClick, className }: HomePa
 
     // Organization state
     const [selectedOrg, setSelectedOrg] = useState<Organization>(mockOrganizations[0]);
-    const [searchQuery, setSearchQuery] = useState('');
     const [isOrgSwitching, setIsOrgSwitching] = useState(false);
 
     // Low credits warning
@@ -128,15 +129,9 @@ export default function HomePage({ onOrgChange, onToolClick, className }: HomePa
                             </ComboBox>
                         </div>
 
-                        {/* Center: Search */}
+                        {/* Center: Command Palette */}
                         <div className="hidden flex-1 max-w-md md:block">
-                            <Input
-                                type="search"
-                                placeholder="Search..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full"
-                            />
+                            <CommandPalette items={enterpriseCommands} />
                         </div>
 
                         {/* Right: Credits + Theme + User Menu */}
