@@ -295,17 +295,17 @@ interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
    - All examples
    - [Online Mirror](https://v3.heroui.com/llms-full.txt)
 
-4. **[Component Source Code](https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components)**
+5. **[Component Source Code](https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components)**
    - React component implementations
    - TypeScript types and interfaces
    - Component anatomy and structure
 
-5. **[Component Styles](https://github.com/heroui-inc/heroui/tree/v3/packages/styles/components)**
+6. **[Component Styles](https://github.com/heroui-inc/heroui/tree/v3/packages/styles/components)**
    - CSS and theme definitions
    - Variant implementations
    - Default styling
 
-6. **🤖 HeroUI MCP Server (AI Assistant)**
+7. **🤖 HeroUI MCP Server (AI Assistant)**
    - **Use this for the most up-to-date info!**
    - Ask your AI assistant to use the `heroui-react` MCP server tools:
      - `list_components`: See all available v3 components.
@@ -495,6 +495,21 @@ Use when you need dynamic styling based on state:
       {isHovered ? 'Release' : 'Press'}
     </>
   )}
+</Button>
+```
+
+### 🔄 asChild Prop Pattern
+
+Change the rendered element while keeping styles:
+
+```tsx
+import { Button } from '@heroui/react';
+import Link from 'next/link';
+
+// Renders as Next.js Link, looks like Button
+// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/button
+<Button asChild>
+  <Link href="/about">About</Link>
 </Button>
 ```
 
