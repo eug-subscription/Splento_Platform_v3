@@ -14,28 +14,27 @@ This repository contains the frontend implementation for the **Splento Platform 
 
 The project follows a scalable and modular directory structure:
 
-```
 company-account-settings/
 ├── src/
 │   ├── app/
 │   │   └── admin/
 │   │       └── AccountSettings.tsx    # Main page component
+│   ├── assets/                        # Static assets (images, icons)
 │   ├── components/
-│   │   ├── admin/                     # Admin-specific components with business logic
-│   │   │   ├── AutorenameSelect.tsx   # File naming strategy selector
-│   │   │   ├── CountrySelect.tsx      # Searchable country picker
-│   │   │   ├── CustomCheckbox.tsx     # Styled checkbox variant
-│   │   │   ├── FormTextField.tsx      # Form field with validation
-│   │   │   └── RoleSelect.tsx         # Manager role selector
 │   │   └── ThemeSwitcher.tsx          # Light/dark mode toggle
+│   ├── data/                          # Static data and mocks
+│   │   ├── countries.ts               # Country list for ComboBox
+│   │   └── homepage.mock.ts           # Development mock data
 │   ├── types/
 │   │   └── index.ts                   # TypeScript type definitions
-│   ├── index.css                      # Global styles with HeroUI v3 theming
+│   ├── App.css                        # Root app component styles
 │   ├── App.tsx                        # Root component
+│   ├── index.css                      # Global styles with HeroUI v3 theming
 │   └── main.tsx                       # Application entry point
 ├── dev_instruction_v1.5.md            # Development standards (REQUIRED READING)
 ├── THEMING.md                         # Theming documentation
 └── README.md                          # This file
+
 ```
 
 ## 📋 Development Standards
@@ -108,16 +107,18 @@ import { Card, Button, Modal, AlertDialog } from '@heroui/react';
 <Button variant="danger" onPress={handleDelete}>Delete</Button>
 ```
 
-**Custom Components (with Business Logic):**
+**Custom Components (Business Logic Only):**
 
-These components add real business value, not just re-export HeroUI:
+Per HeroUI v3 Rule #0, we import directly from `@heroui/react`. The only custom component is:
 
-- **`FormTextField`**: Combines `TextField` + `Label` + `Input` + `FieldError` with validation logic
-- **`CustomCheckbox`**: Styled checkbox with custom border radius and flexible label/description layout
-- **`RoleSelect`**: Domain-specific role selector with type safety (`'Admin' | 'Edit' | 'Read Only'`)
-- **`CountrySelect`**: Searchable country picker with regional grouping (North America, Europe, Asia)
-- **`AutorenameSelect`**: Business logic for file naming strategies (External ID, Dish Name, Combined)
 - **`ThemeSwitcher`**: Theme state management with localStorage persistence
+
+All other UI needs are met by direct HeroUI imports:
+
+- Forms use `TextField`, `ComboBox`, `Select` compound components
+- Lists use `Table` with direct row rendering
+- Modals use `Modal.Dialog` compound structure
+- Confirmations use `AlertDialog` directly
 
 ## 🛠️ Getting Started
 
