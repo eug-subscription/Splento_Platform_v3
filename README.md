@@ -162,6 +162,7 @@ All other UI needs are met by direct HeroUI imports:
 - **[THEMING.md](./company-account-settings/THEMING.md)** - Theming system guide
 - **[HeroUI v3 Docs](https://v3.heroui.com/docs/introduction)** - Official HeroUI documentation
 - **[HeroUI Components List](https://v3.heroui.com/llms.txt)** - Full list of components and descriptions
+- **🤖 HeroUI MCP Server** - Ask your AI to use `heroui-react` tools for real-time docs & examples
 
 ## 🔍 Code Quality
 

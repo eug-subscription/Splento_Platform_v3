@@ -299,6 +299,16 @@ interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
    - Variant implementations
    - Default styling
 
+6. **🤖 HeroUI MCP Server (AI Assistant)**
+   - **Use this for the most up-to-date info!**
+   - Ask your AI assistant to use the `heroui-react` MCP server tools:
+     - `list_components`: See all available v3 components.
+     - `get_component_info`: Get anatomy, imports, and structure.
+     - `get_component_props`: Get full TypeScript prop definitions.
+     - `get_component_examples`: Get working code examples.
+     - `get_docs`: Read official guides and principles.
+   - **Workflow:** `list_components` → `get_component_info` → `get_component_examples`
+
 ---
 
 ## File Structure & Naming
