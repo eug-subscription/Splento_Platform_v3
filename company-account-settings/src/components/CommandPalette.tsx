@@ -14,20 +14,13 @@ import {
 import { Icon } from "@iconify/react";
 
 import type { CommandItem, CommandPaletteProps } from "../types/command-palette";
-
-/**
- * Command Palette Constants
- */
-const COMMAND_PALETTE_CONSTANTS = {
-    HEADER_HEIGHT: 'h-14',
-    BODY_HEIGHT: 'h-[400px]',
-    FOOTER_TEXT_SIZE: 'text-[10px]',
-} as const;
+import { COMMAND_PALETTE_CONFIG, getSectionHeaderClasses, getItemContentClasses } from "./command-palette-utils";
 
 /**
  * Command Palette Component
  * 
  * A command palette with search, filtering, and keyboard navigation.
+ * Uses standard Tailwind tokens and semantic color system for maintainability.
  */
 export function CommandPalette({
     items,
@@ -126,7 +119,7 @@ export function CommandPalette({
                     <>
                         {/* 1. Header: Seamless Input Style */}
                         <Modal.Header className="flex flex-col gap-1 border-b border-separator p-0">
-                            <InputGroup className={`${COMMAND_PALETTE_CONSTANTS.HEADER_HEIGHT} border-none bg-transparent px-6 shadow-none data-[focus-within=true]:ring-0 data-[focus-within=true]:border-none ring-0 focus-within:ring-0`}>
+                            <InputGroup className={`${COMMAND_PALETTE_CONFIG.HEADER_HEIGHT} border-none bg-transparent px-6 shadow-none data-[focus-within=true]:ring-0 data-[focus-within=true]:border-none ring-0 focus-within:ring-0`}>
                                 <InputGroup.Prefix>
                                     <Icon icon="gravity-ui:magnifier" className="text-muted size-5" />
                                 </InputGroup.Prefix>
@@ -148,7 +141,7 @@ export function CommandPalette({
 
                         {/* 2. Body: Scrollable List with Shadow Effect */}
                         <Modal.Body className="p-0">
-                            <div className={`relative ${COMMAND_PALETTE_CONSTANTS.BODY_HEIGHT} overflow-y-auto shadow-[inset_0_-10px_10px_-10px_rgba(0,0,0,0.1)]`}>
+                            <div className={`relative ${COMMAND_PALETTE_CONFIG.BODY_HEIGHT} overflow-y-auto shadow-[inset_0_-10px_10px_-10px_rgba(0,0,0,0.1)]`}>
                                 <div className="p-2">
                                     {Object.keys(groupedItems).length === 0 ? (
                                         // Empty State
@@ -170,17 +163,13 @@ export function CommandPalette({
                                         >
                                             {Object.entries(groupedItems).map(([section, sectionItems]) => (
                                                 <ListBox.Section key={section}>
-                                                    {/* Custom Header for Section */}
-                                                    <Header className={
-                                                        section === "Actions"
-                                                            ? "mb-2 mt-4 px-6 pb-2 pt-4 text-xs font-bold uppercase tracking-wide text-purple-500"
-                                                            : "mb-2 px-6 pb-2 pt-4 text-xs font-bold uppercase tracking-wide text-muted"
-                                                    }>
+                                                    {/* Section Header with Semantic Styling */}
+                                                    <Header className={getSectionHeaderClasses(section)}>
                                                         {section}
                                                     </Header>
 
                                                     {sectionItems.map((item) => {
-                                                        const isActionSection = section === "Actions";
+                                                        const contentClasses = getItemContentClasses(section);
 
                                                         return (
                                                             <ListBox.Item
@@ -194,26 +183,14 @@ export function CommandPalette({
                                                                     <div className="flex min-w-0 flex-1 items-center gap-3">
                                                                         {/* Icon Container - Unified Style */}
                                                                         {item.icon && (
-                                                                            <div
-                                                                                className={
-                                                                                    isActionSection
-                                                                                        ? "shrink-0 rounded-lg p-0 text-purple-600 dark:text-purple-400"
-                                                                                        : "shrink-0 rounded-lg p-0 text-muted"
-                                                                                }
-                                                                            >
+                                                                            <div className={contentClasses.icon}>
                                                                                 <Icon icon={item.icon} className="size-5" />
                                                                             </div>
                                                                         )}
 
                                                                         {/* Label and Description */}
                                                                         <div className="flex min-w-0 flex-1 flex-col">
-                                                                            <Label
-                                                                                className={
-                                                                                    isActionSection
-                                                                                        ? "truncate text-base font-medium text-purple-600 dark:text-purple-400"
-                                                                                        : "truncate text-base font-medium"
-                                                                                }
-                                                                            >
+                                                                            <Label className={contentClasses.label}>
                                                                                 {item.label}
                                                                             </Label>
                                                                             {item.description && (
@@ -247,20 +224,20 @@ export function CommandPalette({
 
                         {/* 3. Footer: Sticky Instructions with Backdrop */}
                         <Modal.Footer className="justify-start border-t border-separator bg-surface-1/50 py-2 px-6 backdrop-blur-sm">
-                            <div className={`flex items-center gap-2 ${COMMAND_PALETTE_CONSTANTS.FOOTER_TEXT_SIZE} text-muted font-medium`}>
+                            <div className={`flex items-center gap-2 ${COMMAND_PALETTE_CONFIG.FOOTER_TEXT_SIZE} text-muted font-medium`}>
                                 <span className="flex items-center gap-2">
                                     <Icon icon="gravity-ui:arrow-up" className="size-3" />
                                     <Icon icon="gravity-ui:arrow-down" className="size-3" />
                                     {navigationLabel}
                                 </span>
                                 <span className="flex items-center gap-2">
-                                    <Kbd className={`h-5 min-h-5 px-1 ${COMMAND_PALETTE_CONSTANTS.FOOTER_TEXT_SIZE}`}>
+                                    <Kbd className={`h-5 min-h-5 px-1 ${COMMAND_PALETTE_CONFIG.FOOTER_TEXT_SIZE}`}>
                                         <Kbd.Abbr keyValue="enter" />
                                     </Kbd>
                                     {selectLabel}
                                 </span>
                                 <span className="flex items-center gap-2">
-                                    <Kbd className={`h-5 min-h-5 px-1 ${COMMAND_PALETTE_CONSTANTS.FOOTER_TEXT_SIZE}`}>
+                                    <Kbd className={`h-5 min-h-5 px-1 ${COMMAND_PALETTE_CONFIG.FOOTER_TEXT_SIZE}`}>
                                         <Kbd.Content>Esc</Kbd.Content>
                                     </Kbd>
                                     {closeLabel}
