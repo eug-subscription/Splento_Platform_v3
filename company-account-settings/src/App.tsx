@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AccountSettings from './app/admin/AccountSettings';
 import HomePage from './app/HomePage';
+import { LeftMenu } from './components/LeftMenu';
 
 function App() {
   // Simple hash-based routing to preserve AccountSettings
@@ -25,8 +26,21 @@ function App() {
   }, []);
 
   return (
-    <div>
-      {currentPage === 'settings' ? <AccountSettings /> : <HomePage />}
+    <div className="flex min-h-screen">
+      <LeftMenu
+        currentPath={currentPage === 'settings' ? '#settings' : window.location.pathname}
+        onNavigate={(path) => {
+          if (path.startsWith('#')) {
+            window.location.hash = path;
+          } else {
+            // For now, other paths don't do anything, or we could just log
+            console.log('Navigate to:', path);
+          }
+        }}
+      />
+      <main className="flex-1 ml-[280px]">
+        {currentPage === 'settings' ? <AccountSettings /> : <HomePage />}
+      </main>
     </div>
   );
 }

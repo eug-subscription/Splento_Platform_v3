@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Avatar, Button, ComboBox, Input, ListBox, Label, Separator, Select, Alert } from '@heroui/react';
+import { Button, ComboBox, Input, ListBox, Label, Alert } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import type { HomePageProps, Organization } from '../types';
 import {
@@ -96,13 +96,7 @@ export default function HomePage({ onOrgChange, onToolClick, className }: HomePa
                     <div className="flex items-center justify-between gap-4">
                         {/* Left: Logo + Org Switcher */}
                         <div className="flex items-center gap-4">
-                            {/* Logo */}
-                            <div className="flex items-center gap-2">
-                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-blue-600">
-                                    <span className="text-lg font-bold text-white">V</span>
-                                </div>
-                                <span className="text-xl font-bold text-foreground">Visionary Studio</span>
-                            </div>
+
 
                             {/* Org Switcher */}
                             <ComboBox
@@ -145,41 +139,7 @@ export default function HomePage({ onOrgChange, onToolClick, className }: HomePa
                             {/* Theme Switcher */}
                             <ThemeSwitcher />
 
-                            {/* User Profile Select (following AccountSettings pattern) */}
-                            <Select selectedKey="profile" aria-label="User menu">
-                                <Select.Trigger className="w-auto h-auto p-0 bg-transparent border-0">
-                                    <Avatar size="sm" className="h-8 w-8">
-                                        <Avatar.Image src="https://i.pravatar.cc/150?img=5" />
-                                        <Avatar.Fallback>U</Avatar.Fallback>
-                                    </Avatar>
-                                    <Select.Indicator className="hidden" />
-                                </Select.Trigger>
-                                <Select.Popover>
-                                    <ListBox>
-                                        <ListBox.Item id="profile" textValue="Profile">
-                                            <Icon icon="gravity-ui:user" className="size-4" />
-                                            Profile
-                                            <ListBox.ItemIndicator />
-                                        </ListBox.Item>
-                                        <ListBox.Item id="settings" textValue="Settings">
-                                            <Icon icon="gravity-ui:gear" className="size-4" />
-                                            Settings
-                                            <ListBox.ItemIndicator />
-                                        </ListBox.Item>
-                                        <ListBox.Item id="billing" textValue="Billing">
-                                            <Icon icon="gravity-ui:credit-card" className="size-4" />
-                                            Billing
-                                            <ListBox.ItemIndicator />
-                                        </ListBox.Item>
-                                        <Separator />
-                                        <ListBox.Item id="logout" textValue="Log out">
-                                            <Icon icon="gravity-ui:arrow-right-from-square" className="size-4" />
-                                            Log out
-                                            <ListBox.ItemIndicator />
-                                        </ListBox.Item>
-                                    </ListBox>
-                                </Select.Popover>
-                            </Select>
+
                         </div>
                     </div>
                 </div>
