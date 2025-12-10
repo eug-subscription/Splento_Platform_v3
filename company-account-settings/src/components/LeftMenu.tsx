@@ -36,7 +36,7 @@ const DEFAULT_MENU_SECTIONS = [
         items: [
             { id: "home", label: "Home", icon: "gravity-ui:house", href: "/dashboard" },
             { id: "studio", label: "Studio", icon: "gravity-ui:palette", href: "/studio" },
-            { id: "products", label: "Products", icon: "gravity-ui:shopping-bag", href: "/products" },
+            { id: "services", label: "Services", icon: "gravity-ui:shopping-bag", href: "#services" },
             { id: "analytics", label: "Analytics", icon: "gravity-ui:chart-column", href: "/analytics" },
         ]
     },

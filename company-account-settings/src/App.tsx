@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
 import AccountSettings from './app/admin/AccountSettings';
 import HomePage from './app/HomePage';
+import { ServicesPage } from './app/admin/ServicesPage';
 import { LeftMenu } from './components/LeftMenu';
 
 function App() {
   // Simple hash-based routing to preserve AccountSettings
-  const [currentPage, setCurrentPage] = useState<'home' | 'settings'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'settings' | 'services'>('home');
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
       if (hash === 'settings') {
         setCurrentPage('settings');
+      } else if (hash === 'services') {
+        setCurrentPage('services');
       } else {
         setCurrentPage('home');
       }
@@ -28,7 +31,7 @@ function App() {
   return (
     <div className="flex min-h-screen">
       <LeftMenu
-        currentPath={currentPage === 'settings' ? '#settings' : window.location.pathname}
+        currentPath={currentPage === 'home' ? '/dashboard' : `#${currentPage}`}
         onNavigate={(path) => {
           if (path.startsWith('#')) {
             window.location.hash = path;
@@ -39,7 +42,9 @@ function App() {
         }}
       />
       <main className="flex-1 ml-[280px]">
-        {currentPage === 'settings' ? <AccountSettings /> : <HomePage />}
+        {currentPage === 'settings' && <AccountSettings />}
+        {currentPage === 'services' && <ServicesPage />}
+        {currentPage === 'home' && <HomePage />}
       </main>
     </div>
   );

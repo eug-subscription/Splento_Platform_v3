@@ -37,6 +37,14 @@
     --radius-3xl: calc(var(--radius) * 3);
     --radius-4xl: calc(var(--radius) * 4);
 
+    /* HeroUI Radius Aliases */
+    --radius-small: var(--radius-sm);
+    --radius-medium: var(--radius-md);
+    --radius-large: var(--radius-lg);
+
+    /* Field Radius (Missing in previous version) */
+    --field-radius: var(--radius-md);
+
     /* Base Colors */
     --background: oklch(0.99 0 0);
     --foreground: var(--eclipse);
@@ -45,12 +53,19 @@
     --surface: var(--white);
     --surface-foreground: var(--foreground);
 
+    /* Content Hierarchy (HeroUI v3) */
+    --content1: var(--white);
+    --content2: oklch(0.98 0 0);
+    --content3: oklch(0.96 0 0);
+    --content4: oklch(0.94 0 0);
+
     /* Overlay: Used for floating/overlay components */
     --overlay: var(--white);
     --overlay-foreground: var(--foreground);
 
     /* Utility Colors */
     --muted: oklch(0.5517 0.0138 285.94);
+    --muted-foreground: oklch(0.45 0.01 286);
     --scrollbar: oklch(87.1% 0.006 286.286);
 
     /* Default (neutral) */
@@ -90,6 +105,7 @@
     --separator: oklch(96% 0.002 286.32);
     --focus: var(--accent);
     --link: var(--accent);
+    --ring-color: var(--focus);
 
     /* Shadows */
     --surface-shadow:
@@ -103,10 +119,23 @@
       0 2px 4px 0 rgb(0 0 0 / 0.04),
       0 1px 2px 0 rgb(0 0 0 / 0.06),
       0 0 1px 0 rgb(0 0 0 / 0.06);
+    --shadow-large:
+      0 10px 40px 0 rgb(24 24 27 / 0.12),
+      0 20px 50px 0 rgb(24 24 27 / 0.10);
+
+    /* HeroUI Shadow Aliases */
+    --shadow-small: var(--surface-shadow);
+    --shadow-medium: var(--overlay-shadow);
 
     /* Skeleton Animation */
     --skeleton-animation: shimmer;
     /* shimmer | pulse | none */
+
+    /* AI Gradient Colors */
+    --gradient-ai-from: oklch(0.55 0.27 290);
+    /* purple-600 */
+    --gradient-ai-to: oklch(0.55 0.22 262);
+    /* blue-600 */
   }
 
   /* === DARK THEME === */
@@ -122,12 +151,19 @@
     --surface: oklch(0.2103 0.0059 285.89);
     --surface-foreground: var(--foreground);
 
+    /* Content Hierarchy (HeroUI v3) */
+    --content1: oklch(0.22 0.006 286);
+    --content2: oklch(0.25 0.006 286);
+    --content3: oklch(0.28 0.006 286);
+    --content4: oklch(0.31 0.006 286);
+
     /* Overlay: Used for floating/overlay components */
     --overlay: oklch(0.22 0.0059 285.89);
     --overlay-foreground: var(--foreground);
 
     /* Utility Colors */
     --muted: oklch(70.5% 0.015 286.067);
+    --muted-foreground: oklch(0.65 0.01 286);
     --scrollbar: oklch(30% 0.006 286.286);
 
     /* Default (neutral) */
@@ -167,11 +203,17 @@
     --separator: oklch(22% 0.006 286.033);
     --focus: var(--accent);
     --link: var(--accent);
+    --ring-color: var(--focus);
 
     /* Shadows - Softer for dark mode */
     --surface-shadow: 0 0 0 0 transparent inset;
     --overlay-shadow: 0 8px 24px 0 rgb(0 0 0 / 0.4);
     --field-shadow: 0 0 0 0 transparent inset;
+    --shadow-large: 0 12px 40px 0 rgb(0 0 0 / 0.5);
+
+    /* AI Gradient Colors - brighter for dark mode */
+    --gradient-ai-from: oklch(0.65 0.27 290);
+    --gradient-ai-to: oklch(0.65 0.22 262);
   }
 }
 
@@ -188,11 +230,17 @@
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
 
+  --color-content1: var(--content1);
+  --color-content2: var(--content2);
+  --color-content3: var(--content3);
+  --color-content4: var(--content4);
+
   --color-overlay: var(--overlay);
   --color-overlay-foreground: var(--overlay-foreground);
 
   /* Utility Colors */
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-separator: var(--separator);
   --color-focus: var(--focus);
@@ -225,6 +273,7 @@
   --shadow-surface: var(--surface-shadow);
   --shadow-overlay: var(--overlay-shadow);
   --shadow-field: var(--field-shadow);
+  --shadow-large: var(--shadow-large);
 
   /* Form Field Tokens */
   --color-field: var(--field-background);
@@ -275,16 +324,18 @@
    BASE STYLES
    ============================================ */
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background);
-  color: var(--foreground);
-  transition: background-color 200ms ease, color 200ms ease;
+@layer base {
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color 200ms ease, color 200ms ease;
+  }
 }
 
 /* ============================================
@@ -295,5 +346,30 @@ body {
 @layer components {
 
   /* === Custom Components === */
-  /* Add custom component styles here if needed */
+  .button--ai-gradient,
+  .badge--ai-gradient {
+    background-image: linear-gradient(135deg,
+        var(--gradient-ai-from),
+        var(--gradient-ai-to));
+    background-size: 200% 200%;
+    transition: background-position 300ms ease;
+    color: var(--white);
+    border: none;
+  }
+
+  .button--ai-gradient:hover,
+  .button--ai-gradient[data-hover="true"] {
+    background-position: 100% 100%;
+  }
+
+  .badge--ai-gradient {
+    box-shadow: 0 10px 15px -3px rgb(147 51 234 / 0.2);
+    /* shadow-purple-500/20 */
+  }
+
+  /* Global focus-visible for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
 }
