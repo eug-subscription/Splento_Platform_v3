@@ -65,4 +65,6 @@ export interface CommandPaletteProps {
 
     /** Label for the close instructions in the footer */
     closeLabel?: string;
+    /** Callback when Visionary AI is activated */
+    onAIActivate?: () => void;
 }
