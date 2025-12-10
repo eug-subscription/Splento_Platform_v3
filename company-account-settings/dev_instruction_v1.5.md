@@ -321,6 +321,7 @@ src/
 ├── components/
 │   ├── features/    # Feature components with business logic
 │   └── admin/       # Admin-specific components
+├── data/            # Static data, constants, and mocks
 ├── index.css        # Global styles & Tailwind imports
 ├── main.tsx         # Entry point
 └── types/           # TypeScript types
