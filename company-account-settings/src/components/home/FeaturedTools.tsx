@@ -22,7 +22,7 @@ export function FeaturedTools({ tools, isLoading = false, onToolClick }: Feature
         if (onToolClick) {
             onToolClick(tool);
         } else if (tool.href) {
-            window.location.href = tool.href;
+            window.location.assign(tool.href);
         }
     };
 

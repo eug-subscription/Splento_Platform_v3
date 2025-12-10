@@ -14,7 +14,14 @@ import {
 import { Icon } from "@iconify/react";
 
 import type { CommandItem, CommandPaletteProps } from "../types/command-palette";
-import { COMMAND_PALETTE_CONFIG, getSectionHeaderClasses, getItemContentClasses } from "./command-palette-utils";
+import {
+    COMMAND_PALETTE_CONFIG,
+    getSectionHeaderClasses,
+    getItemContentClasses,
+    getIconContainerClasses,
+    getAIItemBorderClasses
+} from "./command-palette-utils";
+
 
 /**
  * Command Palette Component
@@ -24,7 +31,7 @@ import { COMMAND_PALETTE_CONFIG, getSectionHeaderClasses, getItemContentClasses 
  */
 export function CommandPalette({
     items,
-    placeholder = "Type a command or search...",
+    placeholder = "Ask Visionary AI or search commands...",
     emptyMessage = "No commands found",
     navigationLabel = "Navigate",
     selectLabel = "Select",
@@ -47,11 +54,12 @@ export function CommandPalette({
     }, []);
 
     // Reset query when modal closes
-    useEffect(() => {
-        if (!isOpen) {
+    const handleOpenChange = (open: boolean) => {
+        setIsOpen(open);
+        if (!open) {
             setQuery("");
         }
-    }, [isOpen]);
+    };
 
     // Filter items based on search query
     const filteredItems = useMemo(() => {
@@ -97,12 +105,12 @@ export function CommandPalette({
     };
 
     return (
-        <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
+        <Modal isOpen={isOpen} onOpenChange={handleOpenChange}>
             {/* Trigger Button */}
             <Button
                 variant="secondary"
                 className="w-64 justify-between bg-surface-1 text-muted"
-                onPress={() => setIsOpen(true)}
+                onPress={() => handleOpenChange(true)}
             >
                 <span className="flex items-center gap-2">
                     <Icon icon="gravity-ui:magnifier" className="size-4" />
@@ -115,7 +123,7 @@ export function CommandPalette({
             </Button>
 
             <Modal.Container placement="center" variant="blur" className="w-full pointer-events-none" isDismissable={true}>
-                <Modal.Dialog className="pointer-events-auto sm:max-w-xl w-full overflow-hidden border border-white/40 bg-white/90 p-0 shadow-2xl shadow-purple-500/10 backdrop-blur-xl dark:border-white/10 dark:bg-black/90">
+                <Modal.Dialog className="pointer-events-auto sm:max-w-xl w-full overflow-hidden bg-surface-1/80 backdrop-blur-xl rounded-2xl shadow-overlay border border-separator p-0">
                     <>
                         {/* 1. Header: Seamless Input Style */}
                         <Modal.Header className="flex flex-col gap-1 border-b border-separator p-0">
@@ -128,7 +136,7 @@ export function CommandPalette({
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
                                     placeholder={placeholder}
-                                    className="text-lg"
+                                    className="text-lg bg-transparent"
                                     aria-label="Search commands"
                                 />
                                 <InputGroup.Suffix>
@@ -159,16 +167,52 @@ export function CommandPalette({
                                             aria-label="Command Menu"
                                             selectionMode="single"
                                             onSelectionChange={handleSelectionChange}
-                                            className="gap-2"
+                                            className="gap-0"
                                         >
+                                            {/* Visionary AI Section */}
+                                            <ListBox.Section>
+                                                <Header className={getSectionHeaderClasses("Visionary AI")}>
+                                                    VISIONARY AI
+                                                </Header>
+
+                                                <ListBox.Item
+                                                    id="visionary-ai"
+                                                    textValue="Ask Visionary AI"
+                                                    className={getAIItemBorderClasses()}
+                                                    onAction={() => {
+                                                        // AI feature action - placeholder
+                                                        console.log("Visionary AI activated");
+                                                        setIsOpen(false);
+                                                    }}
+                                                >
+                                                    <div className="flex items-center gap-3 px-4 py-3">
+                                                        <div className={getIconContainerClasses("Visionary AI")}>
+                                                            <Icon icon="gravity-ui:magic-wand" className="size-6 text-accent-ai" />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <Label className="text-base font-medium text-accent-ai">
+                                                                Ask Visionary AI...
+                                                            </Label>
+                                                            <Description className="text-sm text-muted">
+                                                                Generate content, analyze data, or chat
+                                                            </Description>
+                                                        </div>
+                                                        <Kbd className="shrink-0">
+                                                            <Kbd.Abbr keyValue="enter" />
+                                                        </Kbd>
+                                                    </div>
+                                                </ListBox.Item>
+                                            </ListBox.Section>
+
+                                            {/* Regular Sections */}
                                             {Object.entries(groupedItems).map(([section, sectionItems]) => (
                                                 <ListBox.Section key={section}>
-                                                    {/* Section Header with Semantic Styling */}
                                                     <Header className={getSectionHeaderClasses(section)}>
                                                         {section}
                                                     </Header>
 
                                                     {sectionItems.map((item) => {
+                                                        const iconContainerClasses = getIconContainerClasses(section);
                                                         const contentClasses = getItemContentClasses(section);
 
                                                         return (
@@ -176,34 +220,31 @@ export function CommandPalette({
                                                                 key={item.id}
                                                                 id={item.id}
                                                                 textValue={item.label}
-                                                                className="group rounded-lg px-6 py-3 outline-none data-[hover=true]:bg-surface-1/50 data-[focus-visible=true]:bg-surface-1"
+                                                                className="group rounded-lg px-4 py-3 outline-none data-[hover=true]:bg-surface-1/50 data-[focus-visible=true]:bg-surface-1"
                                                             >
-                                                                {/* Using flex layout to mimic endContent behavior */}
-                                                                <div className="flex w-full items-center justify-between gap-3">
-                                                                    <div className="flex min-w-0 flex-1 items-center gap-3">
-                                                                        {/* Icon Container - Unified Style */}
-                                                                        {item.icon && (
-                                                                            <div className={contentClasses.icon}>
-                                                                                <Icon icon={item.icon} className="size-5" />
-                                                                            </div>
-                                                                        )}
-
-                                                                        {/* Label and Description */}
-                                                                        <div className="flex min-w-0 flex-1 flex-col">
-                                                                            <Label className={contentClasses.label}>
-                                                                                {item.label}
-                                                                            </Label>
-                                                                            {item.description && (
-                                                                                <Description className="truncate text-xs text-muted">
-                                                                                    {item.description}
-                                                                                </Description>
-                                                                            )}
+                                                                <div className="flex items-center gap-3">
+                                                                    {/* Icon Container */}
+                                                                    {item.icon && (
+                                                                        <div className={iconContainerClasses}>
+                                                                            <Icon icon={item.icon} className={contentClasses.icon} />
                                                                         </div>
+                                                                    )}
+
+                                                                    {/* Content */}
+                                                                    <div className="flex-1 min-w-0">
+                                                                        <Label className={contentClasses.label}>
+                                                                            {item.label}
+                                                                        </Label>
+                                                                        {item.description && (
+                                                                            <Description className="text-sm text-muted">
+                                                                                {item.description}
+                                                                            </Description>
+                                                                        )}
                                                                     </div>
 
-                                                                    {/* Keyboard Shortcut - Always on Right */}
+                                                                    {/* Keyboard Shortcut */}
                                                                     {item.shortcut && (
-                                                                        <Kbd className="ml-auto min-w-12 shrink-0 justify-end text-right">
+                                                                        <Kbd className="ml-auto shrink-0">
                                                                             {item.shortcut.modifier && (
                                                                                 <Kbd.Abbr keyValue={item.shortcut.modifier} />
                                                                             )}
@@ -222,9 +263,9 @@ export function CommandPalette({
                             </div>
                         </Modal.Body>
 
-                        {/* 3. Footer: Sticky Instructions with Backdrop */}
-                        <Modal.Footer className="justify-start border-t border-separator bg-surface-1/50 py-2 px-6 backdrop-blur-sm">
-                            <div className={`flex items-center gap-2 ${COMMAND_PALETTE_CONFIG.FOOTER_TEXT_SIZE} text-muted font-medium`}>
+                        {/* 3. Footer: Centered Navigation Hints */}
+                        <Modal.Footer className="justify-center border-t border-separator py-2 px-6">
+                            <div className={`flex items-center gap-4 ${COMMAND_PALETTE_CONFIG.FOOTER_TEXT_SIZE} text-muted font-medium`}>
                                 <span className="flex items-center gap-2">
                                     <Icon icon="gravity-ui:arrow-up" className="size-3" />
                                     <Icon icon="gravity-ui:arrow-down" className="size-3" />
