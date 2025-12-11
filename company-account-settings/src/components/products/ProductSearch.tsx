@@ -9,16 +9,20 @@ interface ProductSearchProps {
 export function ProductSearch({ value, onChange }: ProductSearchProps) {
     return (
         <div className="flex w-full justify-center">
-            <TextField className="w-full max-w-2xl" aria-label="Search services">
-                <InputGroup>
-                    <InputGroup.Prefix className="pl-3">
-                        <Icon icon="gravity-ui:magnifier" className="size-5 text-muted" />
+            <TextField
+                className="w-full max-w-xl"
+                aria-label="Search services"
+                value={value}
+                onChange={onChange}
+            >
+                <InputGroup className="!rounded-full [&_.input-group\_\_prefix]:!rounded-l-full">
+                    <InputGroup.Prefix>
+                        <Icon icon="gravity-ui:magnifier" className="size-4 text-muted" />
                     </InputGroup.Prefix>
                     <InputGroup.Input
+                        type="search"
                         placeholder="Search for photography, editing, or AI tools..."
-                        value={value}
-                        onChange={(e) => onChange(e.target.value)}
-                        className="h-12 text-lg"
+                        className="w-full text-base"
                     />
                 </InputGroup>
             </TextField>

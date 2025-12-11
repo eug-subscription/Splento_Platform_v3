@@ -15,7 +15,6 @@ export function MoreDrawer({
     isOpen,
     onOpenChange,
     user,
-    organisation,
     sections = MENU_SECTIONS,
     onNavigate,
     onHelpClick,
@@ -68,25 +67,6 @@ export function MoreDrawer({
                     </Button>
 
                     <Separator className="bg-separator/50" />
-
-                    {/* Organization Switcher (Visual Only) */}
-                    <Button
-                        variant="ghost"
-                        className="w-full justify-between items-center px-4 py-3 h-auto"
-                        isDisabled
-                        aria-label="Organization switcher (coming soon)"
-                    >
-                        <div className="flex items-center gap-3">
-                            <div className="size-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                                <Icon icon="gravity-ui:briefcase" className="size-4" />
-                            </div>
-                            <div className="flex flex-col items-start">
-                                <span className="text-sm font-medium text-foreground">{organisation?.name || "Acme Corp"}</span>
-                                <span className="text-xs text-muted-foreground">Enterprise Plan</span>
-                            </div>
-                        </div>
-                        <Icon icon="gravity-ui:chevron-down" className="size-4 text-muted-foreground" />
-                    </Button>
 
                     {/* 3. Sections */}
                     <ListBox
