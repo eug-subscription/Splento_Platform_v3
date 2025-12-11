@@ -136,6 +136,20 @@
     /* purple-600 */
     --gradient-ai-to: oklch(0.55 0.22 262);
     /* blue-600 */
+
+    /* Soft Color Variants */
+    --accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+    --accent-soft-foreground: var(--accent);
+    --danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
+    --danger-soft-foreground: var(--danger);
+    --success-soft: color-mix(in oklab, var(--success) 15%, transparent);
+    --success-soft-foreground: var(--success);
+    --warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
+    --warning-soft-foreground: var(--warning);
+
+    /* Cursors */
+    --cursor-interactive: pointer;
+    --cursor-disabled: not-allowed;
   }
 
   /* === DARK THEME === */
@@ -315,6 +329,36 @@
       var(--color-field-border) 88%,
       var(--color-field-foreground) 10%);
 
+  /* Soft Colors */
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-foreground: var(--accent-soft-foreground);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-soft-foreground: var(--danger-soft-foreground);
+  --color-success-soft: var(--success-soft);
+  --color-success-soft-foreground: var(--success-soft-foreground);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-soft-foreground: var(--warning-soft-foreground);
+
+  /* Surface Levels */
+  --color-surface-secondary: color-mix(in oklab, var(--color-surface) 94%, var(--color-surface-foreground) 6%);
+  --color-surface-tertiary: color-mix(in oklab, var(--color-surface) 92%, var(--color-surface-foreground) 8%);
+  --color-surface-quaternary: color-mix(in oklab, var(--color-surface) 86%, var(--color-default-foreground) 14%);
+
+  --color-background-secondary: color-mix(in oklab, var(--color-background) 96%, var(--color-foreground) 4%);
+  --color-background-tertiary: color-mix(in oklab, var(--color-background) 92%, var(--color-foreground) 8%);
+  --color-background-quaternary: color-mix(in oklab, var(--color-background) 86%, var(--color-foreground) 14%);
+
+  /* On-Surface Colors */
+  --color-on-surface: color-mix(in oklab, var(--color-surface) 93%, var(--color-surface-foreground) 7%);
+  --color-on-surface-foreground: var(--color-surface-foreground);
+  --color-on-surface-hover: color-mix(in oklab, var(--color-surface) 91%, var(--color-surface-foreground) 9%);
+  --color-on-surface-focus: var(--color-on-surface);
+
+  /* Easing */
+  --ease-smooth: ease;
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-fluid-out: cubic-bezier(0.32, 0.72, 0, 1);
+
   --color-field-border-focus: color-mix(in oklab,
       var(--color-field-border) 74%,
       var(--color-field-foreground) 22%);
@@ -350,10 +394,10 @@
   .badge--ai-gradient {
     background-image: linear-gradient(135deg,
         var(--gradient-ai-from),
-        var(--gradient-ai-to));
+        var(--gradient-ai-to)) !important;
     background-size: 200% 200%;
     transition: background-position 300ms ease;
-    color: var(--white);
+    color: var(--white) !important;
     border: none;
   }
 

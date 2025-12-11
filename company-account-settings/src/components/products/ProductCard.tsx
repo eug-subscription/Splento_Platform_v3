@@ -1,4 +1,4 @@
-import { Button, Card } from '@heroui/react';
+import { Button, Card, Chip } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import type { Product } from '../../types/products';
 import { ServiceTypeBadge } from './ServiceTypeBadge';
@@ -11,7 +11,10 @@ export function ProductCard({ product }: ProductCardProps) {
     const isAI = product.serviceType === 'ai';
 
     return (
-        <Card className="group rounded-large border-none bg-content1 shadow-sm transition-shadow hover:shadow-md">
+        <Card
+            variant="default"
+            className="group rounded-large shadow-sm transition-shadow hover:shadow-md"
+        >
             {/* Image as Card header area */}
             <div className="relative aspect-[4/3] overflow-hidden rounded-t-large">
                 <img
@@ -25,9 +28,12 @@ export function ProductCard({ product }: ProductCardProps) {
                 />
                 <div className="pointer-events-none absolute inset-x-3 top-3 flex justify-between">
                     {product.isPopular && (
-                        <span className="rounded bg-warning px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-warning-foreground shadow-sm">
+                        <Chip
+                            size="sm"
+                            className="bg-white/20 text-white backdrop-blur-md border border-white/30 font-bold uppercase tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                        >
                             Popular
-                        </span>
+                        </Chip>
                     )}
                     <ServiceTypeBadge type={product.serviceType} className="ml-auto" />
                 </div>
@@ -58,7 +64,7 @@ export function ProductCard({ product }: ProductCardProps) {
                         href={product.ctaUrl}
                         aria-label={`${product.ctaLabel} - ${product.title}`}
                     >
-                        {isAI && <Icon icon="gravity-ui:thunderbolt" className="size-4" />}
+                        {isAI && <Icon icon="gravity-ui:bolt" className="size-4" />}
                         {product.ctaLabel}
                     </a>
                 </Button>
