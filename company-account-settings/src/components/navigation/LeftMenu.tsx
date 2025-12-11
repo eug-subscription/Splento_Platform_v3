@@ -3,7 +3,8 @@
 import { useMemo } from "react";
 import { ListBox, Avatar, Label, Header, Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import type { MenuItem, LeftMenuProps } from "../types/left-menu";
+import type { MenuItem, LeftMenuProps } from "../../types/navigation";
+import { MENU_SECTIONS } from "../../config/navigation";
 
 // Define consistent styling constants
 const MENU_STYLES = {
@@ -13,54 +14,26 @@ const MENU_STYLES = {
     logoRow: "flex items-center gap-3 px-3",
 
     userSection: "flex items-center gap-3 cursor-pointer group",
+    itemContent: "flex items-center gap-3 w-full",
+    itemIcon: "text-muted-foreground group-data-[hovered]:text-foreground group-data-[selected]:text-primary transition-colors",
+    itemLabel: "flex-1 text-sm font-medium text-foreground group-data-[selected]:text-primary transition-colors",
+    // endContent not strictly needed in list, just in layout
+    endContent: "flex items-center gap-2",
+    badge: "px-1.5 py-0.5 rounded text-xs font-medium text-foreground bg-surface-3",
+    sectionHeader: "px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider",
+    userProfile: "flex items-center gap-3 p-3 rounded-xl hover:bg-surface-2 transition-colors cursor-pointer w-full group",
     userText: "flex flex-col flex-1 min-w-0 items-start text-left",
-    userName: "text-sm font-medium text-foreground truncate",
-    userRole: "text-xs text-muted truncate",
+    userName: "text-sm font-medium text-foreground truncate group-hover:text-foreground transition-colors",
+    userRole: "text-xs text-muted-foreground truncate",
     search: "w-full",
     body: "flex-1 overflow-y-auto px-4 py-2 custom-scrollbar",
     sectionTitle: "text-xs font-medium text-muted/70 px-2 mb-2 mt-6 uppercase tracking-wider",
-    item: "group rounded-lg px-3 py-2 data-[hover=true]:bg-surface-2 data-[selected=true]:bg-surface-2 text-muted-foreground data-[selected=true]:text-foreground transition-colors",
-    itemContent: "flex items-center gap-3 w-full",
-    itemIcon: "size-5 shrink-0 text-muted-foreground/70 group-data-[selected=true]:text-foreground",
-    itemLabel: "flex-1 truncate text-sm font-medium",
-    endContent: "flex items-center gap-2",
-    badge: "px-1.5 py-0.5 rounded text-[10px] font-medium bg-surface-3 text-foreground min-w-[20px] text-center",
+    item: "group rounded-lg px-3 py-2 data-[hovered]:bg-surface-2 data-[selected]:bg-surface-2 text-muted-foreground data-[selected]:text-foreground transition-colors",
+    actionButton: "opacity-0 group-hover:opacity-100 transition-opacity",
     footer: "mt-auto px-4 py-6 border-t border-separator/50 space-y-1",
 };
 
-// Default menu configuration
-const DEFAULT_MENU_SECTIONS = [
-    {
-        id: "general",
-        title: "General",
-        items: [
-            { id: "home", label: "Home", icon: "gravity-ui:house", href: "/dashboard" },
-            { id: "studio", label: "Studio", icon: "gravity-ui:palette", href: "/studio" },
-            { id: "services", label: "Services", icon: "gravity-ui:shopping-bag", href: "#services" },
-            { id: "analytics", label: "Analytics", icon: "gravity-ui:chart-column", href: "/analytics" },
-        ]
-    },
-    {
-        id: "work",
-        title: "Work",
-        items: [
-            { id: "activity", label: "Activity", icon: "gravity-ui:pulse", href: "/activity" },
-            { id: "batch", label: "Batch", icon: "gravity-ui:layers", href: "/batch" },
-            { id: "media-library", label: "Media Library", icon: "gravity-ui:folder-open", href: "/media-library" },
 
-            { id: "orders", label: "Orders", icon: "gravity-ui:shopping-cart", href: "/orders" },
-        ]
-    },
-    {
-        id: "company",
-        title: "Company",
-        items: [
-            { id: "team", label: "Team", icon: "gravity-ui:persons", href: "/team" },
-            { id: "developers", label: "Developers", icon: "gravity-ui:code", href: "/developers" },
-            { id: "settings", label: "Settings", icon: "gravity-ui:gear", href: "#settings" },
-        ]
-    }
-];
 
 export function LeftMenu({
     className,
@@ -78,13 +51,23 @@ export function LeftMenu({
     onLogout,
     header,
     footer,
-    sections = DEFAULT_MENU_SECTIONS
+    sections = MENU_SECTIONS
 }: LeftMenuProps) {
 
     // Compute active item from path
     const activeItemId = useMemo(() => {
         for (const section of sections) {
-            const match = section.items.find(item => item.href === currentPath);
+            const match = section.items.find(item => {
+                // Exact match for the href
+                if (item.href === currentPath) {
+                    return true;
+                }
+                // Partial match for nested routes (e.g., /settings/profile matches /settings)
+                if (item.href && currentPath.startsWith(item.href) && item.href !== "/") {
+                    return true;
+                }
+                return false;
+            });
             if (match) return match.id;
         }
         return undefined;
@@ -120,6 +103,7 @@ export function LeftMenu({
                             variant="ghost"
                             className="w-full justify-start px-3 h-auto py-2 gap-3 text-left"
                             onPress={onUserClick}
+                            aria-label="User profile"
                         >
                             <Avatar size="md" className="shrink-0">
                                 <Avatar.Image src={user.avatar} alt={user.name} />
@@ -161,7 +145,7 @@ export function LeftMenu({
                     className="p-0 gap-1"
                 >
                     {sections.map((section) => (
-                        <ListBox.Section key={section.id}>
+                        <ListBox.Section key={section.id} aria-label={section.title}>
                             <Header className={MENU_STYLES.sectionTitle}>
                                 {section.title}
                             </Header>
@@ -172,15 +156,18 @@ export function LeftMenu({
                                     id={item.id}
                                     textValue={item.label}
                                     className={MENU_STYLES.item}
+                                    aria-label={item.label}
                                 >
                                     <div className={MENU_STYLES.itemContent}>
                                         {/* Icon or Avatar */}
                                         {item.isAvatar ? (
                                             <Avatar
-                                                className="size-5 text-[9px] bg-surface-3 text-foreground shrink-0"
+                                                className="size-5 shrink-0 bg-transparent"
                                                 size="sm"
                                             >
-                                                <Avatar.Fallback>{item.avatarName || item.label.substring(0, 2)}</Avatar.Fallback>
+                                                <Avatar.Fallback className="size-5 text-xs bg-surface-3 text-foreground font-medium">
+                                                    {item.avatarName || item.label.substring(0, 2)}
+                                                </Avatar.Fallback>
                                             </Avatar>
                                         ) : (
                                             item.icon && <Icon icon={item.icon} className={MENU_STYLES.itemIcon} />
@@ -191,7 +178,14 @@ export function LeftMenu({
                                         {/* End Content: Badges or Actions */}
                                         <div className={MENU_STYLES.endContent}>
                                             {item.actionIcon && (
-                                                <Button isIconOnly size="sm" variant="ghost" className="size-5 min-w-4 text-muted-foreground hover:text-foreground">
+                                                <Button
+                                                    isIconOnly
+                                                    size="sm"
+                                                    variant="ghost"
+                                                    className={MENU_STYLES.actionButton}
+                                                    onPress={item.action}
+                                                    aria-label={`${item.label} action`}
+                                                >
                                                     <Icon icon={item.actionIcon} />
                                                 </Button>
                                             )}
@@ -215,7 +209,7 @@ export function LeftMenu({
                     <>
                         <Button
                             variant="ghost"
-                            className="w-full justify-start px-3 text-sm font-medium text-muted-foreground data-[hover=true]:text-foreground data-[hover=true]:bg-surface-2 gap-3"
+                            className="w-full justify-start px-3 text-sm font-medium text-muted-foreground data-[hovered]:text-foreground data-[hovered]:bg-surface-2 gap-3"
                             onPress={onHelpClick}
                         >
                             <Icon icon="gravity-ui:circle-question" className="size-5 shrink-0" />
@@ -223,7 +217,7 @@ export function LeftMenu({
                         </Button>
                         <Button
                             variant="ghost"
-                            className="w-full justify-start px-3 text-sm font-medium text-muted-foreground data-[hover=true]:text-foreground data-[hover=true]:bg-surface-2 gap-3"
+                            className="w-full justify-start px-3 text-sm font-medium text-muted-foreground data-[hovered]:text-foreground data-[hovered]:bg-surface-2 gap-3"
                             onPress={onLogout}
                         >
                             <Icon icon="gravity-ui:arrow-right-from-square" className="size-5 shrink-0" />
@@ -235,4 +229,3 @@ export function LeftMenu({
         </nav>
     );
 }
-

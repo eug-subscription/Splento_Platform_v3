@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import AccountSettings from './app/admin/AccountSettings';
 import HomePage from './app/HomePage';
 import { ServicesPage } from './app/admin/ServicesPage';
-import { LeftMenu } from './components/LeftMenu';
+import { LeftMenu, MobileNavigation } from './components/navigation';
 
 function App() {
   // Simple hash-based routing to preserve AccountSettings
@@ -28,20 +28,43 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  const navigate = (path: string) => {
+    if (path.startsWith('#')) {
+      window.location.hash = path;
+    } else if (path.startsWith('/')) {
+      // Mock router navigation
+      console.log('Navigate to:', path);
+      // For demo purposes, we can map some paths to hashes or just log
+      if (path === '/dashboard') window.location.hash = '';
+    }
+  };
+
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-background text-foreground">
+      {/* Desktop Navigation */}
       <LeftMenu
         currentPath={currentPage === 'home' ? '/dashboard' : `#${currentPage}`}
-        onNavigate={(path) => {
-          if (path.startsWith('#')) {
-            window.location.hash = path;
-          } else {
-            // For now, other paths don't do anything, or we could just log
-            console.log('Navigate to:', path);
-          }
-        }}
+        onNavigate={navigate}
       />
-      <main className="flex-1 ml-[280px]">
+
+      {/* Mobile Navigation */}
+      <MobileNavigation
+        currentPath={currentPage === 'home' ? '/dashboard' : `#${currentPage}`}
+        user={{
+          name: "Jane Doe",
+          role: "Product Designer",
+          avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d"
+        }}
+        organisation={{
+          name: "Visionary Studio",
+          id: "org-1"
+        }}
+        credits={1247}
+        onNavigate={navigate}
+      />
+
+      {/* Main Content */}
+      <main className="flex-1 w-full lg:ml-[280px] pt-14 pb-24 lg:py-0">
         {currentPage === 'settings' && <AccountSettings />}
         {currentPage === 'services' && <ServicesPage />}
         {currentPage === 'home' && <HomePage />}
