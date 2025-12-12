@@ -5,28 +5,24 @@ import { ServicesPage } from './app/admin/ServicesPage';
 import SplentoDesignSystem from './components/design-system/SplentoDesignSystem';
 import { LeftMenu, MobileNavigation } from './components/navigation';
 
+type Page = 'home' | 'settings' | 'services' | 'design-hub';
+
+const HASH_TO_PAGE: Record<string, Page> = {
+  settings: 'settings',
+  services: 'services',
+  'design-hub': 'design-hub',
+};
+
 function App() {
-  // Simple hash-based routing to preserve AccountSettings
-  const [currentPage, setCurrentPage] = useState<'home' | 'settings' | 'services' | 'design-hub'>('home');
+  const [currentPage, setCurrentPage] = useState<Page>('home');
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
-      if (hash === 'settings') {
-        setCurrentPage('settings');
-      } else if (hash === 'services') {
-        setCurrentPage('services');
-      } else if (hash === 'design-hub') {
-        setCurrentPage('design-hub');
-      } else {
-        setCurrentPage('home');
-      }
+      setCurrentPage(HASH_TO_PAGE[hash] || 'home');
     };
 
-    // Check initial hash
     handleHashChange();
-
-    // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
@@ -34,44 +30,34 @@ function App() {
   const navigate = (path: string) => {
     if (path.startsWith('#')) {
       window.location.hash = path;
-    } else if (path.startsWith('/')) {
-      // Mock router navigation
-      console.log('Navigate to:', path);
-      // For demo purposes, we can map some paths to hashes or just log
-      if (path === '/dashboard') window.location.hash = '';
+    } else if (path === '/dashboard') {
+      window.location.hash = '';
     }
   };
 
+  const currentPath = currentPage === 'home' ? '/dashboard' : `#${currentPage}`;
+
   return (
     <div className="flex min-h-screen bg-background text-foreground">
-      {/* Desktop Navigation */}
-      <LeftMenu
-        currentPath={currentPage === 'home' ? '/dashboard' : `#${currentPage}`}
-        onNavigate={navigate}
-      />
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-accent focus:text-accent-foreground">
+        Skip to main content
+      </a>
 
-      {/* Mobile Navigation */}
+      <LeftMenu currentPath={currentPath} onNavigate={navigate} />
+
       <MobileNavigation
-        currentPath={currentPage === 'home' ? '/dashboard' : `#${currentPage}`}
-        user={{
-          name: "Jane Doe",
-          role: "Product Designer",
-          avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d"
-        }}
-        organisation={{
-          name: "Visionary Studio",
-          id: "org-1"
-        }}
+        currentPath={currentPath}
+        user={{ name: "Jane Doe", role: "Product Designer", avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d" }}
+        organisation={{ name: "Visionary Studio", id: "org-1" }}
         credits={1247}
         onNavigate={navigate}
       />
 
-      {/* Main Content */}
-      <main className="flex-1 w-full lg:ml-[280px] pt-14 pb-24 lg:py-0">
+      <main id="main-content" className="flex-1 w-full lg:ml-[280px] pt-14 pb-24 lg:py-0">
+        {currentPage === 'home' && <HomePage />}
         {currentPage === 'settings' && <AccountSettings />}
         {currentPage === 'services' && <ServicesPage />}
         {currentPage === 'design-hub' && <SplentoDesignSystem />}
-        {currentPage === 'home' && <HomePage />}
       </main>
     </div>
   );
