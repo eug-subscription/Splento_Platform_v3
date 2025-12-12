@@ -20,6 +20,54 @@
     --snow: oklch(0.9911 0 0);
     --eclipse: oklch(0.2103 0.0059 285.89);
 
+    /* Splento Brand */
+    --splento-cyan: oklch(0.82 0.15 192);
+    /* #2EDBE3 */
+    --canvas: oklch(0.98 0.002 264);
+    /* #F8F9FA */
+    --midnight: oklch(0.17 0.02 265);
+    /* #0D1117 */
+
+    /* Cyan Scale */
+    --cyan-50: oklch(0.97 0.03 192);
+    /* #ECFEFF */
+    --cyan-100: oklch(0.94 0.06 192);
+    /* #CFFAFE */
+    --cyan-200: oklch(0.88 0.10 192);
+    /* #A5F3FC */
+    --cyan-300: oklch(0.84 0.13 192);
+    /* #67E8F9 */
+    --cyan-400: oklch(0.82 0.14 192);
+    /* #22D3EE */
+    --cyan-500: oklch(0.82 0.15 192);
+    /* #2EDBE3 - BASE */
+    --cyan-600: oklch(0.62 0.13 200);
+    /* #0891B2 */
+    --cyan-700: oklch(0.53 0.11 200);
+    /* #0E7490 */
+    --cyan-800: oklch(0.45 0.09 200);
+    /* #155E75 */
+    --cyan-900: oklch(0.40 0.07 200);
+    /* #164E63 */
+    --cyan-950: oklch(0.30 0.06 200);
+    /* #083344 */
+
+    /* Accent Palette */
+    --coral: oklch(0.68 0.20 25);
+    /* #FF6B6B */
+    --peach: oklch(0.82 0.12 55);
+    /* #FFBE98 */
+    --sunset: oklch(0.72 0.18 45);
+    /* #FF8C42 */
+    --electric-blue: oklch(0.50 0.25 265);
+    /* #4F46E5 */
+    --mint: oklch(0.85 0.14 160);
+    /* #6EE7B7 */
+    --lavender: oklch(0.72 0.18 295);
+    /* #A78BFA */
+    --pink-400: oklch(0.72 0.19 350);
+    /* #F472B6 */
+
     /* Spacing & Layout */
     --spacing: 0.25rem;
     --border-width: 0px;
@@ -73,9 +121,11 @@
     --default-foreground: var(--eclipse);
 
     /* Semantic Colors */
-    --accent: oklch(0.550 0.220 262);
-    /* Blue accent */
-    --accent-foreground: var(--snow);
+    --accent: var(--splento-cyan);
+    /* Splento Cyan - primary brand colour */
+    --accent-foreground: var(--cyan-950);
+
+
 
     --accent-ai: oklch(0.65 0.25 290);
     /* Purple for AI/premium features */
@@ -89,6 +139,44 @@
 
     --danger: oklch(0.6532 0.2328 25.74);
     --danger-foreground: var(--snow);
+
+    --info: oklch(0.59 0.15 250);
+    /* #3B82F6 approx */
+    --info-foreground: var(--snow);
+
+    /* Grey Scale (Neutral) */
+    --grey-50: oklch(0.985 0.002 247.839);
+    /* #F9FAFB */
+    --grey-100: oklch(0.967 0.003 264.542);
+    /* #F3F4F6 */
+    --grey-200: oklch(0.92 0.004 264.542);
+    /* #E5E7EB */
+    --grey-300: oklch(0.871 0.006 264.542);
+    /* #D1D5DB */
+    --grey-400: oklch(0.705 0.015 286.067);
+    /* #9CA3AF */
+    --grey-500: oklch(0.552 0.016 285.938);
+    /* #6B7280 */
+    --grey-600: oklch(0.442 0.017 285.786);
+    /* #4B5563 */
+    --grey-700: oklch(0.37 0.013 285.805);
+    /* #374151 */
+    --grey-800: oklch(0.274 0.006 286.033);
+    /* #1F2937 */
+    --grey-900: oklch(0.21 0.006 285.885);
+    /* #111827 */
+    --grey-950: oklch(0.14 0.005 285.823);
+    /* #030712 */
+
+    /* Data Visualisation Sequence */
+    --dataviz-1: var(--splento-cyan);
+    --dataviz-2: var(--electric-blue);
+    --dataviz-3: var(--success);
+    --dataviz-4: var(--warning);
+    --dataviz-5: var(--danger);
+    --dataviz-6: var(--lavender);
+    --dataviz-7: var(--sunset);
+    --dataviz-8: var(--mint);
 
     /* Form Field Defaults */
     --field-background: var(--white);
@@ -142,10 +230,20 @@
     --accent-soft-foreground: var(--accent);
     --danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
     --danger-soft-foreground: var(--danger);
+    --info-soft: color-mix(in oklab, var(--info) 15%, transparent);
+    --info-soft-foreground: var(--info);
     --success-soft: color-mix(in oklab, var(--success) 15%, transparent);
     --success-soft-foreground: var(--success);
     --warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
     --warning-soft-foreground: var(--warning);
+
+    /* Gradient Variables */
+    --gradient-cyan-flow: linear-gradient(135deg, var(--splento-cyan) 0%, var(--cyan-600) 100%);
+    --gradient-ocean-depth: linear-gradient(135deg, var(--splento-cyan) 0%, var(--electric-blue) 100%);
+    --gradient-aurora: linear-gradient(135deg, var(--splento-cyan) 0%, var(--lavender) 50%, var(--pink-400) 100%);
+    --gradient-sunrise: linear-gradient(135deg, var(--sunset) 0%, var(--coral) 100%);
+    --gradient-mint-fresh: linear-gradient(135deg, var(--mint) 0%, var(--splento-cyan) 100%);
+    --gradient-electric-night: linear-gradient(135deg, var(--electric-blue) 0%, var(--splento-cyan) 50%, var(--mint) 100%);
 
     /* Cursors */
     --cursor-interactive: pointer;
@@ -185,22 +283,29 @@
     --default-foreground: var(--snow);
 
     /* Semantic Colors - Adjusted for dark mode */
-    --accent: oklch(0.650 0.200 262);
-    /* Brighter blue for dark */
-    --accent-foreground: var(--eclipse);
+    --accent: oklch(0.85 0.14 192);
+    /* Brighter Splento Cyan for dark mode */
+    --accent-foreground: var(--cyan-950);
 
     --accent-ai: oklch(0.70 0.25 290);
     /* Brighter purple for AI/premium features in dark mode */
     --accent-ai-foreground: var(--eclipse);
 
-    --success: oklch(0.7329 0.1935 150.81);
+    --success: oklch(0.79 0.17 162);
+    /* #34D399 */
     --success-foreground: var(--eclipse);
 
-    --warning: oklch(0.8203 0.1388 76.34);
+    --warning: oklch(0.85 0.145 85);
+    /* #FBBF24 */
     --warning-foreground: var(--eclipse);
 
-    --danger: oklch(0.594 0.1967 24.63);
+    --danger: oklch(0.71 0.19 25);
+    /* #F87171 */
     --danger-foreground: var(--snow);
+
+    --info: oklch(0.69 0.15 250);
+    /* #60A5FA */
+    --info-foreground: var(--snow);
 
     /* Form Field Defaults */
     --field-background: var(--default);
@@ -240,6 +345,43 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
+  /* Splento Scale */
+  --color-canvas: var(--canvas);
+  --color-midnight: var(--midnight);
+  --color-snow: var(--snow);
+  --color-eclipse: var(--eclipse);
+  --color-splento-cyan: var(--splento-cyan);
+  --color-cyan-50: var(--cyan-50);
+  --color-cyan-100: var(--cyan-100);
+  --color-cyan-200: var(--cyan-200);
+  --color-cyan-300: var(--cyan-300);
+  --color-cyan-400: var(--cyan-400);
+  --color-cyan-500: var(--cyan-500);
+  --color-cyan-600: var(--cyan-600);
+  --color-cyan-700: var(--cyan-700);
+  --color-cyan-800: var(--cyan-800);
+  --color-cyan-900: var(--cyan-900);
+  --color-cyan-950: var(--cyan-950);
+
+  /* Accent Palette */
+  --color-coral: var(--coral);
+  --color-peach: var(--peach);
+  --color-sunset: var(--sunset);
+  --color-electric-blue: var(--electric-blue);
+  --color-mint: var(--mint);
+  --color-lavender: var(--lavender);
+  --color-pink-400: var(--pink-400);
+
+  /* Data Visualisation */
+  --color-dataviz-1: var(--dataviz-1);
+  --color-dataviz-2: var(--dataviz-2);
+  --color-dataviz-3: var(--dataviz-3);
+  --color-dataviz-4: var(--dataviz-4);
+  --color-dataviz-5: var(--dataviz-5);
+  --color-dataviz-6: var(--dataviz-6);
+  --color-dataviz-7: var(--dataviz-7);
+  --color-dataviz-8: var(--dataviz-8);
+
   /* Font family */
   --font-sans: 'Libre Franklin', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
@@ -253,6 +395,9 @@
 
   --color-overlay: var(--overlay);
   --color-overlay-foreground: var(--overlay-foreground);
+
+  /* Content Hover */
+  --color-content1-hover: color-mix(in oklab, var(--content1) 90%, var(--foreground) 10%);
 
   /* Utility Colors */
   --color-muted: var(--muted);
@@ -281,6 +426,22 @@
   --color-danger: var(--danger);
   --color-danger-foreground: var(--danger-foreground);
 
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  /* Grey Scale */
+  --color-grey-50: var(--grey-50);
+  --color-grey-100: var(--grey-100);
+  --color-grey-200: var(--grey-200);
+  --color-grey-300: var(--grey-300);
+  --color-grey-400: var(--grey-400);
+  --color-grey-500: var(--grey-500);
+  --color-grey-600: var(--grey-600);
+  --color-grey-700: var(--grey-700);
+  --color-grey-800: var(--grey-800);
+  --color-grey-900: var(--grey-900);
+  --color-grey-950: var(--grey-950);
+
   /* Legacy mappings for compatibility */
   --color-primary: var(--accent);
   --color-primary-foreground: var(--accent-foreground);
@@ -290,6 +451,11 @@
   --shadow-overlay: var(--overlay-shadow);
   --shadow-field: var(--field-shadow);
   --shadow-large: var(--shadow-large);
+
+  /* HeroUI Radius Aliases */
+  --radius-small: var(--radius-small);
+  --radius-medium: var(--radius-medium);
+  --radius-large: var(--radius-large);
 
   /* Form Field Tokens */
   --color-field: var(--field-background);
@@ -320,6 +486,10 @@
       var(--color-danger) 90%,
       var(--color-danger-foreground) 10%);
 
+  --color-info-hover: color-mix(in oklab,
+      var(--color-info) 90%,
+      var(--color-info-foreground) 10%);
+
   /* Field Hover/Focus States */
   --color-field-hover: color-mix(in oklab,
       var(--color-field) 90%,
@@ -336,10 +506,19 @@
   --color-accent-soft-foreground: var(--accent-soft-foreground);
   --color-danger-soft: var(--danger-soft);
   --color-danger-soft-foreground: var(--danger-soft-foreground);
+  --color-info-soft: var(--info-soft);
+  --color-info-soft-foreground: var(--info-soft-foreground);
   --color-success-soft: var(--success-soft);
   --color-success-soft-foreground: var(--success-soft-foreground);
   --color-warning-soft: var(--warning-soft);
   --color-warning-soft-foreground: var(--warning-soft-foreground);
+
+  /* Soft Hover States */
+  --color-accent-soft-hover: color-mix(in oklab, var(--color-accent) 20%, transparent);
+  --color-danger-soft-hover: color-mix(in oklab, var(--color-danger) 20%, transparent);
+  --color-success-soft-hover: color-mix(in oklab, var(--color-success) 20%, transparent);
+  --color-warning-soft-hover: color-mix(in oklab, var(--color-warning) 20%, transparent);
+  --color-info-soft-hover: color-mix(in oklab, var(--color-info) 20%, transparent);
 
   /* Surface Levels */
   --color-surface-secondary: color-mix(in oklab, var(--color-surface) 94%, var(--color-surface-foreground) 6%);
@@ -390,6 +569,32 @@
 @layer components {
 
   /* === Custom Components === */
+
+  /* Splento Gradients */
+  .gradient-cyan-flow {
+    background: var(--gradient-cyan-flow);
+  }
+
+  .gradient-ocean-depth {
+    background: var(--gradient-ocean-depth);
+  }
+
+  .gradient-aurora {
+    background: var(--gradient-aurora);
+  }
+
+  .gradient-sunrise {
+    background: var(--gradient-sunrise);
+  }
+
+  .gradient-mint-fresh {
+    background: var(--gradient-mint-fresh);
+  }
+
+  .gradient-electric-night {
+    background: var(--gradient-electric-night);
+  }
+
   .button--ai-gradient,
   .badge--ai-gradient {
     background-image: linear-gradient(135deg,

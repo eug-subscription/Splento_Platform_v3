@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import AccountSettings from './app/admin/AccountSettings';
 import HomePage from './app/HomePage';
 import { ServicesPage } from './app/admin/ServicesPage';
+import SplentoDesignSystem from './components/design-system/SplentoDesignSystem';
 import { LeftMenu, MobileNavigation } from './components/navigation';
 
 function App() {
   // Simple hash-based routing to preserve AccountSettings
-  const [currentPage, setCurrentPage] = useState<'home' | 'settings' | 'services'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'settings' | 'services' | 'design-hub'>('home');
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -15,6 +16,8 @@ function App() {
         setCurrentPage('settings');
       } else if (hash === 'services') {
         setCurrentPage('services');
+      } else if (hash === 'design-hub') {
+        setCurrentPage('design-hub');
       } else {
         setCurrentPage('home');
       }
@@ -67,6 +70,7 @@ function App() {
       <main className="flex-1 w-full lg:ml-[280px] pt-14 pb-24 lg:py-0">
         {currentPage === 'settings' && <AccountSettings />}
         {currentPage === 'services' && <ServicesPage />}
+        {currentPage === 'design-hub' && <SplentoDesignSystem />}
         {currentPage === 'home' && <HomePage />}
       </main>
     </div>
