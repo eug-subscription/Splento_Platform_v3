@@ -37,6 +37,14 @@
     --radius-3xl: calc(var(--radius) * 3);
     --radius-4xl: calc(var(--radius) * 4);
 
+    /* HeroUI Radius Aliases */
+    --radius-small: var(--radius-sm);
+    --radius-medium: var(--radius-md);
+    --radius-large: var(--radius-lg);
+
+    /* Field Radius (Missing in previous version) */
+    --field-radius: var(--radius-md);
+
     /* Base Colors */
     --background: oklch(0.99 0 0);
     --foreground: var(--eclipse);
@@ -45,12 +53,19 @@
     --surface: var(--white);
     --surface-foreground: var(--foreground);
 
+    /* Content Hierarchy (HeroUI v3) */
+    --content1: var(--white);
+    --content2: oklch(0.98 0 0);
+    --content3: oklch(0.96 0 0);
+    --content4: oklch(0.94 0 0);
+
     /* Overlay: Used for floating/overlay components */
     --overlay: var(--white);
     --overlay-foreground: var(--foreground);
 
     /* Utility Colors */
     --muted: oklch(0.5517 0.0138 285.94);
+    --muted-foreground: oklch(0.45 0.01 286);
     --scrollbar: oklch(87.1% 0.006 286.286);
 
     /* Default (neutral) */
@@ -61,6 +76,10 @@
     --accent: oklch(0.550 0.220 262);
     /* Blue accent */
     --accent-foreground: var(--snow);
+
+    --accent-ai: oklch(0.65 0.25 290);
+    /* Purple for AI/premium features */
+    --accent-ai-foreground: var(--snow);
 
     --success: oklch(0.7329 0.1935 150.81);
     --success-foreground: var(--eclipse);
@@ -86,6 +105,7 @@
     --separator: oklch(96% 0.002 286.32);
     --focus: var(--accent);
     --link: var(--accent);
+    --ring-color: var(--focus);
 
     /* Shadows */
     --surface-shadow:
@@ -99,10 +119,37 @@
       0 2px 4px 0 rgb(0 0 0 / 0.04),
       0 1px 2px 0 rgb(0 0 0 / 0.06),
       0 0 1px 0 rgb(0 0 0 / 0.06);
+    --shadow-large:
+      0 10px 40px 0 rgb(24 24 27 / 0.12),
+      0 20px 50px 0 rgb(24 24 27 / 0.10);
+
+    /* HeroUI Shadow Aliases */
+    --shadow-small: var(--surface-shadow);
+    --shadow-medium: var(--overlay-shadow);
 
     /* Skeleton Animation */
     --skeleton-animation: shimmer;
     /* shimmer | pulse | none */
+
+    /* AI Gradient Colors */
+    --gradient-ai-from: oklch(0.55 0.27 290);
+    /* purple-600 */
+    --gradient-ai-to: oklch(0.55 0.22 262);
+    /* blue-600 */
+
+    /* Soft Color Variants */
+    --accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+    --accent-soft-foreground: var(--accent);
+    --danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
+    --danger-soft-foreground: var(--danger);
+    --success-soft: color-mix(in oklab, var(--success) 15%, transparent);
+    --success-soft-foreground: var(--success);
+    --warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
+    --warning-soft-foreground: var(--warning);
+
+    /* Cursors */
+    --cursor-interactive: pointer;
+    --cursor-disabled: not-allowed;
   }
 
   /* === DARK THEME === */
@@ -118,12 +165,19 @@
     --surface: oklch(0.2103 0.0059 285.89);
     --surface-foreground: var(--foreground);
 
+    /* Content Hierarchy (HeroUI v3) */
+    --content1: oklch(0.22 0.006 286);
+    --content2: oklch(0.25 0.006 286);
+    --content3: oklch(0.28 0.006 286);
+    --content4: oklch(0.31 0.006 286);
+
     /* Overlay: Used for floating/overlay components */
     --overlay: oklch(0.22 0.0059 285.89);
     --overlay-foreground: var(--foreground);
 
     /* Utility Colors */
     --muted: oklch(70.5% 0.015 286.067);
+    --muted-foreground: oklch(0.65 0.01 286);
     --scrollbar: oklch(30% 0.006 286.286);
 
     /* Default (neutral) */
@@ -134,6 +188,10 @@
     --accent: oklch(0.650 0.200 262);
     /* Brighter blue for dark */
     --accent-foreground: var(--eclipse);
+
+    --accent-ai: oklch(0.70 0.25 290);
+    /* Brighter purple for AI/premium features in dark mode */
+    --accent-ai-foreground: var(--eclipse);
 
     --success: oklch(0.7329 0.1935 150.81);
     --success-foreground: var(--eclipse);
@@ -159,11 +217,17 @@
     --separator: oklch(22% 0.006 286.033);
     --focus: var(--accent);
     --link: var(--accent);
+    --ring-color: var(--focus);
 
     /* Shadows - Softer for dark mode */
     --surface-shadow: 0 0 0 0 transparent inset;
     --overlay-shadow: 0 8px 24px 0 rgb(0 0 0 / 0.4);
     --field-shadow: 0 0 0 0 transparent inset;
+    --shadow-large: 0 12px 40px 0 rgb(0 0 0 / 0.5);
+
+    /* AI Gradient Colors - brighter for dark mode */
+    --gradient-ai-from: oklch(0.65 0.27 290);
+    --gradient-ai-to: oklch(0.65 0.22 262);
   }
 }
 
@@ -173,18 +237,26 @@
    ============================================ */
 
 @theme inline {
-  /* Base Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
+  /* Font family */
+  --font-sans: 'Libre Franklin', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
+
+  --color-content1: var(--content1);
+  --color-content2: var(--content2);
+  --color-content3: var(--content3);
+  --color-content4: var(--content4);
 
   --color-overlay: var(--overlay);
   --color-overlay-foreground: var(--overlay-foreground);
 
   /* Utility Colors */
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-separator: var(--separator);
   --color-focus: var(--focus);
@@ -196,6 +268,9 @@
 
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
+  --color-accent-ai: var(--accent-ai);
+  --color-accent-ai-foreground: var(--accent-ai-foreground);
 
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
@@ -214,6 +289,7 @@
   --shadow-surface: var(--surface-shadow);
   --shadow-overlay: var(--overlay-shadow);
   --shadow-field: var(--field-shadow);
+  --shadow-large: var(--shadow-large);
 
   /* Form Field Tokens */
   --color-field: var(--field-background);
@@ -255,6 +331,36 @@
       var(--color-field-border) 88%,
       var(--color-field-foreground) 10%);
 
+  /* Soft Colors */
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-foreground: var(--accent-soft-foreground);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-soft-foreground: var(--danger-soft-foreground);
+  --color-success-soft: var(--success-soft);
+  --color-success-soft-foreground: var(--success-soft-foreground);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-soft-foreground: var(--warning-soft-foreground);
+
+  /* Surface Levels */
+  --color-surface-secondary: color-mix(in oklab, var(--color-surface) 94%, var(--color-surface-foreground) 6%);
+  --color-surface-tertiary: color-mix(in oklab, var(--color-surface) 92%, var(--color-surface-foreground) 8%);
+  --color-surface-quaternary: color-mix(in oklab, var(--color-surface) 86%, var(--color-default-foreground) 14%);
+
+  --color-background-secondary: color-mix(in oklab, var(--color-background) 96%, var(--color-foreground) 4%);
+  --color-background-tertiary: color-mix(in oklab, var(--color-background) 92%, var(--color-foreground) 8%);
+  --color-background-quaternary: color-mix(in oklab, var(--color-background) 86%, var(--color-foreground) 14%);
+
+  /* On-Surface Colors */
+  --color-on-surface: color-mix(in oklab, var(--color-surface) 93%, var(--color-surface-foreground) 7%);
+  --color-on-surface-foreground: var(--color-surface-foreground);
+  --color-on-surface-hover: color-mix(in oklab, var(--color-surface) 91%, var(--color-surface-foreground) 9%);
+  --color-on-surface-focus: var(--color-on-surface);
+
+  /* Easing */
+  --ease-smooth: ease;
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-fluid-out: cubic-bezier(0.32, 0.72, 0, 1);
+
   --color-field-border-focus: color-mix(in oklab,
       var(--color-field-border) 74%,
       var(--color-field-foreground) 22%);
@@ -264,16 +370,16 @@
    BASE STYLES
    ============================================ */
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background);
-  color: var(--foreground);
-  transition: background-color 200ms ease, color 200ms ease;
+@layer base {
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color 200ms ease, color 200ms ease;
+  }
 }
 
 /* ============================================
@@ -284,5 +390,30 @@ body {
 @layer components {
 
   /* === Custom Components === */
-  /* Add custom component styles here if needed */
+  .button--ai-gradient,
+  .badge--ai-gradient {
+    background-image: linear-gradient(135deg,
+        var(--gradient-ai-from),
+        var(--gradient-ai-to)) !important;
+    background-size: 200% 200%;
+    transition: background-position 300ms ease;
+    color: var(--white) !important;
+    border: none;
+  }
+
+  .button--ai-gradient:hover,
+  .button--ai-gradient[data-hover="true"] {
+    background-position: 100% 100%;
+  }
+
+  .badge--ai-gradient {
+    box-shadow: 0 10px 15px -3px rgb(147 51 234 / 0.2);
+    /* shadow-purple-500/20 */
+  }
+
+  /* Global focus-visible for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
 }

@@ -24,6 +24,7 @@ company-account-settings/
 │   │   └── ThemeSwitcher.tsx          # Light/dark mode toggle
 │   ├── data/                          # Static data and mocks
 │   │   ├── countries.ts               # Country list for ComboBox
+│   │   ├── enterprise-commands.ts     # Command palette data
 │   │   └── homepage.mock.ts           # Development mock data
 │   ├── types/
 │   │   └── index.ts                   # TypeScript type definitions
