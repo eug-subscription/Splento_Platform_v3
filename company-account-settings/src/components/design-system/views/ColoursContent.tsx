@@ -3,9 +3,10 @@ import { colors } from '../data/colors';
 import { Section } from '../primitives/Section';
 import { ColorSwatch } from '../primitives/ColorSwatch';
 import { SwatchButton } from '../primitives/SwatchButton';
-import { SampleCard } from '../samples/SampleCard';
+import { SampleBentoGrid } from '../samples/SampleBentoGrid';
 import { SampleButtons } from '../samples/SampleButtons';
 import { SampleChips } from '../samples/SampleChips';
+import { SampleCreatorCard } from '../samples/SampleCreatorCard';
 import { DataChart } from '../samples/DataChart';
 
 export function ColoursContent({ darkMode }: { darkMode: boolean }) {
@@ -164,9 +165,10 @@ export function ColoursContent({ darkMode }: { darkMode: boolean }) {
                     <p className="text-sm font-medium text-grey-500 dark:text-grey-400">
                         Toggle theme in header to preview components in light or dark mode.
                     </p>
-                    <SampleCard />
-                    <SampleButtons />
-                    <SampleChips />
+                    <SampleBentoGrid />
+                    <div className="max-w-xl">
+                        <SampleCreatorCard />
+                    </div>
                 </div>
             </Section>
 

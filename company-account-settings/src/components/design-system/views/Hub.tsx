@@ -35,7 +35,7 @@ export function Hub({ onNavigate }: { onNavigate: (id: string) => void }) {
                         aria-label={`Navigate to ${cat.title}${!cat.active ? ' (coming soon)' : ''}`}
                     >
                         <Card
-                            className="h-full bg-white dark:bg-surface border border-grey-200 dark:border-border shadow-sm pointer-events-none"
+                            className="h-full bg-white dark:bg-surface shadow-sm pointer-events-none"
                         >
                             <Card.Header className="pb-0 pt-4 px-4 flex-col items-start gap-1">
                                 <span className="text-4xl mb-2">{cat.icon}</span>
