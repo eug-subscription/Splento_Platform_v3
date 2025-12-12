@@ -282,8 +282,14 @@ interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
    - Available components catalog
    - Check here first (Rule #0)
    - [Full Components List for LLMs](https://v3.heroui.com/llms.txt) - Comprehensive component descriptions
+   - [Design System Hub](/#design-hub) - Interactive documentation
 
-3. **[Full Documentation](./heroui-docs.txt)**
+3. **[Design System Reference](./DESIGN_SYSTEM.md)**
+   - **Colors, Tokens, Typography**
+   - Single source of truth for Splento Identity
+   - Replaces old "Theming" guide
+
+4. **[Full Documentation](./heroui-docs.txt)**
    - Complete API reference (Local File)
    - Styling guide
    - All examples
@@ -646,6 +652,14 @@ function MyComponent() {
 
 ### 🎨 Color System
 
+**See [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for the complete token reference.**
+
+**Quick Lookup:**
+
+- **Primary**: `--splento-cyan` (`#2EDBE3`)
+- **Backgrounds**: `--canvas` (Light) / `--midnight` (Dark)
+- **Semantic**: `--success`, `--warning`, `--danger`, `--info`
+
 **Always use semantic color pairs:**
 
 ```tsx
@@ -660,15 +674,10 @@ function MyComponent() {
 </div>
 ```
 
-**Available Colors:**
-
 - `background` / `foreground`
 - `accent` / `accent-foreground`
 - `success` / `success-foreground`
-- `warning` / `warning-foreground`
-- `danger` / `danger-foreground`
-- `surface-1`, `surface-2`, `surface-3`
-- `muted`, `border`, `focus`
+- ...and more. See [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md).
 
 ### ✨ Interactive States
 
