@@ -4,12 +4,14 @@ import { Section } from '../primitives/Section';
 import { ColorSwatch } from '../primitives/ColorSwatch';
 import { SwatchButton } from '../primitives/SwatchButton';
 import { SampleBentoGrid } from '../samples/SampleBentoGrid';
-import { SampleButtons } from '../samples/SampleButtons';
-import { SampleChips } from '../samples/SampleChips';
 import { SampleCreatorCard } from '../samples/SampleCreatorCard';
 import { DataChart } from '../samples/DataChart';
+import { useTheme } from '../../../context/ThemeContext';
 
-export function ColoursContent({ darkMode }: { darkMode: boolean }) {
+export function ColoursContent() {
+    const { theme } = useTheme();
+    const darkMode = theme === 'dark'; // Alias for compatibility with existing code
+
     return (
         <div className="space-y-8">
             {/* Header */}
@@ -33,6 +35,27 @@ export function ColoursContent({ darkMode }: { darkMode: boolean }) {
             <Section title="Brand Core">
                 <div className="grid grid-cols-3 gap-6">
                     {colors.core.map((c) => (
+                        <div key={c.name} className="flex flex-col gap-2 text-left group">
+                            <SwatchButton
+                                valueToCopy={c.hex}
+                                className="h-24 w-full rounded-xl shadow-sm border border-border transition-transform group-hover:scale-[1.02]"
+                                style={{ backgroundColor: c.hex }}
+                                ariaLabel={`Copy ${c.name} (${c.hex})`}
+                            />
+                            <div>
+                                <p className="text-sm font-medium text-midnight dark:text-snow">{c.name}</p>
+                                <p className="text-xs font-mono text-grey-500">{c.hex}</p>
+                                <p className="text-xs text-grey-400">{c.role}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </Section>
+
+            {/* Primitives */}
+            <Section title="Primitive Colours">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    {colors.primitives.map((c) => (
                         <div key={c.name} className="flex flex-col gap-2 text-left group">
                             <SwatchButton
                                 valueToCopy={c.hex}
@@ -122,7 +145,7 @@ export function ColoursContent({ darkMode }: { darkMode: boolean }) {
                       ${i === colors.greys.length - 1 ? 'rounded-r-xl rounded-l-none' : ''}
                       ${i > 0 && i < colors.greys.length - 1 ? 'rounded-none' : ''}`}
                                 style={{ backgroundColor: c.hex }}
-                                ariaLabel={`Copy ${c.hex}`}
+                                ariaLabel={`Copy ${c.hex} `}
                             />
                             <span className="text-xs mt-2 text-grey-500 dark:text-grey-400">{c.step}</span>
                         </div>
@@ -137,9 +160,9 @@ export function ColoursContent({ darkMode }: { darkMode: boolean }) {
                         <Card
                             key={g.name}
                             className={`
-                                overflow-hidden transition-all hover:scale-[1.02] hover:shadow-lg border-0 p-0
-                                bg-surface
-                            `}
+overflow-hidden transition-all hover:scale-[1.02] hover:shadow-lg border-0 p-0
+bg-surface dark:bg-grey-800
+    `}
                         >
                             <SwatchButton
                                 valueToCopy={g.css}
@@ -178,7 +201,7 @@ export function ColoursContent({ darkMode }: { darkMode: boolean }) {
                     {/* Chart Placeholder */}
                     <DataChart />
 
-                    <div className="p-4 rounded-xl shadow-sm bg-surface">
+                    <div className="p-4 rounded-xl shadow-sm bg-surface dark:bg-grey-800">
                         <p className="text-sm font-medium mb-4 text-grey-800 dark:text-grey-200">Colour Sequence</p>
                         <div className="space-y-2">
                             {colors.dataViz.map((c, i) => (
@@ -223,34 +246,29 @@ export function ColoursContent({ darkMode }: { darkMode: boolean }) {
                 <pre className="text-xs font-mono p-4 rounded-xl overflow-x-auto bg-grey-100 dark:bg-grey-800 text-grey-700 dark:text-grey-300">
                     {`:root {
   /* Core */
-  --splento-cyan: #2EDBE3;
-  --canvas: #F8F9FA;
-  --midnight: #0D1117;
+${colors.core.map(c => `  ${c.variable}: ${c.hex};`).join('\n')}
+
+  /* Primitives */
+${colors.primitives.map(c => `  ${c.variable}: ${c.hex};`).join('\n')}
 
   /* Primary Scale */
-  --cyan-50: #ECFEFF;
-  /* ... 100-400 ... */
-  --cyan-500: #2EDBE3;  /* Base */
-  /* ... 600-900 ... */
-  --cyan-950: #083344;
-  
+${colors.cyanScale.map(c => `  ${c.variable}: ${c.hex};${c.primary ? ' /* Base */' : ''}`).join('\n')}
+
   /* Grey Scale */
-  --grey-50: #F9FAFB;
-  /* ... 100-900 ... */
-  --grey-950: #030712;
-  
+${colors.greys.map(c => `  ${c.variable}: ${c.hex};`).join('\n')}
+
   /* Semantic */
-  --success: #10B981;
-  --warning: #F59E0B;
-  --danger: #EF4444;
-  --info: #3B82F6;
+${colors.semantic.map(c => `  ${c.variable}: ${c.hex};`).join('\n')}
 
   /* Accents */
-  --coral: #FF6B6B;
-  --electric-blue: #4F46E5;
-  --mint: #6EE7B7;
-  --lavender: #A78BFA;
-}`}
+${colors.accents.map(c => `  ${c.variable}: ${c.hex};`).join('\n')}
+
+  /* Data Visualisation */
+${colors.dataViz.map(c => `  ${c.variable}: ${c.hex};`).join('\n')}
+
+  /* Gradients */
+${colors.gradients.map(c => `  ${c.variable}: ${c.css};`).join('\n')}
+} `}
                 </pre>
             </Section>
         </div>

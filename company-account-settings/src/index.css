@@ -73,10 +73,11 @@
     --border-width: 0px;
     --field-border-width: var(--border-width);
     --disabled-opacity: 0.5;
-    --ring-offset-width: 2px;
+
 
     /* Radius */
     --radius: 0.5rem;
+    --radius-xs: calc(var(--radius) * 0.25);
     --radius-sm: calc(var(--radius) * 0.5);
     --radius-md: calc(var(--radius) * 0.75);
     --radius-lg: calc(var(--radius) * 1);
@@ -84,14 +85,15 @@
     --radius-2xl: calc(var(--radius) * 2);
     --radius-3xl: calc(var(--radius) * 3);
     --radius-4xl: calc(var(--radius) * 4);
+    --radius-full: 9999px;
 
     /* HeroUI Radius Aliases */
     --radius-small: var(--radius-sm);
     --radius-medium: var(--radius-md);
     --radius-large: var(--radius-lg);
 
-    /* Field Radius (Missing in previous version) */
-    --field-radius: var(--radius-md);
+    /* Field Radius (Matching HeroUI v3 "XL" default) */
+    --field-radius: var(--radius-xl);
 
     /* Base Colors */
     --background: oklch(0.99 0 0);
@@ -333,6 +335,30 @@
     /* AI Gradient Colors - brighter for dark mode */
     --gradient-ai-from: oklch(0.65 0.27 290);
     --gradient-ai-to: oklch(0.65 0.22 262);
+
+    /* Calculated Surface Levels (Must be re-declared to use dark mode base) */
+    --color-surface-secondary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
+    --color-surface-tertiary: color-mix(in oklab, var(--surface) 92%, var(--surface-foreground) 8%);
+    --color-surface-quaternary: color-mix(in oklab, var(--surface) 86%, var(--default-foreground) 14%);
+
+    --color-background-secondary: color-mix(in oklab, var(--background) 96%, var(--foreground) 4%);
+    --color-background-tertiary: color-mix(in oklab, var(--background) 92%, var(--foreground) 8%);
+    --color-background-quaternary: color-mix(in oklab, var(--background) 86%, var(--foreground) 14%);
+
+    /* Calculated Hover States (Must be re-declared) */
+    --color-default-hover: color-mix(in oklab, var(--default) 80%, transparent);
+    --color-accent-hover: color-mix(in oklab, var(--accent) 90%, var(--accent-foreground) 10%);
+    --color-success-hover: color-mix(in oklab, var(--success) 90%, var(--success-foreground) 10%);
+    --color-warning-hover: color-mix(in oklab, var(--warning) 90%, var(--warning-foreground) 10%);
+    --color-danger-hover: color-mix(in oklab, var(--danger) 90%, var(--danger-foreground) 10%);
+    --color-info-hover: color-mix(in oklab, var(--info) 90%, var(--info-foreground) 10%);
+
+    /* Soft Color Variants (Re-declare to use dark mode semantic colors) */
+    --accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+    --danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
+    --info-soft: color-mix(in oklab, var(--info) 15%, transparent);
+    --success-soft: color-mix(in oklab, var(--success) 15%, transparent);
+    --warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
   }
 }
 
@@ -342,6 +368,8 @@
    ============================================ */
 
 @theme inline {
+  --color-white: var(--white);
+  --color-black: var(--black);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -535,12 +563,56 @@
 
   /* Easing */
   --ease-smooth: ease;
+  --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
   --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
   --ease-fluid-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  --ease-linear: linear;
+
+  /* Animations */
+  --animate-spin-fast: spin 0.75s linear infinite;
+  --animate-skeleton: shimmer 2s linear infinite;
+  --animate-caret-blink: caret-blink 1.2s ease-out infinite;
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(200%);
+    }
+  }
+
+  @keyframes caret-blink {
+
+    0%,
+    70%,
+    100% {
+      opacity: 1;
+    }
+
+    20%,
+    50% {
+      opacity: 0;
+    }
+  }
 
   --color-field-border-focus: color-mix(in oklab,
-      var(--color-field-border) 74%,
-      var(--color-field-foreground) 22%);
+    var(--color-field-border) 74%,
+    var(--color-field-foreground) 22%);
 }
 
 /* ============================================

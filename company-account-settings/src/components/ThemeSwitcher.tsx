@@ -1,26 +1,15 @@
-import { useState, useEffect } from 'react';
+"use client";
+
 import { Button } from '@heroui/react';
 import { Icon } from '@iconify/react';
+import { useTheme } from '../context/ThemeContext';
 
 export function ThemeSwitcher() {
-    const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-        // Get initial theme from HTML element
-        return document.documentElement.getAttribute('data-theme') as 'light' | 'dark' || 'light';
-    });
-
-    useEffect(() => {
-        // Apply theme on mount and when it changes
-        document.documentElement.className = theme;
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    }, [theme]);
-
-    const toggleTheme = () => {
-        setTheme(prev => prev === 'light' ? 'dark' : 'light');
-    };
+    const { theme, toggleTheme } = useTheme();
 
     return (
         <Button
+            isIconOnly
             variant="ghost"
             size="sm"
             onPress={toggleTheme}
@@ -29,7 +18,8 @@ export function ThemeSwitcher() {
         >
             <Icon
                 icon={theme === 'light' ? 'solar:moon-bold' : 'solar:sun-bold'}
-                className="w-5 h-5"
+                className="size-5"
+                aria-hidden="true"
             />
         </Button>
     );

@@ -10,8 +10,6 @@ import { Avatar, Description, Surface, Label, TextField, Modal, Chip, InputGroup
 import { Icon } from '@iconify/react';
 import { COUNTRY_REGIONS } from '../../data/countries';
 
-
-import { ThemeSwitcher } from '../../components/ThemeSwitcher';
 import type { Manager } from '../../types';
 
 export default function AccountSettings() {
@@ -143,7 +141,6 @@ export default function AccountSettings() {
                         <p className="text-foreground/50 mt-1">Manage company details, preferences, and team members.</p>
                     </div>
                     <div className="flex gap-3 items-center">
-                        <ThemeSwitcher />
                         <Button variant="secondary">Discard</Button>
                         <Button variant="primary" onPress={handleSave}>
                             Save

@@ -21,6 +21,239 @@ The Splento identity is built on a foundation of electric energy and premium sim
 | **Splento Cyan** | `#2EDBE3` | Primary Brand |
 | **Canvas** | `#F8F9FA` | Light Background |
 | **Midnight** | `#0D1117` | Dark Background |
+| **Snow** | `#FCFCFC` | Dark Foreground |
+
+### Primitive Colours
+
+Foundational colour values that never change between themes.
+
+| Colour | Hex | Variable | Usage |
+|--------|-----|----------|-------|
+| **White** | `#FFFFFF` | `--white` | Pure white, surfaces |
+| **Black** | `#000000` | `--black` | Pure black |
+| **Eclipse** | `#1F2328` | `--eclipse` | Dark grey, light mode foreground |
+
+### Surface & Overlay Tokens
+
+Used for layered UI components.
+
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `--surface` | `#FFFFFF` | `#1F2328` | Card, panel backgrounds |
+| `--surface-foreground` | `--foreground` | `--foreground` | Text on surfaces |
+| `--overlay` | `#FFFFFF` | `oklch(0.22..)` | Modal, dropdown backgrounds |
+| `--overlay-foreground` | `--foreground` | `--foreground` | Text on overlays |
+
+### Utility Colours
+
+For muted states, defaults, and UI chrome.
+
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `--muted` | `#6B7280` | `#9CA3AF` | Muted UI elements |
+| `--muted-foreground` | `#4B5563` | `#A3A3A3` | Secondary text |
+| `--default` | `#F0F0F1` | `#1F2937` | Neutral button/chip bg |
+| `--default-foreground` | `--eclipse` | `--snow` | Text on default |
+| `--scrollbar` | `#D1D5DB` | `#374151` | Scrollbar colour |
+
+### AI/Premium Accent
+
+A distinct purple accent for AI-powered and premium features.
+
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `--accent-ai` | `#7C3AED` | `#8B5CF6` | AI feature highlights |
+| `--accent-ai-foreground` | `--snow` | `--eclipse` | Text on AI accent |
+
+### Form Field Tokens
+
+Dedicated tokens for input fields and form controls.
+
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `--field-background` | `#FFFFFF` | `--default` | Input background |
+| `--field-foreground` | `--eclipse` | `--foreground` | Input text |
+| `--field-placeholder` | `--muted` | `--muted` | Placeholder text |
+| `--field-border` | `#E5E5E5` | `#374151` | Input border |
+| `--field-radius` | `--radius-md` | `--radius-md` | Input border radius |
+| `--field-border-width` | `0px` | `0px` | Input border width |
+
+### Segment Component
+
+For segmented controls and toggle groups.
+
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `--segment` | `#FFFFFF` | `#4B5563` | Active segment bg |
+| `--segment-foreground` | `--foreground` | `--foreground` | Segment text |
+
+### Soft Colour Variants
+
+Subtle tinted backgrounds for tags, badges, and alerts. Each uses 15% opacity of the base colour.
+
+| Token | Base Colour | Usage |
+|-------|-------------|-------|
+| `--accent-soft` | `--accent` @ 15% | Accent tags, highlights |
+| `--accent-soft-foreground` | `--accent` | Text on accent soft |
+| `--success-soft` | `--success` @ 15% | Success badges |
+| `--success-soft-foreground` | `--success` | Text on success soft |
+| `--warning-soft` | `--warning` @ 15% | Warning alerts |
+| `--warning-soft-foreground` | `--warning` | Text on warning soft |
+| `--danger-soft` | `--danger` @ 15% | Error states |
+| `--danger-soft-foreground` | `--danger` | Text on danger soft |
+| `--info-soft` | `--info` @ 15% | Info messages |
+| `--info-soft-foreground` | `--info` | Text on info soft |
+
+### Shadow System
+
+Layered shadow tokens for depth hierarchy.
+
+| Token | Usage | Note |
+|-------|-------|------|
+| `--surface-shadow` | Cards, panels | Subtle elevation |
+| `--overlay-shadow` | Modals, dropdowns | Medium elevation |
+| `--field-shadow` | Input fields | Subtle inner depth |
+| `--shadow-large` | Hero sections | High elevation |
+| `--shadow-small` | HeroUI alias | Maps to `--surface-shadow` |
+| `--shadow-medium` | HeroUI alias | Maps to `--overlay-shadow` |
+
+> **Note:** Shadows are reduced in dark mode to prevent harsh contrast.
+
+### Spacing & Layout
+
+Base tokens for consistent spacing and layout.
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--spacing` | `0.25rem` | Base spacing unit (4px) |
+| `--border-width` | `0px` | Default border width |
+| `--disabled-opacity` | `0.5` | Disabled state opacity |
+| `--ring-offset-width` | `2px` | Focus ring offset |
+
+### Radius Scale
+
+Border radius tokens for consistent rounding. Base is `0.5rem` (8px).
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--radius` | `0.5rem` | Base radius |
+| `--radius-xs` | `0.125rem` | Extra small elements |
+| `--radius-sm` | `0.25rem` | Small elements |
+| `--radius-md` | `0.375rem` | Small containers |
+| `--radius-lg` | `0.5rem` | Small cards |
+| `--radius-xl` | `0.75rem` | Inputs, fields |
+| `--radius-2xl` | `1rem` | Panels, dialogs |
+| `--radius-3xl` | `1.5rem` | Buttons, Cards |
+| `--radius-4xl` | `2rem` | Large sections |
+| `--radius-full` | `9999px` | Pills, avatars |
+| `--radius-small` | HeroUI alias | Maps to `--radius-sm` |
+| `--radius-medium` | HeroUI alias | Maps to `--radius-md` |
+| `--radius-large` | HeroUI alias | Maps to `--radius-lg` |
+
+### Gradient CSS Variables
+
+Named gradients as CSS custom properties for easy reuse.
+
+| Variable | Colours | Usage |
+|----------|---------|-------|
+| `--gradient-cyan-flow` | Cyan → Cyan-600 | Hero sections |
+| `--gradient-ocean-depth` | Cyan → Electric Blue | AI features |
+| `--gradient-aurora` | Cyan → Lavender → Pink | Creative |
+| `--gradient-sunrise` | Sunset → Coral | Promotions |
+| `--gradient-mint-fresh` | Mint → Cyan | Success |
+| `--gradient-electric-night` | Electric Blue → Cyan → Mint | Dark hero |
+| `--gradient-ai-from` | Purple start | AI gradient start |
+| `--gradient-ai-to` | Blue end | AI gradient end |
+
+### Data Visualisation
+
+CSS variable sequence for charts and graphs (maps to the hex palette in Colour Tokens).
+
+| Variable | Colour | Hex |
+|----------|--------|-----|
+| `--dataviz-1` | Cyan | `#2EDBE3` |
+| `--dataviz-2` | Electric Blue | `#4F46E5` |
+| `--dataviz-3` | Success | `#10B981` |
+| `--dataviz-4` | Warning | `#F59E0B` |
+| `--dataviz-5` | Danger | `#EF4444` |
+| `--dataviz-6` | Lavender | `#A78BFA` |
+| `--dataviz-7` | Sunset | `#FF8C42` |
+| `--dataviz-8` | Mint | `#6EE7B7` |
+
+### Miscellaneous Tokens
+
+Utility tokens for focus states, links, and interaction.
+
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `--separator` | `#F5F5F5` | `#262626` | Dividers, hr |
+| `--focus` | `--accent` | `--accent` | Focus ring colour |
+| `--link` | `--accent` | `--accent` | Link colour |
+| `--ring-color` | `--focus` | `--focus` | Focus ring alias |
+| `--cursor-interactive` | `pointer` | `pointer` | Clickable elements |
+| `--cursor-disabled` | `not-allowed` | `not-allowed` | Disabled elements |
+| `--skeleton-animation` | `shimmer` | `shimmer` | Loading skeleton |
+
+### Easing Functions
+
+| Token | Value | Note |
+|-------|-------|------|
+| `--ease-smooth` | `ease` | General transitions |
+| `--ease-out` | `cubic-bezier(0.215, 0.61, 0.355, 1)` | Exit animations |
+| `--ease-out-expo` | `cubic-bezier(0.19, 1, 0.22, 1)` | Explosive exit |
+| `--ease-fluid-out` | `cubic-bezier(0.32, 0.72, 0, 1)` | Smooth deceleration |
+| `--ease-in-quad` | `cubic-bezier(0.55, 0.085, 0.68, 0.53)` | Subtle acceleration |
+| `--ease-in-out-cubic` | `cubic-bezier(0.645, 0.045, 0.355, 1)` | Smooth start/end |
+
+### Animations
+
+| Token | CSS | Usage |
+|-------|-----|-------|
+| `--animate-spin-fast` | `spin 0.75s linear infinite` | Loaders |
+| `--animate-skeleton` | `shimmer 2s linear infinite` | Loading states |
+| `--animate-caret-blink` | `caret-blink 1.2s ease-out infinite` | Text input cursors |
+
+### Hover State Tokens
+
+Calculated hover states using `color-mix()` for interactive elements.
+
+| Token | Calculation | Usage |
+|-------|-------------|-------|
+| `--color-default-hover` | `--default` @ 80% | Neutral hover |
+| `--color-accent-hover` | `--accent` 90% + foreground 10% | Primary hover |
+| `--color-success-hover` | `--success` 90% + foreground 10% | Success hover |
+| `--color-warning-hover` | `--warning` 90% + foreground 10% | Warning hover |
+| `--color-danger-hover` | `--danger` 90% + foreground 10% | Danger hover |
+| `--color-info-hover` | `--info` 90% + foreground 10% | Info hover |
+| `--color-field-hover` | `--field` 90% + foreground 2% | Input hover |
+| `--color-field-border-hover` | `--field-border` 88% + foreground 10% | Input border hover |
+| `--color-*-soft-hover` | Soft colour @ 20% opacity | Soft variant hover |
+| `--color-content1-hover` | Content1 90% + foreground 10% | Content hover state |
+| `--color-field-border-focus` | Field border 74% + foreground 22% | Focus ring for inputs |
+
+### Surface Levels
+
+Layered surface tokens for elevation hierarchy, calculated with `color-mix()`.
+
+| Token | Calculation | Usage |
+|-------|-------------|-------|
+| `--color-surface-secondary` | Surface 94% + foreground 6% | Elevated cards |
+| `--color-surface-tertiary` | Surface 92% + foreground 8% | Higher elevation |
+| `--color-surface-quaternary` | Surface 86% + foreground 14% | Highest elevation |
+| `--color-background-secondary` | Background 96% + foreground 4% | Subtle sections |
+| `--color-background-tertiary` | Background 92% + foreground 8% | Deeper sections |
+| `--color-background-quaternary` | Background 86% + foreground 14% | Deepest sections |
+
+### On-Surface Tokens
+
+For interactive elements that sit on surfaces.
+
+| Token | Calculation | Usage |
+|-------|-------------|-------|
+| `--color-on-surface` | Surface 93% + foreground 7% | Buttons on cards |
+| `--color-on-surface-foreground` | `--surface-foreground` | Text on on-surface |
+| `--color-on-surface-hover` | Surface 91% + foreground 9% | Hover state |
+| `--color-on-surface-focus` | `--on-surface` | Focus state |
 
 ### CSS Variables (Copy-Paste Ready)
 
@@ -29,12 +262,138 @@ The Splento identity is built on a foundation of electric energy and premium sim
   /* Font */
   --font-sans: 'Libre Franklin', ui-sans-serif, system-ui, sans-serif;
 
+  /* Spacing & Layout */
+  --spacing: 0.25rem;
+  --border-width: 0px;
+  --disabled-opacity: 0.5;
+  --ring-offset-width: 2px;
+
+  /* Shadows */
+  --surface-shadow:
+    0 2px 4px 0 rgb(0 0 0 / 0.02),
+    0 1px 2px 0 rgb(0 0 0 / 0.03),
+    0 0 1px 0 rgb(0 0 0 / 0.03);
+  --overlay-shadow:
+    0 4px 16px 0 rgb(24 24 27 / 0.08),
+    0 8px 24px 0 rgb(24 24 27 / 0.09);
+  --field-shadow:
+    0 2px 4px 0 rgb(0 0 0 / 0.04),
+    0 1px 2px 0 rgb(0 0 0 / 0.06),
+    0 0 1px 0 rgb(0 0 0 / 0.06);
+  --shadow-large:
+    0 10px 40px 0 rgb(24 24 27 / 0.12),
+    0 20px 50px 0 rgb(24 24 27 / 0.10);
+  --shadow-small: var(--surface-shadow);
+  --shadow-medium: var(--overlay-shadow);
+
+  /* Radius Scale */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: calc(var(--radius) * 1);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 3);
+  --radius-4xl: calc(var(--radius) * 4);
+  --radius-small: var(--radius-sm);
+  --radius-medium: var(--radius-md);
+  --radius-large: var(--radius-lg);
+  --field-radius: var(--radius-md);
+
+  /* Gradient Variables */
+  --gradient-cyan-flow: linear-gradient(135deg, var(--splento-cyan) 0%, var(--cyan-600) 100%);
+  --gradient-ocean-depth: linear-gradient(135deg, var(--splento-cyan) 0%, var(--electric-blue) 100%);
+  --gradient-aurora: linear-gradient(135deg, var(--splento-cyan) 0%, var(--lavender) 50%, var(--pink-400) 100%);
+  --gradient-sunrise: linear-gradient(135deg, var(--sunset) 0%, var(--coral) 100%);
+  --gradient-mint-fresh: linear-gradient(135deg, var(--mint) 0%, var(--splento-cyan) 100%);
+  --gradient-electric-night: linear-gradient(135deg, var(--electric-blue) 0%, var(--splento-cyan) 50%, var(--mint) 100%);
+  --gradient-ai-from: oklch(0.55 0.27 290);
+  --gradient-ai-to: oklch(0.55 0.22 262);
+
   /* Core Brand */
   --splento-cyan: oklch(0.82 0.15 192);
   --canvas: oklch(0.98 0.002 264);
   --midnight: oklch(0.17 0.02 265);
   --snow: oklch(0.9911 0 0); /* #FCFCFC approx */
   --surface: oklch(1 0 0); /* #FFFFFF */
+
+  /* Primitives */
+  --white: oklch(100% 0 0); /* #FFFFFF */
+  --black: oklch(0% 0 0); /* #000000 */
+  --eclipse: oklch(0.2103 0.0059 285.89); /* #1F2328 */
+
+  /* Content Hierarchy (HeroUI v3)
+     Used for layered component backgrounds (cards, modals, popovers).
+     content1 = base, content4 = deepest layer. */
+  --content1: var(--white);
+  --content2: oklch(0.98 0 0);
+  --content3: oklch(0.96 0 0);
+  --content4: oklch(0.94 0 0);
+
+  /* Surface & Overlay */
+  --surface: var(--white);
+  --surface-foreground: var(--foreground);
+  --overlay: var(--white);
+  --overlay-foreground: var(--foreground);
+
+  /* Utility Colours */
+  --muted: oklch(0.5517 0.0138 285.94);
+  --muted-foreground: oklch(0.45 0.01 286);
+  --default: oklch(94% 0.001 286.375);
+  --default-foreground: var(--eclipse);
+  --scrollbar: oklch(87.1% 0.006 286.286);
+
+  /* AI/Premium Accent */
+  --accent-ai: oklch(0.65 0.25 290);
+  --accent-ai-foreground: var(--snow);
+
+  /* Form Field Tokens */
+  --field-background: var(--white);
+  --field-foreground: var(--eclipse);
+  --field-placeholder: var(--muted);
+  --field-border: oklch(0.90 0.001 286.375);
+  --field-radius: var(--radius-md);
+  --field-border-width: var(--border-width);
+
+  /* Segment Component */
+  --segment: var(--white);
+  --segment-foreground: var(--foreground);
+
+  /* Soft Colour Variants */
+  --accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+  --accent-soft-foreground: var(--accent);
+  --success-soft: color-mix(in oklab, var(--success) 15%, transparent);
+  --success-soft-foreground: var(--success);
+  --warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
+  --warning-soft-foreground: var(--warning);
+  --danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
+  --danger-soft-foreground: var(--danger);
+  --info-soft: color-mix(in oklab, var(--info) 15%, transparent);
+  --info-soft-foreground: var(--info);
+
+  /* Data Visualisation Sequence */
+  --dataviz-1: var(--splento-cyan);
+  --dataviz-2: var(--electric-blue);
+  --dataviz-3: var(--success);
+  --dataviz-4: var(--warning);
+  --dataviz-5: var(--danger);
+  --dataviz-6: var(--lavender);
+  --dataviz-7: var(--sunset);
+  --dataviz-8: var(--mint);
+
+  /* Miscellaneous */
+  --separator: oklch(96% 0.002 286.32);
+  --focus: var(--accent);
+  --link: var(--accent);
+  --ring-color: var(--focus);
+  --cursor-interactive: pointer;
+  --cursor-disabled: not-allowed;
+  --skeleton-animation: shimmer;
+
+  /* Easing Functions */
+  --ease-smooth: ease;
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-fluid-out: cubic-bezier(0.32, 0.72, 0, 1);
   
   /* Cyan Scale */
   --cyan-50: oklch(0.97 0.03 192);
@@ -56,18 +415,19 @@ The Splento identity is built on a foundation of electric energy and premium sim
   --info: oklch(0.59 0.15 250);
 
   /* Accents */
-  --coral: oklch(0.68 0.19 20);
-  --peach: oklch(0.82 0.11 55);
-  --sunset: oklch(0.72 0.16 45);
-  --electric-blue: oklch(0.48 0.2 265);
-  --mint: oklch(0.85 0.13 165);
-  --lavender: oklch(0.71 0.15 295);
+  --coral: oklch(0.68 0.20 25);
+  --peach: oklch(0.82 0.12 55);
+  --sunset: oklch(0.72 0.18 45);
+  --electric-blue: oklch(0.50 0.25 265);
+  --mint: oklch(0.85 0.14 160);
+  --lavender: oklch(0.72 0.18 295);
+  --pink-400: oklch(0.72 0.19 350);
 
   /* Semantic Foregrounds */
-  --success-foreground: oklch(1 0 0);
-  --warning-foreground: oklch(0 0 0);
-  --danger-foreground: oklch(1 0 0);
-  --info-foreground: oklch(1 0 0);
+  --success-foreground: var(--eclipse);
+  --warning-foreground: var(--eclipse);
+  --danger-foreground: var(--snow);
+  --info-foreground: var(--snow);
 
   /* Neutrals (Grey Scale) */
   --grey-50: oklch(0.985 0.002 247.839);
@@ -83,23 +443,93 @@ The Splento identity is built on a foundation of electric energy and premium sim
   --grey-950: oklch(0.14 0.005 285.823);
 
   /* Base Defaults */
-  --background: var(--canvas);
-  --foreground: var(--grey-900);
-  --border: var(--grey-200);
+  --background: oklch(0.99 0 0);
+  --foreground: var(--eclipse);
+  --border: oklch(0.90 0.001 286.375);
 }
 
 /* Dark Mode Overrides */
+.dark,
 [data-theme="dark"] {
-  --background: var(--midnight);
+  --background: oklch(0.140 0.005 285.89);
   --foreground: var(--snow);
-  --surface: oklch(0.23 0.02 250); /* #161B22 */
-  --border: var(--grey-700);
+  --surface: oklch(0.2103 0.0059 285.89); /* #1F2328 */
+  --border: oklch(30% 0.006 286.033);
+
+  /* Shadows (reduced for dark mode) */
+  --surface-shadow: 0 0 0 0 transparent inset;
+  --overlay-shadow: 0 8px 24px 0 rgb(0 0 0 / 0.4);
+  --field-shadow: 0 0 0 0 transparent inset;
+  --shadow-large: 0 12px 40px 0 rgb(0 0 0 / 0.5);
+
+  /* Content Hierarchy (HeroUI v3)
+     Used for layered component backgrounds (cards, modals, popovers).
+     content1 = base, content4 = deepest layer. */
+  --content1: oklch(0.22 0.006 286);
+  --content2: oklch(0.25 0.006 286);
+  --content3: oklch(0.28 0.006 286);
+  --content4: oklch(0.31 0.006 286);
+
+  /* Surface & Overlay */
+  --surface-foreground: var(--foreground);
+  --overlay: oklch(0.22 0.0059 285.89);
+  --overlay-foreground: var(--foreground);
+
+  /* Utility Colours */
+  --muted: oklch(70.5% 0.015 286.067);
+  --muted-foreground: oklch(0.65 0.01 286);
+  --default: oklch(27.4% 0.006 286.033);
+  --default-foreground: var(--snow);
+  --scrollbar: oklch(30% 0.006 286.286);
+
+  /* AI/Premium Accent */
+  --accent-ai: oklch(0.70 0.25 290);
+  --accent-ai-foreground: var(--eclipse);
+  --gradient-ai-from: oklch(0.65 0.27 290);
+  --gradient-ai-to: oklch(0.65 0.22 262);
+
+  /* Form Field Tokens */
+  --field-background: var(--default);
+  --field-foreground: var(--foreground);
+  --field-placeholder: var(--muted);
+  --field-border: oklch(30% 0.006 286.033);
+
+  /* Segment Component */
+  --segment: oklch(0.3964 0.01 285.93);
+  --segment-foreground: var(--foreground);
 
   /* Semantic Overrides */
   --success: oklch(0.79 0.17 162);
   --warning: oklch(0.85 0.145 85);
   --danger: oklch(0.71 0.19 25);
   --info: oklch(0.69 0.15 250);
+
+  /* Miscellaneous */
+  --separator: oklch(22% 0.006 286.033);
+
+  /* Calculated Surface Levels (Must be re-declared to use dark mode base) */
+  --color-surface-secondary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
+  --color-surface-tertiary: color-mix(in oklab, var(--surface) 92%, var(--surface-foreground) 8%);
+  --color-surface-quaternary: color-mix(in oklab, var(--surface) 86%, var(--default-foreground) 14%);
+
+  --color-background-secondary: color-mix(in oklab, var(--background) 96%, var(--foreground) 4%);
+  --color-background-tertiary: color-mix(in oklab, var(--background) 92%, var(--foreground) 8%);
+  --color-background-quaternary: color-mix(in oklab, var(--background) 86%, var(--foreground) 14%);
+
+  /* Calculated Hover States (Must be re-declared) */
+  --color-default-hover: color-mix(in oklab, var(--default) 80%, transparent);
+  --color-accent-hover: color-mix(in oklab, var(--accent) 90%, var(--accent-foreground) 10%);
+  --color-success-hover: color-mix(in oklab, var(--success) 90%, var(--success-foreground) 10%);
+  --color-warning-hover: color-mix(in oklab, var(--warning) 90%, var(--warning-foreground) 10%);
+  --color-danger-hover: color-mix(in oklab, var(--danger) 90%, var(--danger-foreground) 10%);
+  --color-info-hover: color-mix(in oklab, var(--info) 90%, var(--info-foreground) 10%);
+
+  /* Soft Color Variants (Re-declare to use dark mode semantic colors) */
+  --accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+  --danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
+  --info-soft: color-mix(in oklab, var(--info) 15%, transparent);
+  --success-soft: color-mix(in oklab, var(--success) 15%, transparent);
+  --warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
 }
 ```
 
@@ -117,6 +547,7 @@ Used sparingly to provide character and semantic meaning beyond the core set.
 | **Electric Blue** | `#4F46E5` | `--electric-blue` | Tech, AI features |
 | **Mint** | `#6EE7B7` | `--mint` | Fresh, growth |
 | **Lavender** | `#A78BFA` | `--lavender` | Premium, unique |
+| **Pink 400** | `#F472B6` | `--pink-400` | Aurora gradient |
 
 ---
 
@@ -146,10 +577,10 @@ Functional colours for user feedback. Always use with their corresponding `-fore
 
 | Role | Variable | Hex (Light / Dark) | When to Use | Foreground Token (Value) |
 |------|----------|--------------------|-------------|--------------------------|
-| **Success** | `--success` | `#10B981` / `#34D399` | Form submission, success | `--success-foreground` (#FFFFFF) |
-| **Warning** | `--warning` | `#F59E0B` / `#FBBF24` | Validation, alerts | `--warning-foreground` (#000000) |
-| **Danger** | `--danger` | `#EF4444` / `#F87171` | Errors, destructive | `--danger-foreground` (#FFFFFF) |
-| **Info** | `--info` | `#3B82F6` / `#60A5FA` | Messages, help text | `--info-foreground` (#FFFFFF) |
+| **Success** | `--success` | `#10B981` / `#34D399` | Form submission, success | `--success-foreground` (`--eclipse`) |
+| **Warning** | `--warning` | `#F59E0B` / `#FBBF24` | Validation, alerts | `--warning-foreground` (`--eclipse`) |
+| **Danger** | `--danger` | `#EF4444` / `#F87171` | Errors, destructive | `--danger-foreground` (`--snow`) |
+| **Info** | `--info` | `#3B82F6` / `#60A5FA` | Messages, help text | `--info-foreground` (`--snow`) |
 
 ### 3. Neutral Greys
 
@@ -184,7 +615,7 @@ A distinct palette of 8 colours designed for charts and graphs.
 7. **Orange** (`#FF8C42`)
 8. **Mint** (`#6EE7B7`)
 
-> **Note:** Data visualisation colours do not have CSS variables. Use Hex values directly for charting libraries.
+> **Note:** Data visualisation colours are available as CSS variables (`--dataviz-1` to `--dataviz-8`). Use these variables in CSS or pass hex values directly to charting libraries.
 
 ---
 
@@ -294,11 +725,69 @@ export function MyCard({ title, children }) {
 }
 ```
 
+### State-Based Styling
+
+HeroUI components expose their state through data attributes. You can target these states in CSS:
+
+```css
+/* Hover state */
+.button[data-hover="true"], 
+.button:hover {
+  background: var(--accent-hover);
+}
+
+/* API-managed states */
+.button[data-pressed="true"] {
+  transform: scale(0.97);
+}
+
+.button[data-focus-visible="true"] {
+  outline: 2px solid var(--focus);
+}
+```
+
 ### When NOT to use
 
 * **DON'T** use Gradients on small text or buttons (readability issues).
 * **DON'T** mix `grey-` scales with Semantic colors (e.g. don't use `grey-500` for disabled states, use `opacity` or specific disabled tokens).
 * **DON'T** use **Splento Cyan** for body text (it's too bright; use Ocean Depth or Midnight).
+
+### AI Gradient Components
+
+Special CSS classes for AI-powered and premium features.
+
+```css
+/* Apply to buttons */
+.button--ai-gradient {
+  background-image: linear-gradient(135deg, var(--gradient-ai-from), var(--gradient-ai-to));
+  background-size: 200% 200%;
+  transition: background-position 300ms ease;
+  color: var(--white);
+  border: none;
+}
+
+.button--ai-gradient:hover {
+  background-position: 100% 100%;
+}
+
+/* Apply to badges */
+.badge--ai-gradient {
+  background-image: linear-gradient(135deg, var(--gradient-ai-from), var(--gradient-ai-to));
+  box-shadow: 0 10px 15px -3px rgb(147 51 234 / 0.2);
+  color: var(--white);
+}
+```
+
+**Usage:**
+
+```tsx
+<Button className="button--ai-gradient">
+  <Sparkles className="w-4 h-4 mr-2" />
+  AI Suggestion
+</Button>
+
+<Badge className="badge--ai-gradient">Premium</Badge>
+```
 
 ---
 
@@ -310,10 +799,11 @@ We use HeroUI v3's theming engine with CSS variables and `oklch` color space.
 
 | Variable | Light Theme | Dark Theme |
 |----------|-------------|------------|
-| `--background` | `--canvas` (#F8F9FA) | `--midnight` (#0D1117) |
-| `--foreground` | `--grey-900` | `--snow` (Off-white) |
-| `--surface` | `#FFFFFF` | `#161B22` |
-| `--border` | `--grey-200` | `--grey-700` |
+| `--background` | `oklch(0.99 0 0)` | `oklch(0.140 0.005 285.89)` |
+| `--foreground` | `--eclipse` (#1F2328) | `--snow` (#FCFCFC) |
+| `--surface` | `--white` (#FFFFFF) | `oklch(0.2103 0.0059 285.89)` |
+| `--border` | `oklch(0.90 0.001 286.375)` | `oklch(30% 0.006 286.033)` |
+| `--accent` | `--splento-cyan` | `oklch(0.85 0.14 192)` — brighter for dark backgrounds |
 
 ### Switching Themes
 
@@ -328,16 +818,28 @@ The design system supports instant switching. Use the `ThemeSwitcher` component 
 
 ## Tailwind Class Mapping
 
-For AI Assistants and Developers:
+All CSS variables defined with `--color-*` in the `@theme inline` block (see `index.css`) automatically become Tailwind utility classes:
 
-| Design Token | Tailwind Class | Usage |
-|--------------|----------------|-------|
+| CSS Variable Pattern | Generated Tailwind Classes |
+|---------------------|---------------------------|
+| `--color-{name}` | `bg-{name}`, `text-{name}`, `border-{name}` |
+| `--color-{name}-foreground` | `text-{name}-foreground` |
+
+> **Tip:** If `--color-surface` exists, you can use `bg-surface`, `text-surface`, `border-surface` in your JSX.
+
+### Common Examples
+
+| Design Token | Tailwind Classes | Usage |
+|--------------|-----------------|-------|
 | `--splento-cyan` | `bg-accent`, `text-accent` | Primary actions |
 | `--canvas` | `bg-background` | Page background (light) |
-| `--midnight` | `bg-background` | Page background (dark) |
-| `--grey-500` | `text-muted` | Secondary text |
+| `--surface` | `bg-surface`, `text-surface-foreground` | Cards, panels |
+| `--muted` | `text-muted`, `text-muted-foreground` | Secondary text |
 | `--success` | `bg-success`, `text-success` | Success states |
 | `--danger` | `bg-danger`, `text-danger` | Error states |
+| `--accent-soft` | `bg-accent-soft`, `text-accent-soft-foreground` | Soft tags |
+| `--grey-500` | `bg-grey-500`, `text-grey-500` | Neutral scale |
+| `--dataviz-1` | `bg-dataviz-1`, `text-dataviz-1` | Charts |
 
 ---
 

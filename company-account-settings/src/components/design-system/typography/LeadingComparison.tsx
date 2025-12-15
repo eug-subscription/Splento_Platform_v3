@@ -15,7 +15,7 @@ export function LeadingComparison() {
                         <p className="text-xs text-splento-cyan">{ex.use}</p>
                     </div>
                     <div
-                        className="flex-1 p-4 rounded-lg bg-snow dark:bg-surface"
+                        className="flex-1 p-4 rounded-lg bg-snow dark:bg-grey-800"
                     >
                         <p
                             className={`${ex.leading === '1.0' ? 'text-2xl font-bold' : ex.leading === '1.25' ? 'text-xl font-semibold' : 'text-base'} text-midnight dark:text-snow`}

@@ -12,7 +12,7 @@ export function DataChart() {
     const maxVal = Math.max(...data.map(d => d.value));
 
     return (
-        <div className="p-4 rounded-xl shadow-sm h-full bg-white dark:bg-surface">
+        <div className="p-4 rounded-xl shadow-sm h-full bg-white dark:bg-grey-800">
             <p className="text-sm font-medium mb-4 text-midnight dark:text-snow">Data Visualisation Palette</p>
             <div className="flex items-end gap-2" style={{ height: '128px' }}>
                 {data.map((item, i) => (

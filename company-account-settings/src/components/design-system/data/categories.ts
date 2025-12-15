@@ -23,11 +23,12 @@ export const categories = [
         active: false
     },
     {
-        id: 'spacing',
-        title: 'Spacing',
-        icon: '⊞',
-        description: 'Coming soon',
-        active: false
+        id: 'foundations',
+        title: 'Foundations',
+        icon: '📐',
+        description: 'Spacing, Radius, Motion',
+        active: true,
+        preview: null
     },
     {
         id: 'components',

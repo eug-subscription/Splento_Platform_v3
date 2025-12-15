@@ -33,7 +33,7 @@ export function TypographyContent() {
             {/* Font Family Info */}
             <Section title="Font Family">
                 <div
-                    className="p-6 rounded-xl mb-6 font-sans bg-grey-50 dark:bg-surface"
+                    className="p-6 rounded-xl mb-6 font-sans bg-grey-50 dark:bg-grey-800"
                 >
                     <p
                         className="text-6xl font-bold mb-4 font-sans text-midnight dark:text-snow"
@@ -94,7 +94,7 @@ export function TypographyContent() {
             {/* Hierarchy Example */}
             <Section title="Typographic Hierarchy">
                 <div
-                    className="p-6 rounded-xl bg-white dark:bg-surface border border-grey-200 dark:border-border"
+                    className="p-6 rounded-xl bg-white dark:bg-grey-800 border border-grey-200 dark:border-border"
                 >
                     <p
                         className="text-xs uppercase tracking-widest mb-2 font-medium text-splento-cyan"
@@ -150,7 +150,7 @@ export function TypographyContent() {
             <Section title="Line Length (Measure)">
                 <ParagraphExample />
                 <div
-                    className="mt-6 p-4 rounded-lg bg-grey-50 dark:bg-surface"
+                    className="mt-6 p-4 rounded-lg bg-grey-50 dark:bg-grey-800"
                 >
                     <p className="text-sm text-grey-500 dark:text-muted">
                         <strong>Recommended:</strong> 45-75 characters per line for body text.
