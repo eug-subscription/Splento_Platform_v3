@@ -1,5 +1,5 @@
 // Components
-export { BottomTabBar } from './BottomTabBar';
+
 export { LeftMenu } from './LeftMenu';
 export { MobileHeader } from './MobileHeader';
 export { MobileNavigation } from './MobileNavigation';
