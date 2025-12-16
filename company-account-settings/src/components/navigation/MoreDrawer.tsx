@@ -9,6 +9,7 @@ import type { MobileNavigationProps } from "../../types/navigation";
 interface MoreDrawerProps extends Omit<MobileNavigationProps, 'currentPath'> {
     isOpen: boolean;
     onOpenChange: (isOpen: boolean) => void;
+    sections?: import("../../types/navigation").NavigationSection[];
 }
 
 export function MoreDrawer({

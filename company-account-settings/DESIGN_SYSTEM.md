@@ -666,6 +666,63 @@ Use these named gradients for high-impact areas.
 | **Mint Fresh** | `linear-gradient(135deg, #6EE7B7 0%, #2EDBE3 100%)` | Success |
 | **Electric Night** | `linear-gradient(135deg, #4F46E5 0%, #2EDBE3 50%, #6EE7B7 100%)` | Dark hero |
 
+| **Electric Night** | `linear-gradient(135deg, #4F46E5 0%, #2EDBE3 50%, #6EE7B7 100%)` | Dark hero |
+
+### Liquid Glass Gradients
+
+Premium backdrop gradients for immersive layouts, inspired by iOS 26 Liquid Glass.
+
+| Variable | Mode | Colours | Usage |
+|----------|------|---------|-------|
+| `--gradient-liquid-glass-light` | Light | Orange/Peach, Cyan, Pink | Light mode backdrop |
+| `--gradient-liquid-glass-dark` | Dark | Deep Purple, Dark Blue, Dark Magenta | Dark mode backdrop |
+| `--gradient-liquid-backdrop` | Adaptive | Auto-switches based on theme | Use this in components |
+
+**CSS Class:** `.gradient-liquid-backdrop`
+
+**Usage:**
+
+```tsx
+<div className="gradient-liquid-backdrop min-h-screen">
+  {/* Content */}
+</div>
+```
+
+> **Note:** These gradients use `hsla()` values (not `oklch()`) to match the original iOS 26 visual fidelity.
+
+### Liquid Glass Navigation
+
+A specialized component for the bottom mobile navigation bar, featuring a premium "Liquid Glass" effect (iOS 26 style).
+
+**CSS Class:** `.liquid-glass-container`
+
+**Key Features:**
+* **Dynamic Blur:** Uses `backdrop-filter: blur(24px)` for a frosted look.
+* **Convex Illusion:** A radial gradient overlay creates a lens-like curvature.
+* **Specular Highlight:** Top edge glint (`inset 0 1px 1px`) simulates light hitting glass.
+* **Depth:** Inner shadow at the bottom and floating drop shadow.
+
+**Purpose:** Creates a premium, translucent container that adapts to the system theme using `color-mix()` and `backdrop-filter`.
+
+**Exception to Rule #0:**
+> [!NOTE]
+> This component acts as an **APPROVED EXCEPTION** to standard HeroUI usage.
+> It uses **native HTML `<button>` elements** instead of HeroUI's `<Button>` to maintain precise control over the stacking context, z-index, and backdrop-filter rendering required for the "Liquid Glass" effect.
+
+**Usage:**
+
+```tsx
+<div className="liquid-glass-container relative">
+  <ul className="flex relative p-1.5 gap-1">
+    {/* Native button required for this specific effect */}
+    <button className="liquid-glass-item flex-col gap-1">
+      <Icon icon="gravity-ui:house" />
+      <span className="text-xs">Home</span>
+    </button>
+  </ul>
+</div>
+```
+
 ---
 
 ## Accessibility & Contrast

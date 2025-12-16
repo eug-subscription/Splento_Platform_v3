@@ -58,6 +58,7 @@ export const colors = {
         { name: 'Sunrise', css: 'linear-gradient(135deg, #FF8C42 0%, #FF6B6B 100%)', variable: '--gradient-sunrise', use: 'Promotions' },
         { name: 'Mint Fresh', css: 'linear-gradient(135deg, #6EE7B7 0%, #2EDBE3 100%)', variable: '--gradient-mint-fresh', use: 'Success' },
         { name: 'Electric Night', css: 'linear-gradient(135deg, #4F46E5 0%, #2EDBE3 50%, #6EE7B7 100%)', variable: '--gradient-electric-night', use: 'Dark hero' },
+
     ],
     dataViz: [
         { hex: '#2EDBE3', name: 'Cyan', variable: '--dataviz-1', bgClass: 'bg-splento-cyan' },
