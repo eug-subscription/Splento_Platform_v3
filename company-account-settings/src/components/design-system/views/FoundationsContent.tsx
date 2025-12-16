@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Card, Chip, Skeleton } from '@heroui/react';
+import { Card, Chip, Skeleton, Surface } from '@heroui/react';
 import { foundations } from '../data/foundations';
 import { Section } from '../primitives/Section';
 import { SwatchButton } from '../primitives/SwatchButton';
@@ -24,10 +24,9 @@ function SurfaceStack() {
                 </div>
 
                 {/* Surface */}
-                <div
-                    className="mt-3 rounded-lg p-3 transition-colors duration-300 relative"
+                <Surface
+                    className="rounded-xl mt-3 p-3 transition-colors duration-300 relative"
                     style={{
-                        backgroundColor: 'var(--surface)',
                         height: '260px',
                         boxShadow: 'var(--surface-shadow)'
                     }}
@@ -37,35 +36,38 @@ function SurfaceStack() {
                     </span>
 
                     {/* Secondary */}
-                    <div
-                        className="rounded-lg p-3 transition-colors duration-300"
-                        style={{ backgroundColor: 'var(--color-surface-secondary)', height: '200px' }}
+                    <Surface
+                        variant="secondary"
+                        className="rounded-xl p-3 transition-colors duration-300 bg-[var(--color-surface-secondary)]"
+                        style={{ height: '200px' }}
                     >
                         <span className="text-xs font-mono px-2 py-1 rounded select-none inline-block mb-2" style={labelStyle}>
                             --surface-secondary
                         </span>
 
                         {/* Tertiary */}
-                        <div
-                            className="rounded-lg p-3 transition-colors duration-300"
-                            style={{ backgroundColor: 'var(--color-surface-tertiary)', height: '140px' }}
+                        <Surface
+                            variant="tertiary"
+                            className="rounded-xl p-3 transition-colors duration-300 bg-[var(--color-surface-tertiary)]"
+                            style={{ height: '140px' }}
                         >
                             <span className="text-xs font-mono px-2 py-1 rounded select-none inline-block mb-2" style={labelStyle}>
                                 --surface-tertiary
                             </span>
 
                             {/* Quaternary */}
-                            <div
-                                className="rounded-md p-2 flex items-center transition-colors duration-300"
-                                style={{ backgroundColor: 'var(--color-surface-quaternary)', height: '60px' }}
+                            <Surface
+                                variant="quaternary"
+                                className="rounded-xl p-2 flex items-center transition-colors duration-300 bg-[var(--color-surface-quaternary)]"
+                                style={{ height: '60px' }}
                             >
                                 <span className="text-xs font-mono px-2 py-1 rounded select-none" style={labelStyle}>
                                     --surface-quaternary
                                 </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </Surface>
+                        </Surface>
+                    </Surface>
+                </Surface>
             </div>
 
             {/* Overlay - FLOATING with shadow */}
@@ -142,30 +144,28 @@ export function FoundationsContent() {
                     </div>
 
                     {/* Formula */}
-                    <Card className="bg-grey-50 dark:bg-grey-800 w-fit border-none shadow-none rounded-xl">
-                        <Card.Content className="p-4">
-                            <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-                                <div className="flex items-center gap-2">
-                                    <span className="font-bold text-foreground font-sans">Formula:</span>
-                                    <span className="font-mono">spacing = multiplier × 0.25rem (4px)</span>
-                                </div>
-                                <div className="flex items-center gap-2 font-sans">
-                                    <span>Use Tailwind classes:</span>
-                                    <div className="flex items-center">
-                                        <Chip size="sm" variant="soft" className="bg-grey-200 dark:bg-grey-700 h-6 min-h-6 rounded-md px-2 font-mono text-xs font-medium text-foreground">p-4</Chip>
-                                        <span className="font-mono mx-1.5">= 1rem,</span>
-                                        <Chip size="sm" variant="soft" className="bg-grey-200 dark:bg-grey-700 h-6 min-h-6 rounded-md px-2 font-mono text-xs font-medium text-foreground">gap-6</Chip>
-                                        <span className="font-mono ml-1.5">= 1.5rem</span>
-                                    </div>
+                    <Surface variant="secondary" className="w-fit border-none shadow-none p-4 rounded-xl">
+                        <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-2">
+                                <span className="font-bold text-foreground font-sans">Formula:</span>
+                                <span className="font-mono">spacing = multiplier × 0.25rem (4px)</span>
+                            </div>
+                            <div className="flex items-center gap-2 font-sans">
+                                <span>Use Tailwind classes:</span>
+                                <div className="flex items-center">
+                                    <Chip size="sm" variant="soft" className="bg-grey-200 dark:bg-grey-700 h-6 min-h-6 rounded-md px-2 font-mono text-xs font-medium text-foreground">p-4</Chip>
+                                    <span className="font-mono mx-1.5">= 1rem,</span>
+                                    <Chip size="sm" variant="soft" className="bg-grey-200 dark:bg-grey-700 h-6 min-h-6 rounded-md px-2 font-mono text-xs font-medium text-foreground">gap-6</Chip>
+                                    <span className="font-mono ml-1.5">= 1.5rem</span>
                                 </div>
                             </div>
-                        </Card.Content>
-                    </Card>
+                        </div>
+                    </Surface>
                 </div>
-            </Section>
+            </Section >
 
             {/* Radius */}
-            <Section title="Border Radius">
+            < Section title="Border Radius" >
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
                     {foundations.radius.map((r) => (
                         <Card key={r.name} className="flex flex-col items-center p-3 bg-grey-50 dark:bg-grey-800 border-none h-full ml-1 mr-1 rounded-lg">
@@ -181,16 +181,16 @@ export function FoundationsContent() {
                         </Card>
                     ))}
                 </div>
-            </Section>
+            </Section >
 
             {/* Shadows */}
-            <Section title="Shadows & Elevation">
-                <div className="rounded-2xl bg-grey-50 dark:bg-grey-950 p-8">
+            < Section title="Shadows & Elevation" >
+                <Surface variant="secondary" className="rounded-2xl p-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         {foundations.shadows.map((shadow) => (
                             <div key={shadow.name} className="flex flex-col gap-4 text-center group">
-                                <div
-                                    className="aspect-[3/2] bg-surface rounded-xl flex items-center justify-center transition-transform duration-300 hover:scale-[1.02]"
+                                <Surface
+                                    className="aspect-[3/2] rounded-xl flex items-center justify-center transition-transform duration-300 hover:scale-[1.02]"
                                     style={{ boxShadow: `var(${shadow.variable})` }}
                                 >
                                     <Chip
@@ -200,7 +200,7 @@ export function FoundationsContent() {
                                     >
                                         {shadow.label}
                                     </Chip>
-                                </div>
+                                </Surface>
                                 <div>
                                     <div className="font-bold text-sm text-foreground mb-1">{shadow.name}</div>
                                     <div className="text-xs text-muted-foreground">{shadow.usage}</div>
@@ -211,11 +211,11 @@ export function FoundationsContent() {
                     <div className="mt-8 text-center text-xs text-muted-foreground font-medium opacity-70">
                         Note: Shadows are reduced in dark mode to prevent harsh contrast.
                     </div>
-                </div>
-            </Section>
+                </Surface>
+            </Section >
 
             {/* Surface Layers */}
-            <Section title="Surface Layers">
+            < Section title="Surface Layers" >
                 <div className="flex flex-col gap-8">
                     <p className="text-sm text-muted-foreground">
                         Layered surfaces for visual hierarchy. Surface levels are calculated via color-mix() for consistent theming. Click any token to copy.
@@ -363,7 +363,7 @@ export function FoundationsContent() {
                     </div>
 
                     {/* Usage Guidance */}
-                    <div className="p-5 rounded-xl bg-grey-50 dark:bg-grey-800">
+                    <Surface className="p-5 rounded-xl bg-[var(--color-surface-secondary)]">
                         <h4 className="text-sm font-semibold mb-3 text-foreground">
                             When to use which?
                         </h4>
@@ -387,16 +387,16 @@ export function FoundationsContent() {
                                 </span>
                             </li>
                         </ul>
-                    </div>
+                    </Surface>
                 </div>
-            </Section>
+            </Section >
 
-            {/* Motion */}
-            <Section title="Motion & Animation">
+            {/* Motion & Animation */}
+            < Section title="Motion & Animation" >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                         <h4 className="font-semibold mb-4 text-foreground px-1">Easing Functions</h4>
-                        <div className="p-6 rounded-2xl bg-grey-50 dark:bg-grey-950 grid grid-cols-1 gap-4">
+                        <Surface variant="secondary" className="p-6 rounded-2xl grid grid-cols-1 gap-4">
                             {foundations.motion.easing.map((ease) => (
                                 <Card key={ease.name} className="group cursor-default p-4 flex flex-col gap-3 w-full text-foreground bg-surface">
                                     <div className="flex justify-between items-start w-full">
@@ -416,12 +416,12 @@ export function FoundationsContent() {
                                     </div>
                                 </Card>
                             ))}
-                        </div>
+                        </Surface>
                     </div>
 
                     <div>
                         <h4 className="font-semibold mb-4 text-foreground px-1">Animations</h4>
-                        <div className="p-6 rounded-2xl bg-grey-50 dark:bg-grey-950 grid grid-cols-2 gap-4">
+                        <Surface variant="secondary" className="p-6 rounded-2xl grid grid-cols-2 gap-4">
                             <Card className="p-4 flex flex-col items-center justify-center gap-3 text-foreground bg-surface">
                                 <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
                                 <div className="flex flex-col items-center gap-1 text-center">
@@ -464,13 +464,13 @@ export function FoundationsContent() {
                                     </div>
                                 </div>
                             </Card>
-                        </div>
+                        </Surface>
                     </div>
                 </div>
-            </Section>
+            </Section >
 
             {/* CSS Variables */}
-            <Section title="CSS Variables">
+            < Section title="CSS Variables" >
                 <pre className="text-xs font-mono p-4 rounded-xl overflow-x-auto bg-grey-100 text-grey-700 dark:bg-grey-800 dark:text-grey-300">
                     {`:root {
   /* Spacing Base */
@@ -531,7 +531,7 @@ export function FoundationsContent() {
   --animate-caret-blink: caret-blink 1.2s ease-out infinite;
 }`}
                 </pre>
-            </Section>
-        </div>
+            </Section >
+        </div >
     );
 }

@@ -113,6 +113,16 @@
     --overlay: var(--white);
     --overlay-foreground: var(--foreground);
 
+    /* Calculated Surface Levels (Light Mode) */
+    --color-surface-secondary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
+    --color-surface-tertiary: color-mix(in oklab, var(--surface) 92%, var(--surface-foreground) 8%);
+    --color-surface-quaternary: color-mix(in oklab, var(--surface) 86%, var(--default-foreground) 14%);
+
+    /* Calculated Background Levels (Light Mode) */
+    --color-background-secondary: color-mix(in oklab, var(--background) 96%, var(--foreground) 4%);
+    --color-background-tertiary: color-mix(in oklab, var(--background) 92%, var(--foreground) 8%);
+    --color-background-quaternary: color-mix(in oklab, var(--background) 86%, var(--foreground) 14%);
+
     /* Utility Colors */
     --muted: oklch(0.5517 0.0138 285.94);
     --muted-foreground: oklch(0.45 0.01 286);
@@ -126,6 +136,14 @@
     --accent: var(--splento-cyan);
     /* Splento Cyan - primary brand colour */
     --accent-foreground: var(--cyan-950);
+
+    /* Calculated Hover States (Light Mode) */
+    --color-default-hover: color-mix(in oklab, var(--default) 80%, transparent);
+    --color-accent-hover: color-mix(in oklab, var(--accent) 90%, var(--accent-foreground) 10%);
+    --color-success-hover: color-mix(in oklab, var(--success) 90%, var(--success-foreground) 10%);
+    --color-warning-hover: color-mix(in oklab, var(--warning) 90%, var(--warning-foreground) 10%);
+    --color-danger-hover: color-mix(in oklab, var(--danger) 90%, var(--danger-foreground) 10%);
+    --color-info-hover: color-mix(in oklab, var(--info) 90%, var(--info-foreground) 10%);
 
 
 
@@ -690,6 +708,7 @@
   /* Global focus-visible for accessibility */
   :focus-visible {
     outline: 2px solid var(--focus);
-    outline-offset: 2px;
   }
+
+
 }

@@ -816,6 +816,64 @@ The design system supports instant switching. Use the `ThemeSwitcher` component 
 
 ---
 
+## Theme Architecture
+
+### Calculated Token Inheritance
+
+**Rule:** All calculated tokens using `color-mix()` must be declared in **both** theme blocks.
+
+**Why:** CSS custom properties resolve at definition time. Nested theme wrappers won't trigger recalculation unless explicitly re-declared.
+
+**Affected tokens:**
+
+* `--color-surface-secondary`, `--color-surface-tertiary`, `--color-surface-quaternary`
+* `--color-background-secondary`, `--color-background-tertiary`, `--color-background-quaternary`  
+* All `--*-soft` variants
+* All `--color-*-hover` states
+
+**Example:**
+
+```css
+:root, [data-theme="light"] {
+  --surface: var(--white);
+  --color-surface-secondary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
+}
+
+.dark, [data-theme="dark"] {
+  --surface:  oklch(0.2103 0.0059 285.89);
+  --color-surface-secondary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
+}
+```
+
+### Surface Component Patterns
+
+| Context | Pattern | Example | Notes |
+|---------|---------|---------|-------|
+| **General usage** | Semantic variant | `<Surface variant="secondary">` | Uses HeroUI's internal token mapping |
+| **Strict token control** | className override | `<Surface className="bg-surface-secondary">` | Forces Splento's calculated token |
+
+### Deep Theme Nesting
+
+To isolate a theme context within the DOM:
+
+```tsx
+<div data-theme="light" className="light scheme-light">
+  {/* Content uses light theme regardless of global setting */}
+</div>
+
+<div data-theme="dark" className="dark scheme-dark">
+  {/* Content uses dark theme regardless of global setting */}
+</div>
+```
+
+| Attribute | Triggers |
+|-----------|----------|
+| `data-theme` | CSS variable scope (`:root` / `.dark` blocks) |
+| `className` | Tailwind `dark:` variants |
+| `scheme-*` | `color-scheme` property |
+
+---
+
 ## Tailwind Class Mapping
 
 All CSS variables defined with `--color-*` in the `@theme inline` block (see `index.css`) automatically become Tailwind utility classes:

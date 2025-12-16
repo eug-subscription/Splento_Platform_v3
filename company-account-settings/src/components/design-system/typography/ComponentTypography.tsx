@@ -32,7 +32,7 @@ export function ComponentTypography() {
                     <Label className="text-sm font-medium text-midnight dark:text-snow">Email address</Label>
                     <Input
                         placeholder="you@example.com"
-                        className="mb-2 bg-grey-50 dark:bg-midnight border-grey-200 dark:border-grey-700"
+                        className="mb-2"
                     />
                     <Description className="text-xs text-grey-500 dark:text-grey-400">We'll never share your email.</Description>
                 </TextField>
