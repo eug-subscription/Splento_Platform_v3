@@ -948,4 +948,26 @@ export function MyComponent({ onSubmit }: MyComponentProps) {
 
 ---
 
+## Time Window Logic (Last Active)
+
+When displaying "Last Active" or similar relative timestamps, use the following ruleset to balance immediacy with precision:
+
+| Time Window | Display Text | Example |
+| :--- | :--- | :--- |
+| **< 1 minute** | `Just now` | *Just now* |
+| **< 1 hour** | `X minutes ago` | *12 minutes ago* |
+| **< 24 hours** | `X hours ago` | *3 hours ago* |
+| **24 - 48 hours** | `Yesterday` | *Yesterday* |
+| **3 - 7 days** | `X days ago` | *5 days ago* |
+| **Current Year** | `MMM DD` | *Dec 12* |
+| **Previous Years** | `MMM DD, YYYY` | *Dec 12, 2023* |
+
+### Logic Keys
+
+1. **Immediacy (0-7 days):** Recent activity should feel "close".
+2. **Precision (>7 days):** Older activity needs specific dates.
+3. **Clarity (>1 year):** Always show year for activity older than current year to avoid ambiguity.
+
+---
+
 > **Remember:** HeroUI v3 is fundamentally different from v2. Always use compound components, semantic variants, and composition patterns. **NEVER create wrapper components** - import directly from `@heroui/react`. When in doubt, check Rule #0 and consult the reference documents.

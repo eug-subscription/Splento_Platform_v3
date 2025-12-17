@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import AccountSettings from './app/admin/AccountSettings';
 import HomePage from './app/HomePage';
 import { ServicesPage } from './app/admin/ServicesPage';
+import { TeamPage } from './app/TeamPage';
 
 import SplentoDesignSystem from './components/design-system/SplentoDesignSystem';
 import { LeftMenu, MobileNavigation } from './components/navigation';
@@ -13,6 +14,7 @@ const ROUTES = {
   home: { path: '/dashboard', hash: '', component: HomePage },
   settings: { path: '#settings', hash: 'settings', component: AccountSettings },
   services: { path: '#services', hash: 'services', component: ServicesPage },
+  team: { path: '#team', hash: 'team', component: TeamPage },
   'design-hub': { path: '#design-hub', hash: 'design-hub', component: SplentoDesignSystem },
 
 } as const;

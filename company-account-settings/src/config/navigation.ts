@@ -25,7 +25,7 @@ export const MENU_SECTIONS: NavigationSection[] = [
         id: 'company',
         title: 'Company',
         items: [
-            { id: 'team', label: 'Team', icon: 'gravity-ui:persons', href: '/team' },
+            { id: 'team', label: 'Team', icon: 'gravity-ui:persons', href: '#team' },
             { id: 'developers', label: 'Developers', icon: 'gravity-ui:code', href: '/developers' },
             { id: 'settings', label: 'Settings', icon: 'gravity-ui:gear', href: '#settings' },
             { id: 'design-hub', label: 'Design Hub', icon: 'gravity-ui:compass', href: '#design-hub' },
