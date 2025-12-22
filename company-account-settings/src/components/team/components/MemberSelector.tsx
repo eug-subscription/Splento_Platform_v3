@@ -93,43 +93,45 @@ export function MemberSelector({
                 isOpen={showConfirmDialog}
                 onOpenChange={setShowConfirmDialog}
             >
-                <AlertDialog.Container>
-                    <AlertDialog.Dialog className="sm:max-w-[400px]">
-                        {({ close }) => (
-                            <>
-                                <AlertDialog.Header>
-                                    <AlertDialog.Icon status="danger" />
-                                    <AlertDialog.Heading>Unsaved Changes</AlertDialog.Heading>
-                                </AlertDialog.Header>
-                                <AlertDialog.Body>
-                                    <p className="text-sm text-default-500">
-                                        You have unsaved permission changes for <strong>{selectedMember?.name}</strong>.
-                                        Switching members now will discard these changes.
-                                    </p>
-                                </AlertDialog.Body>
-                                <AlertDialog.Footer>
-                                    <Button
-                                        variant="ghost"
-                                        onPress={close}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button
-                                        variant="danger"
-                                        onPress={() => {
-                                            close();
-                                            if (pendingMemberId) {
-                                                onMemberChange(pendingMemberId);
-                                            }
-                                        }}
-                                    >
-                                        Discard Changes
-                                    </Button>
-                                </AlertDialog.Footer>
-                            </>
-                        )}
-                    </AlertDialog.Dialog>
-                </AlertDialog.Container>
+                <AlertDialog.Backdrop>
+                    <AlertDialog.Container>
+                        <AlertDialog.Dialog className="sm:max-w-[400px]">
+                            {({ close }) => (
+                                <>
+                                    <AlertDialog.Header>
+                                        <AlertDialog.Icon status="danger" />
+                                        <AlertDialog.Heading>Unsaved Changes</AlertDialog.Heading>
+                                    </AlertDialog.Header>
+                                    <AlertDialog.Body>
+                                        <p className="text-sm text-default-500">
+                                            You have unsaved permission changes for <strong>{selectedMember?.name}</strong>.
+                                            Switching members now will discard these changes.
+                                        </p>
+                                    </AlertDialog.Body>
+                                    <AlertDialog.Footer>
+                                        <Button
+                                            variant="ghost"
+                                            onPress={close}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            variant="danger"
+                                            onPress={() => {
+                                                close();
+                                                if (pendingMemberId) {
+                                                    onMemberChange(pendingMemberId);
+                                                }
+                                            }}
+                                        >
+                                            Discard Changes
+                                        </Button>
+                                    </AlertDialog.Footer>
+                                </>
+                            )}
+                        </AlertDialog.Dialog>
+                    </AlertDialog.Container>
+                </AlertDialog.Backdrop>
             </AlertDialog>
         </>
     );

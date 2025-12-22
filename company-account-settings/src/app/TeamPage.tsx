@@ -5,6 +5,7 @@ import { TeamTabs } from '../components/team/TeamTabs';
 import { OverviewTab } from '../components/team/tabs/OverviewTab';
 import { MembersTab } from '../components/team/tabs/MembersTab';
 import { PermissionsTab } from '../components/team/tabs/PermissionsTab';
+import { UsageTab } from '../components/team/tabs/UsageTab';
 
 
 import { MOCK_TEAM, TEAM_OVERVIEW_DATA, MOCK_MEMBERS } from '../data/mock-team';
@@ -55,6 +56,12 @@ export function TeamPage() {
                     <MembersTab />
                 ) : activeTab === 'permissions' ? (
                     <PermissionsTab members={MOCK_MEMBERS} />
+                ) : activeTab === 'usage' ? (
+                    <UsageTab
+                        teamId={MOCK_TEAM.id}
+                        members={MOCK_MEMBERS}
+                        onNavigateToMember={(memberId) => console.log('Navigate to member', memberId)}
+                    />
                 ) : (
                     <Card className="border-dashed border-2 border-default-200 bg-transparent shadow-none">
                         <Card.Content className="p-12 flex flex-col items-center justify-center text-center">

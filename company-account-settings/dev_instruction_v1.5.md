@@ -66,7 +66,7 @@ We build **premium, accessible, and maintainable** interfaces. We do not build "
 ```text
 Does HeroUI have it?
 ├─ YES → Import directly from @heroui/react (NO wrappers!)
-├─ ALMOST → Extend it (use asChild or composition)
+├─ ALMOST → Extend it (use composition)
 └─ NO → Only then build custom (with approval)
 ```
 
@@ -495,21 +495,6 @@ Use when you need dynamic styling based on state:
       {isHovered ? 'Release' : 'Press'}
     </>
   )}
-</Button>
-```
-
-### 🔄 asChild Prop Pattern
-
-Change the rendered element while keeping styles:
-
-```tsx
-import { Button } from '@heroui/react';
-import Link from 'next/link';
-
-// Renders as Next.js Link, looks like Button
-// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/button
-<Button asChild>
-  <Link href="/about">About</Link>
 </Button>
 ```
 

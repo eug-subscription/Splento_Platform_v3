@@ -95,3 +95,54 @@ export interface ActivityEntry {
     category: 'members' | 'permissions' | 'billing' | 'api' | 'security' | 'settings';
     timestamp: string;
 }
+
+// Usage Tab Specific Types
+export interface UsageSummaryMetric {
+    id: string;
+    label: string;
+    icon: string;
+    used: number;
+    total: number | null;
+    unit?: string;
+    trend?: {
+        value: number;
+        direction: 'up' | 'down' | 'neutral';
+    };
+}
+
+export interface DetailedMetric {
+    id: string;
+    label: string;
+    icon: string;
+    used: number;
+    total: number | null;
+    unit?: string;
+}
+
+export interface MemberUsage {
+    memberId: string;
+    name: string;
+    email: string;
+    avatar: string;
+    imageCredits: number;
+    videoCredits: number;
+    apiCalls: number;
+    storage: number;
+}
+
+export interface UsageAlertsConfig {
+    thresholds: {
+        fifty: boolean;
+        eighty: boolean;
+        hundred: boolean;
+    };
+    recipients: string[];
+    apiRateLimitAlerts: boolean;
+}
+
+export interface PeriodOption {
+    id: string;
+    label: string;
+    startDate?: Date;
+    endDate?: Date;
+}
