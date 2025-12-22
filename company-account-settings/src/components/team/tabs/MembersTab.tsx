@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Card, TextField, Select, Checkbox, Chip, Dropdown, Avatar, InputGroup, ListBox, Accordion } from "@heroui/react";
+import { Button, Card, TextField, Select, Checkbox, Chip, Avatar, InputGroup, ListBox, Accordion } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { InviteMemberModal, type InviteFormData } from "../modals/InviteMemberModal";
 import { BulkImportModal } from "../modals/BulkImportModal";

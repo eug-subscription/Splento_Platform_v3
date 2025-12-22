@@ -1,4 +1,5 @@
 import { Tabs, Chip } from "@heroui/react";
+import { Icon } from "@iconify/react";
 
 interface TeamTabsProps {
     activeTab: string;
@@ -12,7 +13,7 @@ const TABS = [
     { id: 'members', label: 'Members' },
     { id: 'permissions', label: 'Permissions' },
     { id: 'usage', label: 'Usage' },
-    { id: 'billing', label: 'Billing' },
+    { id: 'billing', label: 'Billing', icon: 'gravity-ui:credit-card' },
     { id: 'developers', label: 'Developers' },
     { id: 'security', label: 'Security' },
     { id: 'activity', label: 'Activity Log' },
@@ -38,6 +39,9 @@ export function TeamTabs({ activeTab, onTabChange, memberCount, hasSecurityIssue
                             >
                                 <Tabs.Indicator className="absolute inset-0 w-full h-full bg-background rounded-full shadow-sm" />
                                 <div className="flex items-center justify-center h-full w-full gap-2 relative z-10">
+                                    {tab.icon && (
+                                        <Icon icon={tab.icon} className="text-base" />
+                                    )}
                                     <span className="text-sm font-medium">{tab.label}</span>
 
                                     {tab.id === 'members' && (

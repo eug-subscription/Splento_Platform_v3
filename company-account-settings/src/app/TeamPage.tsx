@@ -4,59 +4,29 @@ import { TeamHeader } from '../components/team/TeamHeader';
 import { TeamTabs } from '../components/team/TeamTabs';
 import { OverviewTab } from '../components/team/tabs/OverviewTab';
 import { MembersTab } from '../components/team/tabs/MembersTab';
-import type { Team, TeamOverviewData } from '../types/team';
+import { PermissionsTab } from '../components/team/tabs/PermissionsTab';
 
-// MOCK DATA
-const MOCK_TEAM: Team = {
-    id: 'team-1',
-    name: 'Wolt Finland',
-    description: 'Main workspace for Wolt Finland operations',
-    avatar: 'https://cdn.brandfetch.io/idAwO7GCAj/id5_6d209D.jpeg',
-    plan: 'Enterprise',
-    memberCount: 12,
-    seatsUsed: 12,
-    seatsTotal: 20,
-    creditsRemaining: 15420,
-    creditsTotal: 50000,
-    nextBillingDate: '2025-01-01',
-    monthlyCost: 299,
-    perSeatCost: 29
-};
 
-const TEAM_OVERVIEW_DATA: TeamOverviewData = {
-    stats: {
-        members: { total: 12, trend: '+2 this month' },
-        credits: { remaining: 1247, total: 5000 },
-        periodUsage: { percentage: 67, trend: '+12% vs last month' },
-        seats: { used: 12, total: 20 },
-    },
-    usageSnapshot: [
-        { id: 'img', label: 'AI Image Credits', used: 3253, total: 5000, percentage: 65, unit: '' },
-        { id: 'vid', label: 'AI Video Credits', used: 42, total: 100, percentage: 42, unit: '' },
-        { id: 'api', label: 'API Calls', used: 58420, total: 100000, percentage: 58, unit: '' },
-        { id: 'storage', label: 'Storage', used: 4.5, total: 5, percentage: 89, unit: 'GB' },
-        { id: 'batch', label: 'Batch Exports', used: 73, total: 100, percentage: 73, unit: '' },
-    ],
-    alerts: {
-        lowCredits: true,
-        creditsDepleted: false,
-        paymentFailed: false,
-        seatsFull: false,
-    },
-};
+import { MOCK_TEAM, TEAM_OVERVIEW_DATA, MOCK_MEMBERS } from '../data/mock-team';
+
 
 export function TeamPage() {
     const [activeTab, setActiveTab] = useState('overview');
 
     const handleInvite = () => {
-        console.log("Open Invite Modal");
+        console.log('Invite member triggered');
     };
 
-    const handleBuyCredits = () => { console.log("Open Buy Credits Modal"); };
-    const handleExportReport = () => { console.log("Export Report"); };
+    const handleBuyCredits = () => {
+        console.log('Buy credits triggered');
+    };
+
+    const handleExportReport = () => {
+        console.log('Export report triggered');
+    };
 
     return (
-        <div className="flex flex-col gap-6 p-6 max-w-[1600px] mx-auto w-full">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
             {/* Persistent Header */}
             <TeamHeader
                 team={MOCK_TEAM}
@@ -83,6 +53,8 @@ export function TeamPage() {
                     />
                 ) : activeTab === 'members' ? (
                     <MembersTab />
+                ) : activeTab === 'permissions' ? (
+                    <PermissionsTab members={MOCK_MEMBERS} />
                 ) : (
                     <Card className="border-dashed border-2 border-default-200 bg-transparent shadow-none">
                         <Card.Content className="p-12 flex flex-col items-center justify-center text-center">
