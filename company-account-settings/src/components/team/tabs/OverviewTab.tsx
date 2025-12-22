@@ -10,68 +10,8 @@ interface OverviewTabProps {
     onNavigateToTab: (tabId: string) => void;
 }
 
-// Sub-component: StatCard
-interface StatCardProps {
-    icon: string;
-    title: string;
-    label: string;
-    value: string | number;
-    subtext: string;
-    trend?: {
-        value: string;
-        direction: 'up' | 'down' | 'neutral';
-    };
-    progress?: {
-        value: number; // 0-100
-        max: number;
-    };
-}
-
-function StatCard({ icon, title, value, subtext, trend, progress }: StatCardProps) {
-    return (
-        <Card className="h-full">
-            <Card.Content className="p-4 flex flex-col justify-between">
-                <div>
-                    {/* Header: Title and Icon */}
-                    <div className="flex items-start justify-between mb-4">
-                        <h3 className="text-medium text-default-500">{title}</h3>
-                        <Icon icon={icon} className="text-2xl text-default-300" />
-                    </div>
-
-                    {/* Body: Value & Subtext (Grouped Tightly) */}
-                    <div className="flex flex-col gap-1">
-                        <p className="text-4xl font-semibold text-foreground">{value}</p>
-                        <p className="text-sm text-default-400">{subtext}</p>
-                    </div>
-
-                    {/* Footer: Trend */}
-                    {trend && (
-                        <div className={`mt-2 flex items-center gap-1 text-sm font-medium ${trend.direction === 'up' ? 'text-success' :
-                            trend.direction === 'down' ? 'text-danger' : 'text-default-500'
-                            }`}>
-                            {trend.direction === 'up' && <Icon icon="gravity-ui:arrow-up" />}
-                            {trend.direction === 'down' && <Icon icon="gravity-ui:arrow-down" />}
-                            <span>{trend.value}</span>
-                        </div>
-                    )}
-                </div>
-
-                {progress && (
-                    <div className="mt-4">
-                        <div className="h-1.5 bg-default-100 rounded-full overflow-hidden">
-                            <div
-                                className={`h-full rounded-full transition-all ${progress.value > 80 ? 'bg-danger' :
-                                    progress.value > 60 ? 'bg-warning' : 'bg-success'
-                                    }`}
-                                style={{ width: `${(progress.value / progress.max) * 100}%` }}
-                            />
-                        </div>
-                    </div>
-                )}
-            </Card.Content>
-        </Card>
-    );
-}
+// Sub-component removed, using shared StatsCard
+import { StatsCard } from "../../ui/StatsCard/StatsCard";
 
 // Using Mock Activity Data
 const RECENT_ACTIVITY: ActivityEntry[] = [
@@ -83,8 +23,6 @@ const RECENT_ACTIVITY: ActivityEntry[] = [
 ];
 
 export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportReport, onNavigateToTab }: OverviewTabProps) {
-
-
 
     return (
         <div className="space-y-6">
@@ -106,32 +44,28 @@ export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportRe
 
             {/* 2. Quick Stats Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <StatCard
+                <StatsCard
                     icon="gravity-ui:persons"
-                    title="Team Members"
-                    label="Members"
+                    label="Team Members"
                     value={teamData.stats.members.total}
                     subtext="total members"
-                    trend={{ value: teamData.stats.members.trend, direction: 'up' }}
+                    trend={{ value: teamData.stats.members.trend, direction: 'up', label: 'this month' }}
                 />
-                <StatCard
+                <StatsCard
                     icon="gravity-ui:thunderbolt"
-                    title="Credits Remaining"
-                    label="Credits"
+                    label="Credits Remaining"
                     value={teamData.stats.credits.remaining.toLocaleString()}
                     subtext={`of ${teamData.stats.credits.total.toLocaleString()} remaining`}
                 />
-                <StatCard
+                <StatsCard
                     icon="gravity-ui:chart-area-stacked"
-                    title="This Period Usage"
-                    label="Usage"
+                    label="This Period Usage"
                     value={`${teamData.stats.periodUsage.percentage}%`}
                     subtext="used this month"
-                    trend={{ value: teamData.stats.periodUsage.trend, direction: 'up' }}
+                    trend={{ value: teamData.stats.periodUsage.trend, direction: 'up', label: 'vs last month' }}
                 />
-                <StatCard
+                <StatsCard
                     icon="gravity-ui:chair"
-                    title="Seats"
                     label="Seats"
                     value={`${teamData.stats.seats.used}/${teamData.stats.seats.total}`}
                     subtext={`${teamData.stats.seats.total - teamData.stats.seats.used} available`}
@@ -249,6 +183,6 @@ export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportRe
                     </div>
                 </Card.Content>
             </Card>
-        </div>
+        </div >
     );
 }

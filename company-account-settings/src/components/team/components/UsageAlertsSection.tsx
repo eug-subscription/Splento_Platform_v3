@@ -61,9 +61,7 @@ export function UsageAlertsSection({ config, onChange, onSave, isSaving }: Usage
                     <div className="text-left">
                         <p className="font-medium text-foreground">Usage Alerts</p>
                         <p className="text-sm text-default-500">
-                            {config.recipients.length} recipient{config.recipients.length !== 1 ? 's' : ''} ·
-                            {[config.thresholds.fifty && '50%', config.thresholds.eighty && '80%', config.thresholds.hundred && '100%']
-                                .filter(Boolean).join(', ') || 'No thresholds set'}
+                            Get notified when usage reaches certain thresholds
                         </p>
                     </div>
                 </div>
@@ -90,19 +88,34 @@ export function UsageAlertsSection({ config, onChange, onSave, isSaving }: Usage
                                     isSelected={config.thresholds.fifty}
                                     onChange={(checked) => handleThresholdChange('fifty', checked)}
                                 >
-                                    <span className="text-sm">Alert at 50% usage</span>
+                                    <Checkbox.Control>
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    <Checkbox.Content>
+                                        <span className="text-sm">Email when usage reaches 50% of monthly credits</span>
+                                    </Checkbox.Content>
                                 </Checkbox>
                                 <Checkbox
                                     isSelected={config.thresholds.eighty}
                                     onChange={(checked) => handleThresholdChange('eighty', checked)}
                                 >
-                                    <span className="text-sm">Alert at 80% usage</span>
+                                    <Checkbox.Control>
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    <Checkbox.Content>
+                                        <span className="text-sm">Email when usage reaches 80% of monthly credits</span>
+                                    </Checkbox.Content>
                                 </Checkbox>
                                 <Checkbox
                                     isSelected={config.thresholds.hundred}
                                     onChange={(checked) => handleThresholdChange('hundred', checked)}
                                 >
-                                    <span className="text-sm">Alert at 100% usage</span>
+                                    <Checkbox.Control>
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    <Checkbox.Content>
+                                        <span className="text-sm">Email when usage reaches 100% of monthly credits</span>
+                                    </Checkbox.Content>
                                 </Checkbox>
                             </div>
 

@@ -35,20 +35,20 @@ export function UsageTab({ teamId: _teamId, members: _members, onNavigateToMembe
 
     // Mock data - replace with API calls in real implementation
     const summaryMetrics: UsageSummaryMetric[] = [
-        { id: 'images', label: 'AI Image Credits', icon: 'gravity-ui:image', used: 3253, total: 5000, trend: { value: 12, direction: 'up' } },
+        { id: 'images', label: 'AI Image Credits', icon: 'gravity-ui:picture', used: 3253, total: 5000, trend: { value: 12, direction: 'up' } },
         { id: 'videos', label: 'AI Video Credits', icon: 'gravity-ui:video', used: 42, total: 100, trend: { value: 8, direction: 'up' } },
         { id: 'api', label: 'API Calls', icon: 'gravity-ui:plug-connection', used: 58420, total: 100000, trend: { value: 5, direction: 'down' } },
         { id: 'storage', label: 'Storage', icon: 'gravity-ui:database', used: 4.5, total: 5, unit: 'GB' },
     ];
 
     const detailedMetrics: DetailedMetric[] = [
-        { id: 'images', label: 'AI Image Credits', icon: 'gravity-ui:image', used: 3253, total: 5000 },
+        { id: 'images', label: 'AI Image Credits', icon: 'gravity-ui:picture', used: 3253, total: 5000 },
         { id: 'videos', label: 'AI Video Credits', icon: 'gravity-ui:video', used: 42, total: 100 },
         { id: 'api', label: 'API Calls', icon: 'gravity-ui:plug-connection', used: 58420, total: 100000 },
         { id: 'storage', label: 'Storage', icon: 'gravity-ui:database', used: 4.5, total: 5, unit: 'GB' },
         { id: 'batch', label: 'Batch Exports', icon: 'gravity-ui:layers-3-diagonal', used: 73, total: null },
         { id: 'photo-sessions', label: 'Photo Sessions', icon: 'gravity-ui:camera', used: 156, total: null },
-        { id: 'video-sessions', label: 'Video Sessions', icon: 'gravity-ui:video-camera', used: 23, total: null },
+        { id: 'video-sessions', label: 'Video Sessions', icon: 'gravity-ui:video', used: 23, total: null },
         { id: 'generated', label: 'Images Generated', icon: 'gravity-ui:picture', used: 8432, total: null },
         { id: 'menus', label: 'Menus Recognised', icon: 'gravity-ui:file-text', used: 1247, total: null },
     ];
