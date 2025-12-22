@@ -13,7 +13,7 @@ interface UsageTabProps {
     onNavigateToMember?: (memberId: string) => void;
 }
 
-export function UsageTab({ teamId, members, onNavigateToMember }: UsageTabProps) {
+export function UsageTab({ teamId: _teamId, members: _members, onNavigateToMember }: UsageTabProps) {
     const [selectedPeriod, setSelectedPeriod] = useState('this-month');
     const [customDateRange, setCustomDateRange] = useState<{ start: Date; end: Date } | undefined>();
     const [isExporting, setIsExporting] = useState(false);

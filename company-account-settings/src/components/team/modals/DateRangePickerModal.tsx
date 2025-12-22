@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Modal, Button, DateField, Label, DateInputGroup, Description } from "@heroui/react";
+import { Modal, Button, DateField, Label, DateInputGroup } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import { format, subDays, startOfYear } from "date-fns";
+import { subDays, startOfYear } from "date-fns";
 import { toCalendarDate, getLocalTimeZone, today, type DateValue } from "@internationalized/date";
 
 interface DateRangePickerModalProps {
@@ -26,10 +26,10 @@ export function DateRangePickerModal({ isOpen, onClose, initialRange, onApply }:
         return dateValue.toDate(getLocalTimeZone());
     };
 
-    const [startDate, setStartDate] = useState<DateValue>(
+    const [startDate, setStartDate] = useState<DateValue | null>(
         toDateValue(initialRange?.start || subDays(new Date(), 30))
     );
-    const [endDate, setEndDate] = useState<DateValue>(
+    const [endDate, setEndDate] = useState<DateValue | null>(
         toDateValue(initialRange?.end || new Date())
     );
 
@@ -49,7 +49,7 @@ export function DateRangePickerModal({ isOpen, onClose, initialRange, onApply }:
 
     return (
         <Modal isOpen={isOpen} onOpenChange={(open) => !open && onClose()}>
-            <Modal.Backdrop>
+            <Modal.Backdrop variant="blur">
                 <Modal.Container>
                     <Modal.Dialog>
                         <Modal.CloseTrigger />
@@ -60,11 +60,11 @@ export function DateRangePickerModal({ isOpen, onClose, initialRange, onApply }:
                         <Modal.Body className="space-y-4">
                             <div className="flex flex-col gap-1">
                                 <DateField
-                                    label="Start Date"
                                     value={startDate}
                                     onChange={setStartDate}
                                     className="w-full"
                                 >
+                                    <Label>Start Date</Label>
                                     <DateInputGroup>
                                         <DateInputGroup.Prefix>
                                             <Icon icon="gravity-ui:calendar" className="size-4 text-muted" />
@@ -78,12 +78,12 @@ export function DateRangePickerModal({ isOpen, onClose, initialRange, onApply }:
 
                             <div className="flex flex-col gap-1">
                                 <DateField
-                                    label="End Date"
                                     value={endDate}
                                     onChange={setEndDate}
                                     className="w-full"
-                                    minValue={startDate}
+                                    minValue={startDate || undefined}
                                 >
+                                    <Label>End Date</Label>
                                     <DateInputGroup>
                                         <DateInputGroup.Prefix>
                                             <Icon icon="gravity-ui:calendar" className="size-4 text-muted" />
@@ -127,11 +127,15 @@ export function DateRangePickerModal({ isOpen, onClose, initialRange, onApply }:
                             </Button>
                             <Button
                                 variant="primary"
-                                onPress={() => onApply({
-                                    start: fromDateValue(startDate),
-                                    end: fromDateValue(endDate)
-                                })}
-                                isDisabled={endDate.compare(startDate) < 0}
+                                onPress={() => {
+                                    if (startDate && endDate) {
+                                        onApply({
+                                            start: fromDateValue(startDate),
+                                            end: fromDateValue(endDate)
+                                        });
+                                    }
+                                }}
+                                isDisabled={!startDate || !endDate || endDate.compare(startDate) < 0}
                             >
                                 Apply Range
                             </Button>

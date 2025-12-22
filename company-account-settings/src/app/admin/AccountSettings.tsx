@@ -1,15 +1,30 @@
 import { useState } from 'react';
-import { Button, CloseButton } from "@heroui/react";
-import { Card } from "@heroui/react";
-
-
-
 import React from 'react';
-import { Avatar, Description, Surface, Label, TextField, Modal, Chip, InputGroup, AlertDialog, Input, FieldError, Checkbox, Select, ListBox, ComboBox, Header, Separator } from "@heroui/react";
+import {
+    Button,
+    CloseButton,
+    Card,
+    Avatar,
+    Description,
+    Surface,
+    Label,
+    TextField,
+    Modal,
+    Chip,
+    InputGroup,
+    AlertDialog,
+    Input,
+    FieldError,
+    Checkbox,
+    Select,
+    ListBox,
+    ComboBox,
+    Header,
+    Separator
+} from "@heroui/react";
 
 import { Icon } from '@iconify/react';
 import { COUNTRY_REGIONS } from '../../data/countries';
-
 import type { Manager } from '../../types';
 
 export default function AccountSettings() {
@@ -401,101 +416,103 @@ export default function AccountSettings() {
                                         <Icon icon="gravity-ui:plus" className="w-4 h-4 mr-1" />
                                         Add Manager
                                     </Button>
-                                    <Modal.Container placement="auto" variant="blur" backdropClassName="backdrop-blur-sm">
-                                        <Modal.Dialog className="sm:max-w-md">
-                                            {({ close }) => (
-                                                <>
-                                                    <Modal.CloseTrigger aria-label="Close modal" />
-                                                    <Modal.Header>
-                                                        <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                                                            <Icon className="size-5" icon="gravity-ui:user-plus" />
-                                                        </Modal.Icon>
-                                                        <Modal.Heading>Add New Manager</Modal.Heading>
-                                                        <p className="text-muted mt-1.5 text-sm leading-5">
-                                                            Add a new manager to the account with the appropriate permissions.
-                                                        </p>
-                                                    </Modal.Header>
-                                                    <Modal.Body className="p-6">
-                                                        <Surface variant="default">
-                                                            <form className="flex flex-col gap-4">
-                                                                <TextField name="name" isInvalid={newManager.name.length > 0 && newManager.name.length < 2} className="w-full">
-                                                                    <Label>Name *</Label>
-                                                                    <Input
-                                                                        placeholder="Enter manager name"
-                                                                        value={newManager.name}
-                                                                        onChange={(e) => setNewManager({ ...newManager, name: e.target.value })}
-                                                                    />
-                                                                    {newManager.name.length > 0 && newManager.name.length < 2 && (
-                                                                        <FieldError>Name must be at least 2 characters</FieldError>
-                                                                    )}
-                                                                </TextField>
+                                    <Modal.Backdrop variant="blur" className="backdrop-blur-sm">
+                                        <Modal.Container placement="auto">
+                                            <Modal.Dialog className="sm:max-w-md">
+                                                {({ close }) => (
+                                                    <>
+                                                        <Modal.CloseTrigger aria-label="Close modal" />
+                                                        <Modal.Header>
+                                                            <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
+                                                                <Icon className="size-5" icon="gravity-ui:user-plus" />
+                                                            </Modal.Icon>
+                                                            <Modal.Heading>Add New Manager</Modal.Heading>
+                                                            <p className="text-muted mt-1.5 text-sm leading-5">
+                                                                Add a new manager to the account with the appropriate permissions.
+                                                            </p>
+                                                        </Modal.Header>
+                                                        <Modal.Body className="p-6">
+                                                            <Surface variant="default">
+                                                                <form className="flex flex-col gap-4">
+                                                                    <TextField name="name" isInvalid={newManager.name.length > 0 && newManager.name.length < 2} className="w-full">
+                                                                        <Label>Name *</Label>
+                                                                        <Input
+                                                                            placeholder="Enter manager name"
+                                                                            value={newManager.name}
+                                                                            onChange={(e) => setNewManager({ ...newManager, name: e.target.value })}
+                                                                        />
+                                                                        {newManager.name.length > 0 && newManager.name.length < 2 && (
+                                                                            <FieldError>Name must be at least 2 characters</FieldError>
+                                                                        )}
+                                                                    </TextField>
 
-                                                                <TextField name="email" isInvalid={newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)} className="w-full">
-                                                                    <Label>Email *</Label>
-                                                                    <Input
-                                                                        type="email"
-                                                                        placeholder="manager@company.com"
-                                                                        value={newManager.email}
-                                                                        onChange={(e) => setNewManager({ ...newManager, email: e.target.value })}
-                                                                    />
-                                                                    {newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) && (
-                                                                        <FieldError>Please enter a valid email address</FieldError>
-                                                                    )}
-                                                                </TextField>
+                                                                    <TextField name="email" isInvalid={newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)} className="w-full">
+                                                                        <Label>Email *</Label>
+                                                                        <Input
+                                                                            type="email"
+                                                                            placeholder="manager@company.com"
+                                                                            value={newManager.email}
+                                                                            onChange={(e) => setNewManager({ ...newManager, email: e.target.value })}
+                                                                        />
+                                                                        {newManager.email.length > 0 && !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) && (
+                                                                            <FieldError>Please enter a valid email address</FieldError>
+                                                                        )}
+                                                                    </TextField>
 
-                                                                <Select
-                                                                    selectedKey={newManager.role}
-                                                                    onSelectionChange={(key) => setNewManager({ ...newManager, role: key as Manager['role'] })}
-                                                                >
-                                                                    <Label>Role *</Label>
-                                                                    <Select.Trigger>
-                                                                        <Select.Value />
-                                                                        <Select.Indicator />
-                                                                    </Select.Trigger>
-                                                                    <Select.Popover>
-                                                                        <ListBox>
-                                                                            <ListBox.Item id="Admin" textValue="Admin">
-                                                                                Admin
-                                                                                <ListBox.ItemIndicator />
-                                                                            </ListBox.Item>
-                                                                            <ListBox.Item id="Edit" textValue="Edit">
-                                                                                Edit
-                                                                                <ListBox.ItemIndicator />
-                                                                            </ListBox.Item>
-                                                                            <ListBox.Item id="Read Only" textValue="Read Only">
-                                                                                Read Only
-                                                                                <ListBox.ItemIndicator />
-                                                                            </ListBox.Item>
-                                                                        </ListBox>
-                                                                    </Select.Popover>
-                                                                </Select>
-                                                            </form>
-                                                        </Surface>
-                                                    </Modal.Body>
-                                                    <Modal.Footer>
-                                                        <Button variant="tertiary" onPress={close}>
-                                                            Cancel
-                                                        </Button>
-                                                        <Button
-                                                            variant="primary"
-                                                            onPress={() => {
-                                                                handleAddManager();
-                                                                close();
-                                                            }}
-                                                            isDisabled={
-                                                                !newManager.name ||
-                                                                newManager.name.length < 2 ||
-                                                                !newManager.email ||
-                                                                !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
-                                                            }
-                                                        >
-                                                            Add Manager
-                                                        </Button>
-                                                    </Modal.Footer>
-                                                </>
-                                            )}
-                                        </Modal.Dialog>
-                                    </Modal.Container>
+                                                                    <Select
+                                                                        selectedKey={newManager.role}
+                                                                        onSelectionChange={(key) => setNewManager({ ...newManager, role: key as Manager['role'] })}
+                                                                    >
+                                                                        <Label>Role *</Label>
+                                                                        <Select.Trigger>
+                                                                            <Select.Value />
+                                                                            <Select.Indicator />
+                                                                        </Select.Trigger>
+                                                                        <Select.Popover>
+                                                                            <ListBox>
+                                                                                <ListBox.Item id="Admin" textValue="Admin">
+                                                                                    Admin
+                                                                                    <ListBox.ItemIndicator />
+                                                                                </ListBox.Item>
+                                                                                <ListBox.Item id="Edit" textValue="Edit">
+                                                                                    Edit
+                                                                                    <ListBox.ItemIndicator />
+                                                                                </ListBox.Item>
+                                                                                <ListBox.Item id="Read Only" textValue="Read Only">
+                                                                                    Read Only
+                                                                                    <ListBox.ItemIndicator />
+                                                                                </ListBox.Item>
+                                                                            </ListBox>
+                                                                        </Select.Popover>
+                                                                    </Select>
+                                                                </form>
+                                                            </Surface>
+                                                        </Modal.Body>
+                                                        <Modal.Footer>
+                                                            <Button variant="tertiary" onPress={close}>
+                                                                Cancel
+                                                            </Button>
+                                                            <Button
+                                                                variant="primary"
+                                                                onPress={() => {
+                                                                    handleAddManager();
+                                                                    close();
+                                                                }}
+                                                                isDisabled={
+                                                                    !newManager.name ||
+                                                                    newManager.name.length < 2 ||
+                                                                    !newManager.email ||
+                                                                    !newManager.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+                                                                }
+                                                            >
+                                                                Add Manager
+                                                            </Button>
+                                                        </Modal.Footer>
+                                                    </>
+                                                )}
+                                            </Modal.Dialog>
+                                        </Modal.Container>
+                                    </Modal.Backdrop>
                                 </Modal>
                             </Card.Header>
 
@@ -560,17 +577,17 @@ export default function AccountSettings() {
                                                         </Select>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                                        <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                                            <AlertDialog>
-                                                                <Button
-                                                                    isIconOnly
-                                                                    variant="danger"
-                                                                    size="sm"
-                                                                    aria-label="Delete manager"
-                                                                >
-                                                                    <Icon icon="gravity-ui:trash-bin" className="w-4 h-4" />
-                                                                </Button>
-                                                                <AlertDialog.Container backdropVariant="blur">
+                                                        <AlertDialog>
+                                                            <Button
+                                                                isIconOnly
+                                                                variant="danger"
+                                                                size="sm"
+                                                                aria-label="Delete manager"
+                                                            >
+                                                                <Icon icon="gravity-ui:trash-bin" className="w-4 h-4" />
+                                                            </Button>
+                                                            <AlertDialog.Backdrop variant="blur">
+                                                                <AlertDialog.Container>
                                                                     <AlertDialog.Dialog>
                                                                         {({ close }) => (
                                                                             <>
@@ -597,8 +614,8 @@ export default function AccountSettings() {
                                                                         )}
                                                                     </AlertDialog.Dialog>
                                                                 </AlertDialog.Container>
-                                                            </AlertDialog>
-                                                        </td>
+                                                            </AlertDialog.Backdrop>
+                                                        </AlertDialog>
                                                     </td>
                                                 </tr>
                                             ))}

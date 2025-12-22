@@ -1,7 +1,7 @@
 import { Select, ListBox, Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { format } from "date-fns";
-import type { PeriodOption } from "../../../types/team";
+
 
 interface UsageHeaderProps {
     selectedPeriod: string;
@@ -51,9 +51,10 @@ export function UsageHeader({
                     onSelectionChange={(key) => onPeriodChange(key as string)}
                     className="w-48"
                     aria-label="Select Time Period"
+                    placeholder="Select period"
                 >
                     <Select.Trigger>
-                        <Select.Value placeholder="Select period">
+                        <Select.Value>
                             {currentPeriod?.label}
                         </Select.Value>
                         <Select.Indicator />

@@ -56,6 +56,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
             <Card.Footer className="px-4 pb-4">
                 <Button
+                    // @ts-ignore
                     href={product.ctaUrl}
                     as="a"
                     variant={isAI ? 'primary' : 'secondary'}
