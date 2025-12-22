@@ -14,7 +14,7 @@ interface OverviewTabProps {
 interface StatCardProps {
     icon: string;
     title: string;
-    label: string; // Keeping for potential aria-label or fallback
+    label: string;
     value: string | number;
     subtext: string;
     trend?: {
@@ -158,7 +158,7 @@ export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportRe
                                         <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                             <div
                                                 className={`h-full rounded-full transition-all ${metric.percentage > 80 ? 'bg-danger' :
-                                                        metric.percentage > 60 ? 'bg-warning' : 'bg-success'
+                                                    metric.percentage > 60 ? 'bg-warning' : 'bg-success'
                                                     }`}
                                                 style={{ width: `${metric.percentage}%` }}
                                             />
@@ -195,7 +195,7 @@ export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportRe
                                         </Avatar>
                                     ) : (
                                         <div className="w-8 h-8 rounded-full bg-default-100 flex items-center justify-center min-w-8">
-                                            <Icon icon="gravity-ui:gear" className="text-default-500" />
+                                            <Icon icon="gravity-ui:pulse" className="text-default-500" />
                                         </div>
                                     )}
                                     <div className="flex-1 min-w-0">

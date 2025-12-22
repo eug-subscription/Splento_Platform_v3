@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { Button, Card, TextField, Select, Checkbox, Chip, Avatar, InputGroup, ListBox, Accordion } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { InviteMemberModal, type InviteFormData } from "../modals/InviteMemberModal";
@@ -39,6 +39,18 @@ const formatLastActive = (dateString: string): string => {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 };
 
+const DEFAULT_PERMISSIONS: Record<FeatureArea, PermissionLevel> = {
+    media: 'read',
+    studio: 'read',
+    orders: 'read',
+    batch: 'none',
+    analytics: 'none',
+    team: 'none',
+    billing: 'none',
+    settings: 'none',
+    api: 'none',
+};
+
 // MOCK DATA
 const MOCK_MEMBERS: Member[] = [
     {
@@ -47,7 +59,7 @@ const MOCK_MEMBERS: Member[] = [
         email: 'anna@wolt.com',
         avatar: 'https://i.pravatar.cc/150?u=anna',
         role: 'Account Manager',
-        permissions: {} as any,
+        permissions: { ...DEFAULT_PERMISSIONS, team: 'edit', billing: 'edit' },
         status: 'active',
         twoFactorEnabled: true,
         joinedAt: 'Mar 2024',
@@ -62,7 +74,7 @@ const MOCK_MEMBERS: Member[] = [
         email: 'john@wolt.com',
         avatar: 'https://i.pravatar.cc/150?u=john',
         role: 'Developer',
-        permissions: {} as any,
+        permissions: { ...DEFAULT_PERMISSIONS, api: 'edit', media: 'edit' },
         status: 'inactive',
         twoFactorEnabled: true,
         joinedAt: 'Apr 2024',
@@ -77,7 +89,7 @@ const MOCK_MEMBERS: Member[] = [
         email: 'maria@wolt.com',
         avatar: 'https://i.pravatar.cc/150?u=maria',
         role: 'Developer',
-        permissions: {} as any,
+        permissions: { ...DEFAULT_PERMISSIONS, api: 'edit' },
         status: 'active',
         twoFactorEnabled: false,
         joinedAt: 'May 2024',
@@ -92,7 +104,7 @@ const MOCK_MEMBERS: Member[] = [
         email: 'mike@wolt.com',
         avatar: 'https://i.pravatar.cc/150?u=mike',
         role: 'Sales',
-        permissions: {} as any,
+        permissions: { ...DEFAULT_PERMISSIONS, orders: 'read' },
         status: 'suspended',
         twoFactorEnabled: false,
         joinedAt: 'Jun 2024',
@@ -107,7 +119,7 @@ const MOCK_MEMBERS: Member[] = [
         email: 'david@wolt.com',
         avatar: 'https://i.pravatar.cc/150?u=david',
         role: 'Designer',
-        permissions: {} as any,
+        permissions: { ...DEFAULT_PERMISSIONS, media: 'edit', studio: 'edit' },
         status: 'inactive',
         twoFactorEnabled: true,
         joinedAt: 'Jul 2024',
@@ -122,7 +134,7 @@ const MOCK_MEMBERS: Member[] = [
         email: 'sarah.l@wolt.com',
         avatar: 'https://i.pravatar.cc/150?u=sarah',
         role: 'Member',
-        permissions: {} as any,
+        permissions: { ...DEFAULT_PERMISSIONS },
         status: 'inactive',
         twoFactorEnabled: true,
         joinedAt: 'Jan 2023',
@@ -137,7 +149,7 @@ const MOCK_MEMBERS: Member[] = [
         email: 'tom@wolt.com',
         avatar: 'https://i.pravatar.cc/150?u=tom',
         role: 'Developer',
-        permissions: {} as any,
+        permissions: { ...DEFAULT_PERMISSIONS, api: 'edit' },
         status: 'active',
         twoFactorEnabled: true,
         joinedAt: 'Dec 2024',
@@ -194,7 +206,7 @@ export function MembersTab() {
 
     // Handlers
     const handleInviteSubmit = async (data: InviteFormData) => {
-        console.log("Inviting:", data);
+
         // Mock API call
         await new Promise(resolve => setTimeout(resolve, 1000));
         const newInvite: PendingInvite = {
@@ -209,8 +221,8 @@ export function MembersTab() {
         setInvites([...invites, newInvite]);
     };
 
-    const handleBulkImport = async (file: File) => {
-        console.log("Importing file:", file.name);
+    const handleBulkImport = async (_file: File) => {
+
         await new Promise(resolve => setTimeout(resolve, 1500));
     };
 
@@ -313,7 +325,7 @@ export function MembersTab() {
                             <InputGroup.Input
                                 placeholder="Search by name or email..."
                                 value={searchQuery}
-                                onChange={(e: any) => setSearchQuery(e.target.value)}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                             />
                         </InputGroup>
                     </TextField>
@@ -422,7 +434,7 @@ export function MembersTab() {
                                         <Checkbox
                                             isSelected={filteredMembers.length > 0 && selectedIds.length === filteredMembers.length}
                                             isIndeterminate={selectedIds.length > 0 && selectedIds.length < filteredMembers.length}
-                                            onChange={(e: any) => handleSelectAll(e.valueOf())}
+                                            onChange={(isSelected) => handleSelectAll(isSelected)}
                                             aria-label="Select all members"
                                         />
                                     </th>
@@ -459,7 +471,7 @@ export function MembersTab() {
                                                     <p className="text-sm font-medium text-foreground flex items-center gap-2">
                                                         {member.name}
                                                         {member.isAdmin && (
-                                                            <Chip size="sm" variant="soft" className="h-5 px-1 text-[10px] bg-default-200">Admin</Chip>
+                                                            <Chip size="sm" variant="soft" className="h-5 px-1 text-xs bg-default-200">Admin</Chip>
                                                         )}
                                                     </p>
                                                     <p className="text-xs text-default-500">{member.email}</p>
