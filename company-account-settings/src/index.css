@@ -74,7 +74,6 @@
     --field-border-width: var(--border-width);
     --disabled-opacity: 0.5;
 
-
     /* Radius */
     --radius: 0.5rem;
     --radius-xs: calc(var(--radius) * 0.25);
@@ -144,8 +143,6 @@
     --color-warning-hover: color-mix(in oklab, var(--warning) 90%, var(--warning-foreground) 10%);
     --color-danger-hover: color-mix(in oklab, var(--danger) 90%, var(--danger-foreground) 10%);
     --color-info-hover: color-mix(in oklab, var(--info) 90%, var(--info-foreground) 10%);
-
-
 
     --accent-ai: oklch(0.65 0.25 290);
     /* Purple for AI/premium features */
@@ -280,8 +277,6 @@
     /* Adaptive alias (defaults to light) */
     --gradient-liquid-backdrop: var(--gradient-liquid-glass-light);
 
-
-
     /* Cursors */
     --cursor-interactive: pointer;
     --cursor-disabled: not-allowed;
@@ -370,8 +365,6 @@
     /* AI Gradient Colors - brighter for dark mode */
     --gradient-ai-from: oklch(0.65 0.27 290);
     --gradient-ai-to: oklch(0.65 0.22 262);
-
-
 
     /* Calculated Surface Levels (Must be re-declared to use dark mode base) */
     --color-surface-secondary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
@@ -509,8 +502,6 @@
   --color-grey-800: var(--grey-800);
   --color-grey-900: var(--grey-900);
   --color-grey-950: var(--grey-950);
-
-
 
   /* Shadows */
   --shadow-surface: var(--surface-shadow);
@@ -653,11 +644,15 @@
   --color-field-border-focus: color-mix(in oklab,
     var(--color-field-border) 74%,
     var(--color-field-foreground) 22%);
-  --color-field-border-focus: color-mix(in oklab,
-    var(--color-field-border) 74%,
-    var(--color-field-foreground) 22%);
 
   /* Liquid Glass */
+  /* Liquid Glass Design Tokens */
+  --liquid-glass-blur: 24px;
+  --pill-glass-blur: 16px;
+  --liquid-glass-opacity: 40%;
+  --pill-glass-opacity-light: 30%;
+  --pill-glass-opacity-dark: 12%;
+
   --gradient-liquid-backdrop: var(--gradient-liquid-backdrop);
 }
 
@@ -738,13 +733,6 @@
     outline: 2px solid var(--focus);
   }
 
-
-
-  /* Global focus-visible for accessibility */
-  :focus-visible {
-    outline: 2px solid var(--focus);
-  }
-
   /* ============================================
      LIQUID GLASS NAVIGATION
      iOS 26-style frosted glass component
@@ -752,9 +740,9 @@
 
   .liquid-glass-container {
     /* Glass Effect */
-    background: color-mix(in oklab, var(--surface) 40%, transparent);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    background: color-mix(in oklab, var(--surface) var(--liquid-glass-opacity), transparent);
+    backdrop-filter: blur(var(--liquid-glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--liquid-glass-blur)) saturate(180%);
 
     /* Liquid Gradient (Convex Illusion) */
     background-image: radial-gradient(ellipse 80% 50% at 50% 0%,
@@ -780,7 +768,7 @@
   /* Dark Mode Adaptation */
   .dark .liquid-glass-container,
   [data-theme="dark"] .liquid-glass-container {
-    background: color-mix(in oklab, var(--surface) 40%, transparent);
+    background: color-mix(in oklab, var(--surface) var(--liquid-glass-opacity), transparent);
     border-color: color-mix(in oklab, var(--white) 10%, transparent);
 
     /* Adjusted for Dark Mode */
@@ -811,8 +799,19 @@
     outline: none;
   }
 
-  .liquid-glass-item:hover {
+  .dark .liquid-glass-item,
+  [data-theme="dark"] .liquid-glass-item {
+    color: color-mix(in oklab, var(--white) 45%, transparent);
+  }
+
+  .liquid-glass-item:hover,
+  .dark .liquid-glass-item:hover,
+  [data-theme="dark"] .liquid-glass-item:hover,
+  .liquid-glass-item--active,
+  .dark .liquid-glass-item--active,
+  [data-theme="dark"] .liquid-glass-item--active {
     color: var(--foreground);
+    opacity: 1;
   }
 
   .liquid-glass-item:focus-visible {
@@ -820,26 +819,45 @@
     outline-offset: 2px;
   }
 
-  .liquid-glass-item--active {
-    color: var(--foreground);
-  }
-
   /* Active Pill Indicator */
   .liquid-glass-pill {
     position: absolute;
     inset: 0;
-    background: color-mix(in oklab, var(--default) 80%, transparent);
+    
+    /* Enhanced Liquid Glass Effect (Light Mode) */
+    /* Lower base opacity for better transparency */
+    background: color-mix(in oklab, var(--white) var(--pill-glass-opacity-light), transparent);
+    
+    /* Stronger lens effect */
+    backdrop-filter: blur(var(--pill-glass-blur)) saturate(200%);
+    -webkit-backdrop-filter: blur(var(--pill-glass-blur)) saturate(200%);
+    
+    /* Specular Reflection (Convex look) */
+    background-image: linear-gradient(
+      180deg, 
+      color-mix(in oklab, var(--white) 60%, transparent) 0%, 
+      transparent 50%
+    );
+    
+    /* Double Border for Depth */
+    border: 1px solid color-mix(in oklab, var(--white) 80%, transparent);
+    
     border-radius: var(--radius-full);
+    
     box-shadow:
-      0 2px 8px rgb(0 0 0 / 0.06),
-      inset 0 1px 0 color-mix(in oklab, var(--white) 60%, transparent);
+      0 4px 12px rgb(0 0 0 / 0.08),
+      inset 0 0 0 1px color-mix(in oklab, var(--white) 20%, transparent);
 
     animation: liquid-glass-pill-appear 300ms var(--ease-fluid-out);
   }
 
   .dark .liquid-glass-pill,
   [data-theme="dark"] .liquid-glass-pill {
-    background: color-mix(in oklab, var(--white) 12%, transparent);
+    background: color-mix(in oklab, var(--white) var(--pill-glass-opacity-dark), transparent);
+    /* Explicitly remove light-mode-only glass effects */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
     box-shadow:
       0 2px 8px rgb(0 0 0 / 0.2),
       inset 0 1px 0 color-mix(in oklab, var(--white) 20%, transparent);
