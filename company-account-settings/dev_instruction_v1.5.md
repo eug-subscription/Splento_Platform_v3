@@ -498,21 +498,6 @@ Use when you need dynamic styling based on state:
 </Button>
 ```
 
-### 🔄 asChild Prop Pattern
-
-Change the rendered element while keeping styles:
-
-```tsx
-import { Button } from '@heroui/react';
-import Link from 'next/link';
-
-// Renders as Next.js Link, looks like Button
-// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/button
-<Button asChild>
-  <Link href="/about">About</Link>
-</Button>
-```
-
 ### 🎨 Extending Components
 
 **Method 1: Using tailwind-variants**
