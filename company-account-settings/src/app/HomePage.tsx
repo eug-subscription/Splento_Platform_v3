@@ -1,9 +1,10 @@
+"use client";
+
 import { useState } from 'react';
-import { Button, ComboBox, Input, ListBox, Label, Alert } from '@heroui/react';
+import { Button, Alert } from '@heroui/react';
 import { Icon } from '@iconify/react';
-import type { HomePageProps, Organization } from '../types';
+import type { HomePageProps } from '../types';
 import {
-    mockOrganizations,
     mockMetrics,
     mockTools,
     mockQuickAccess,
@@ -14,9 +15,6 @@ import {
     FeaturedTools,
     QuickAccessCards,
 } from '../components/home';
-import { ThemeSwitcher } from '../components/ThemeSwitcher';
-import { CommandPalette } from '../components/CommandPalette';
-import { enterpriseCommands } from '../data/enterprise-commands';
 
 /**
  * HomePage Component
@@ -30,22 +28,18 @@ import { enterpriseCommands } from '../data/enterprise-commands';
  * - onPress events, not onClick
  * - Semantic variants
  */
-export default function HomePage({ onOrgChange, onToolClick, className }: HomePageProps) {
+export default function HomePage({ onToolClick, className }: HomePageProps) {
     // ========== STATE MANAGEMENT ==========
-
-    // Organization state
-    const [selectedOrg, setSelectedOrg] = useState<Organization>(mockOrganizations[0]);
-    const [isOrgSwitching, setIsOrgSwitching] = useState(false);
 
     // Low credits warning
     const [showLowCreditsWarning, setShowLowCreditsWarning] = useState(true);
 
-    // Loading states
-    const [loadingStates, setLoadingStates] = useState({
+    // Loading states (Demonstration only - will be replaced with actual state management)
+    const loadingStates = {
         metrics: false,
         tools: false,
         quickAccess: false,
-    });
+    };
 
     // Error states (for demonstration only)
     const errors = {
@@ -53,100 +47,13 @@ export default function HomePage({ onOrgChange, onToolClick, className }: HomePa
         tools: null as string | null,
     };
 
-    // ========== HANDLERS ==========
-
-    // Handle org switch
-    const handleOrgSwitch = async (orgId: string) => {
-        const newOrg = mockOrganizations.find((o) => o.id === orgId);
-        if (!newOrg || newOrg.id === selectedOrg.id) return;
-
-        setIsOrgSwitching(true);
-        setLoadingStates({ metrics: true, tools: true, quickAccess: true });
-
-        try {
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            setSelectedOrg(newOrg);
-
-            // Notify parent component
-            if (onOrgChange) {
-                onOrgChange(newOrg);
-            }
-
-            // Update URL
-            const url = new URL(window.location.href);
-            url.searchParams.set('org', newOrg.slug);
-            window.history.pushState({}, '', url);
-        } catch (error) {
-            console.error('Failed to switch organization:', error);
-        } finally {
-            setIsOrgSwitching(false);
-            setLoadingStates({ metrics: false, tools: false, quickAccess: false });
-        }
-    };
-
     // ========== RENDER ==========
 
     return (
-        <div className={`min-h-screen bg-background ${className || ''}`}>
-            {/* ========== HEADER ========== */}
-            <header className="sticky top-0 z-50 border-b border-separator bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex items-center justify-between gap-4">
-                        {/* Left: Logo + Org Switcher */}
-                        <div className="flex items-center gap-4">
-
-
-                            {/* Org Switcher */}
-                            <ComboBox
-                                selectedKey={selectedOrg.id}
-                                onSelectionChange={(key) => handleOrgSwitch(key as string)}
-                                isDisabled={isOrgSwitching}
-                                className="w-48"
-                            >
-                                <Label className="sr-only">Select organization</Label>
-                                <ComboBox.InputGroup>
-                                    <Input placeholder="Select org..." />
-                                    <ComboBox.Trigger />
-                                </ComboBox.InputGroup>
-                                <ComboBox.Popover>
-                                    <ListBox>
-                                        {mockOrganizations.map((org) => (
-                                            <ListBox.Item key={org.id} id={org.id} textValue={org.name}>
-                                                {org.name}
-                                                <ListBox.ItemIndicator />
-                                            </ListBox.Item>
-                                        ))}
-                                    </ListBox>
-                                </ComboBox.Popover>
-                            </ComboBox>
-                        </div>
-
-                        {/* Center: Command Palette */}
-                        <div className="hidden flex-1 max-w-md md:block">
-                            <CommandPalette items={enterpriseCommands} />
-                        </div>
-
-                        {/* Right: Credits + Theme + User Menu */}
-                        <div className="flex items-center gap-4">
-                            {/* Credits Display */}
-                            <div className="hidden items-center gap-2 rounded-lg bg-accent/10 px-3 py-2 sm:flex">
-                                <Icon icon="gravity-ui:coins" className="size-5 text-accent" />
-                                <span className="text-sm font-semibold text-foreground">1,247 Credits</span>
-                            </div>
-
-                            {/* Theme Switcher */}
-                            <ThemeSwitcher />
-
-
-                        </div>
-                    </div>
-                </div>
-            </header>
+        <div className={`min-h-screen bg-background ${className ?? ''}`}>
 
             {/* ========== MAIN CONTENT ========== */}
-            <main className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8">
                 <div className="space-y-8">
                     {/* Low Credits Warning - using Alert with color prop */}
                     {showLowCreditsWarning && (
@@ -209,7 +116,7 @@ export default function HomePage({ onOrgChange, onToolClick, className }: HomePa
                         />
                     </section>
                 </div>
-            </main>
+            </div>
         </div>
     );
 }

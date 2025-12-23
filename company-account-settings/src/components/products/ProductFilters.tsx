@@ -21,17 +21,18 @@ export function ProductFilters({ activeFilter, onFilterChange }: ProductFiltersP
                         <Tabs.Indicator />
                     </Tabs.Tab>
                     <Tabs.Tab id="human" className="flex items-center gap-1.5">
-                        <Icon icon="gravity-ui:person" className="size-4" />
-                        Pro Services
+                        <Icon icon="gravity-ui:person" className="hidden md:block size-4" />
+                        <span className="md:hidden">Pro</span>
+                        <span className="hidden md:block">Pro Services</span>
                         <Tabs.Indicator />
                     </Tabs.Tab>
                     <Tabs.Tab id="ai" className="flex items-center gap-1.5">
-                        <Icon icon="gravity-ui:thunderbolt" className="size-4" />
+                        <Icon icon="gravity-ui:thunderbolt" className="hidden md:block size-4" />
                         AI Tools
                         <Tabs.Indicator />
                     </Tabs.Tab>
                     <Tabs.Tab id="hybrid" className="flex items-center gap-1.5">
-                        <Icon icon="gravity-ui:star" className="size-4" />
+                        <Icon icon="gravity-ui:star" className="hidden md:block size-4" />
                         Pro + AI
                         <Tabs.Indicator />
                     </Tabs.Tab>

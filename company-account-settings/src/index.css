@@ -20,15 +20,63 @@
     --snow: oklch(0.9911 0 0);
     --eclipse: oklch(0.2103 0.0059 285.89);
 
+    /* Splento Brand */
+    --splento-cyan: oklch(0.82 0.15 192);
+    /* #2EDBE3 */
+    --canvas: oklch(0.98 0.002 264);
+    /* #F8F9FA */
+    --midnight: oklch(0.17 0.02 265);
+    /* #0D1117 */
+
+    /* Cyan Scale */
+    --cyan-50: oklch(0.97 0.03 192);
+    /* #ECFEFF */
+    --cyan-100: oklch(0.94 0.06 192);
+    /* #CFFAFE */
+    --cyan-200: oklch(0.88 0.10 192);
+    /* #A5F3FC */
+    --cyan-300: oklch(0.84 0.13 192);
+    /* #67E8F9 */
+    --cyan-400: oklch(0.82 0.14 192);
+    /* #22D3EE */
+    --cyan-500: oklch(0.82 0.15 192);
+    /* #2EDBE3 - BASE */
+    --cyan-600: oklch(0.62 0.13 200);
+    /* #0891B2 */
+    --cyan-700: oklch(0.53 0.11 200);
+    /* #0E7490 */
+    --cyan-800: oklch(0.45 0.09 200);
+    /* #155E75 */
+    --cyan-900: oklch(0.40 0.07 200);
+    /* #164E63 */
+    --cyan-950: oklch(0.30 0.06 200);
+    /* #083344 */
+
+    /* Accent Palette */
+    --coral: oklch(0.68 0.20 25);
+    /* #FF6B6B */
+    --peach: oklch(0.82 0.12 55);
+    /* #FFBE98 */
+    --sunset: oklch(0.72 0.18 45);
+    /* #FF8C42 */
+    --electric-blue: oklch(0.50 0.25 265);
+    /* #4F46E5 */
+    --mint: oklch(0.85 0.14 160);
+    /* #6EE7B7 */
+    --lavender: oklch(0.72 0.18 295);
+    /* #A78BFA */
+    --pink-400: oklch(0.72 0.19 350);
+    /* #F472B6 */
+
     /* Spacing & Layout */
     --spacing: 0.25rem;
     --border-width: 0px;
     --field-border-width: var(--border-width);
     --disabled-opacity: 0.5;
-    --ring-offset-width: 2px;
 
     /* Radius */
     --radius: 0.5rem;
+    --radius-xs: calc(var(--radius) * 0.25);
     --radius-sm: calc(var(--radius) * 0.5);
     --radius-md: calc(var(--radius) * 0.75);
     --radius-lg: calc(var(--radius) * 1);
@@ -36,14 +84,15 @@
     --radius-2xl: calc(var(--radius) * 2);
     --radius-3xl: calc(var(--radius) * 3);
     --radius-4xl: calc(var(--radius) * 4);
+    --radius-full: 9999px;
 
     /* HeroUI Radius Aliases */
     --radius-small: var(--radius-sm);
     --radius-medium: var(--radius-md);
     --radius-large: var(--radius-lg);
 
-    /* Field Radius (Missing in previous version) */
-    --field-radius: var(--radius-md);
+    /* Field Radius (Matching HeroUI v3 "XL" default) */
+    --field-radius: var(--radius-xl);
 
     /* Base Colors */
     --background: oklch(0.99 0 0);
@@ -63,6 +112,16 @@
     --overlay: var(--white);
     --overlay-foreground: var(--foreground);
 
+    /* Calculated Surface Levels (Light Mode) */
+    --color-surface-secondary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
+    --color-surface-tertiary: color-mix(in oklab, var(--surface) 92%, var(--surface-foreground) 8%);
+    --color-surface-quaternary: color-mix(in oklab, var(--surface) 86%, var(--default-foreground) 14%);
+
+    /* Calculated Background Levels (Light Mode) */
+    --color-background-secondary: color-mix(in oklab, var(--background) 96%, var(--foreground) 4%);
+    --color-background-tertiary: color-mix(in oklab, var(--background) 92%, var(--foreground) 8%);
+    --color-background-quaternary: color-mix(in oklab, var(--background) 86%, var(--foreground) 14%);
+
     /* Utility Colors */
     --muted: oklch(0.5517 0.0138 285.94);
     --muted-foreground: oklch(0.45 0.01 286);
@@ -73,9 +132,17 @@
     --default-foreground: var(--eclipse);
 
     /* Semantic Colors */
-    --accent: oklch(0.550 0.220 262);
-    /* Blue accent */
-    --accent-foreground: var(--snow);
+    --accent: var(--splento-cyan);
+    /* Splento Cyan - primary brand colour */
+    --accent-foreground: var(--cyan-950);
+
+    /* Calculated Hover States (Light Mode) */
+    --color-default-hover: color-mix(in oklab, var(--default) 80%, transparent);
+    --color-accent-hover: color-mix(in oklab, var(--accent) 90%, var(--accent-foreground) 10%);
+    --color-success-hover: color-mix(in oklab, var(--success) 90%, var(--success-foreground) 10%);
+    --color-warning-hover: color-mix(in oklab, var(--warning) 90%, var(--warning-foreground) 10%);
+    --color-danger-hover: color-mix(in oklab, var(--danger) 90%, var(--danger-foreground) 10%);
+    --color-info-hover: color-mix(in oklab, var(--info) 90%, var(--info-foreground) 10%);
 
     --accent-ai: oklch(0.65 0.25 290);
     /* Purple for AI/premium features */
@@ -89,6 +156,44 @@
 
     --danger: oklch(0.6532 0.2328 25.74);
     --danger-foreground: var(--snow);
+
+    --info: oklch(0.59 0.15 250);
+    /* #3B82F6 approx */
+    --info-foreground: var(--snow);
+
+    /* Grey Scale (Neutral) */
+    --grey-50: oklch(0.985 0.002 247.839);
+    /* #F9FAFB */
+    --grey-100: oklch(0.967 0.003 264.542);
+    /* #F3F4F6 */
+    --grey-200: oklch(0.92 0.004 264.542);
+    /* #E5E7EB */
+    --grey-300: oklch(0.871 0.006 264.542);
+    /* #D1D5DB */
+    --grey-400: oklch(0.705 0.015 286.067);
+    /* #9CA3AF */
+    --grey-500: oklch(0.552 0.016 285.938);
+    /* #6B7280 */
+    --grey-600: oklch(0.442 0.017 285.786);
+    /* #4B5563 */
+    --grey-700: oklch(0.37 0.013 285.805);
+    /* #374151 */
+    --grey-800: oklch(0.274 0.006 286.033);
+    /* #1F2937 */
+    --grey-900: oklch(0.21 0.006 285.885);
+    /* #111827 */
+    --grey-950: oklch(0.14 0.005 285.823);
+    /* #030712 */
+
+    /* Data Visualisation Sequence */
+    --dataviz-1: var(--splento-cyan);
+    --dataviz-2: var(--electric-blue);
+    --dataviz-3: var(--success);
+    --dataviz-4: var(--warning);
+    --dataviz-5: var(--danger);
+    --dataviz-6: var(--lavender);
+    --dataviz-7: var(--sunset);
+    --dataviz-8: var(--mint);
 
     /* Form Field Defaults */
     --field-background: var(--white);
@@ -142,10 +247,35 @@
     --accent-soft-foreground: var(--accent);
     --danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
     --danger-soft-foreground: var(--danger);
+    --info-soft: color-mix(in oklab, var(--info) 15%, transparent);
+    --info-soft-foreground: var(--info);
     --success-soft: color-mix(in oklab, var(--success) 15%, transparent);
     --success-soft-foreground: var(--success);
     --warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
     --warning-soft-foreground: var(--warning);
+
+    /* Gradient Variables */
+    --gradient-cyan-flow: linear-gradient(135deg, var(--splento-cyan) 0%, var(--cyan-600) 100%);
+    --gradient-ocean-depth: linear-gradient(135deg, var(--splento-cyan) 0%, var(--electric-blue) 100%);
+    --gradient-aurora: linear-gradient(135deg, var(--splento-cyan) 0%, var(--lavender) 50%, var(--pink-400) 100%);
+    --gradient-sunrise: linear-gradient(135deg, var(--sunset) 0%, var(--coral) 100%);
+    --gradient-mint-fresh: linear-gradient(135deg, var(--mint) 0%, var(--splento-cyan) 100%);
+    --gradient-mint-fresh: linear-gradient(135deg, var(--mint) 0%, var(--splento-cyan) 100%);
+    --gradient-electric-night: linear-gradient(135deg, var(--electric-blue) 0%, var(--splento-cyan) 50%, var(--mint) 100%);
+
+    /* Liquid Glass Primitives */
+    --gradient-liquid-glass-light:
+      radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 1) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(340, 100%, 76%, 1) 0px, transparent 50%);
+
+    --gradient-liquid-glass-dark:
+      radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+      radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+
+    /* Adaptive alias (defaults to light) */
+    --gradient-liquid-backdrop: var(--gradient-liquid-glass-light);
 
     /* Cursors */
     --cursor-interactive: pointer;
@@ -185,22 +315,29 @@
     --default-foreground: var(--snow);
 
     /* Semantic Colors - Adjusted for dark mode */
-    --accent: oklch(0.650 0.200 262);
-    /* Brighter blue for dark */
-    --accent-foreground: var(--eclipse);
+    --accent: oklch(0.85 0.14 192);
+    /* Brighter Splento Cyan for dark mode */
+    --accent-foreground: var(--cyan-950);
 
     --accent-ai: oklch(0.70 0.25 290);
     /* Brighter purple for AI/premium features in dark mode */
     --accent-ai-foreground: var(--eclipse);
 
-    --success: oklch(0.7329 0.1935 150.81);
+    --success: oklch(0.79 0.17 162);
+    /* #34D399 */
     --success-foreground: var(--eclipse);
 
-    --warning: oklch(0.8203 0.1388 76.34);
+    --warning: oklch(0.85 0.145 85);
+    /* #FBBF24 */
     --warning-foreground: var(--eclipse);
 
-    --danger: oklch(0.594 0.1967 24.63);
+    --danger: oklch(0.71 0.19 25);
+    /* #F87171 */
     --danger-foreground: var(--snow);
+
+    --info: oklch(0.69 0.15 250);
+    /* #60A5FA */
+    --info-foreground: var(--snow);
 
     /* Form Field Defaults */
     --field-background: var(--default);
@@ -228,6 +365,33 @@
     /* AI Gradient Colors - brighter for dark mode */
     --gradient-ai-from: oklch(0.65 0.27 290);
     --gradient-ai-to: oklch(0.65 0.22 262);
+
+    /* Calculated Surface Levels (Must be re-declared to use dark mode base) */
+    --color-surface-secondary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
+    --color-surface-tertiary: color-mix(in oklab, var(--surface) 92%, var(--surface-foreground) 8%);
+    --color-surface-quaternary: color-mix(in oklab, var(--surface) 86%, var(--default-foreground) 14%);
+
+    --color-background-secondary: color-mix(in oklab, var(--background) 96%, var(--foreground) 4%);
+    --color-background-tertiary: color-mix(in oklab, var(--background) 92%, var(--foreground) 8%);
+    --color-background-quaternary: color-mix(in oklab, var(--background) 86%, var(--foreground) 14%);
+
+    /* Calculated Hover States (Must be re-declared) */
+    --color-default-hover: color-mix(in oklab, var(--default) 80%, transparent);
+    --color-accent-hover: color-mix(in oklab, var(--accent) 90%, var(--accent-foreground) 10%);
+    --color-success-hover: color-mix(in oklab, var(--success) 90%, var(--success-foreground) 10%);
+    --color-warning-hover: color-mix(in oklab, var(--warning) 90%, var(--warning-foreground) 10%);
+    --color-danger-hover: color-mix(in oklab, var(--danger) 90%, var(--danger-foreground) 10%);
+    --color-info-hover: color-mix(in oklab, var(--info) 90%, var(--info-foreground) 10%);
+
+    /* Soft Color Variants (Re-declare to use dark mode semantic colors) */
+    --accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+    --danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
+    --info-soft: color-mix(in oklab, var(--info) 15%, transparent);
+    --success-soft: color-mix(in oklab, var(--success) 15%, transparent);
+    --warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
+
+    /* Liquid Glass Backdrop Override */
+    --gradient-liquid-backdrop: var(--gradient-liquid-glass-dark);
   }
 }
 
@@ -237,8 +401,47 @@
    ============================================ */
 
 @theme inline {
+  --color-white: var(--white);
+  --color-black: var(--black);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Splento Scale */
+  --color-canvas: var(--canvas);
+  --color-midnight: var(--midnight);
+  --color-snow: var(--snow);
+  --color-eclipse: var(--eclipse);
+  --color-splento-cyan: var(--splento-cyan);
+  --color-cyan-50: var(--cyan-50);
+  --color-cyan-100: var(--cyan-100);
+  --color-cyan-200: var(--cyan-200);
+  --color-cyan-300: var(--cyan-300);
+  --color-cyan-400: var(--cyan-400);
+  --color-cyan-500: var(--cyan-500);
+  --color-cyan-600: var(--cyan-600);
+  --color-cyan-700: var(--cyan-700);
+  --color-cyan-800: var(--cyan-800);
+  --color-cyan-900: var(--cyan-900);
+  --color-cyan-950: var(--cyan-950);
+
+  /* Accent Palette */
+  --color-coral: var(--coral);
+  --color-peach: var(--peach);
+  --color-sunset: var(--sunset);
+  --color-electric-blue: var(--electric-blue);
+  --color-mint: var(--mint);
+  --color-lavender: var(--lavender);
+  --color-pink-400: var(--pink-400);
+
+  /* Data Visualisation */
+  --color-dataviz-1: var(--dataviz-1);
+  --color-dataviz-2: var(--dataviz-2);
+  --color-dataviz-3: var(--dataviz-3);
+  --color-dataviz-4: var(--dataviz-4);
+  --color-dataviz-5: var(--dataviz-5);
+  --color-dataviz-6: var(--dataviz-6);
+  --color-dataviz-7: var(--dataviz-7);
+  --color-dataviz-8: var(--dataviz-8);
 
   /* Font family */
   --font-sans: 'Libre Franklin', ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -253,6 +456,9 @@
 
   --color-overlay: var(--overlay);
   --color-overlay-foreground: var(--overlay-foreground);
+
+  /* Content Hover */
+  --color-content1-hover: color-mix(in oklab, var(--content1) 90%, var(--foreground) 10%);
 
   /* Utility Colors */
   --color-muted: var(--muted);
@@ -281,15 +487,32 @@
   --color-danger: var(--danger);
   --color-danger-foreground: var(--danger-foreground);
 
-  /* Legacy mappings for compatibility */
-  --color-primary: var(--accent);
-  --color-primary-foreground: var(--accent-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  /* Grey Scale */
+  --color-grey-50: var(--grey-50);
+  --color-grey-100: var(--grey-100);
+  --color-grey-200: var(--grey-200);
+  --color-grey-300: var(--grey-300);
+  --color-grey-400: var(--grey-400);
+  --color-grey-500: var(--grey-500);
+  --color-grey-600: var(--grey-600);
+  --color-grey-700: var(--grey-700);
+  --color-grey-800: var(--grey-800);
+  --color-grey-900: var(--grey-900);
+  --color-grey-950: var(--grey-950);
 
   /* Shadows */
   --shadow-surface: var(--surface-shadow);
   --shadow-overlay: var(--overlay-shadow);
   --shadow-field: var(--field-shadow);
   --shadow-large: var(--shadow-large);
+
+  /* HeroUI Radius Aliases */
+  --radius-small: var(--radius-small);
+  --radius-medium: var(--radius-medium);
+  --radius-large: var(--radius-large);
 
   /* Form Field Tokens */
   --color-field: var(--field-background);
@@ -320,6 +543,10 @@
       var(--color-danger) 90%,
       var(--color-danger-foreground) 10%);
 
+  --color-info-hover: color-mix(in oklab,
+      var(--color-info) 90%,
+      var(--color-info-foreground) 10%);
+
   /* Field Hover/Focus States */
   --color-field-hover: color-mix(in oklab,
       var(--color-field) 90%,
@@ -336,10 +563,19 @@
   --color-accent-soft-foreground: var(--accent-soft-foreground);
   --color-danger-soft: var(--danger-soft);
   --color-danger-soft-foreground: var(--danger-soft-foreground);
+  --color-info-soft: var(--info-soft);
+  --color-info-soft-foreground: var(--info-soft-foreground);
   --color-success-soft: var(--success-soft);
   --color-success-soft-foreground: var(--success-soft-foreground);
   --color-warning-soft: var(--warning-soft);
   --color-warning-soft-foreground: var(--warning-soft-foreground);
+
+  /* Soft Hover States */
+  --color-accent-soft-hover: color-mix(in oklab, var(--color-accent) 20%, transparent);
+  --color-danger-soft-hover: color-mix(in oklab, var(--color-danger) 20%, transparent);
+  --color-success-soft-hover: color-mix(in oklab, var(--color-success) 20%, transparent);
+  --color-warning-soft-hover: color-mix(in oklab, var(--color-warning) 20%, transparent);
+  --color-info-soft-hover: color-mix(in oklab, var(--color-info) 20%, transparent);
 
   /* Surface Levels */
   --color-surface-secondary: color-mix(in oklab, var(--color-surface) 94%, var(--color-surface-foreground) 6%);
@@ -358,12 +594,66 @@
 
   /* Easing */
   --ease-smooth: ease;
+  --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
   --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
   --ease-fluid-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  --ease-linear: linear;
+
+  /* Animations */
+  --animate-spin-fast: spin 0.75s linear infinite;
+  --animate-skeleton: shimmer 2s linear infinite;
+  --animate-caret-blink: caret-blink 1.2s ease-out infinite;
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(200%);
+    }
+  }
+
+  @keyframes caret-blink {
+
+    0%,
+    70%,
+    100% {
+      opacity: 1;
+    }
+
+    20%,
+    50% {
+      opacity: 0;
+    }
+  }
 
   --color-field-border-focus: color-mix(in oklab,
-      var(--color-field-border) 74%,
-      var(--color-field-foreground) 22%);
+    var(--color-field-border) 74%,
+    var(--color-field-foreground) 22%);
+
+  /* Liquid Glass */
+  /* Liquid Glass Design Tokens */
+  --liquid-glass-blur: 24px;
+  --pill-glass-blur: 16px;
+  --liquid-glass-opacity: 40%;
+  --pill-glass-opacity-light: 30%;
+  --pill-glass-opacity-dark: 12%;
+
+  --gradient-liquid-backdrop: var(--gradient-liquid-backdrop);
 }
 
 /* ============================================
@@ -390,11 +680,38 @@
 @layer components {
 
   /* === Custom Components === */
+
+  /* Splento Gradients */
+  .gradient-cyan-flow {
+    background: var(--gradient-cyan-flow);
+  }
+
+  .gradient-ocean-depth {
+    background: var(--gradient-ocean-depth);
+  }
+
+  .gradient-aurora {
+    background: var(--gradient-aurora);
+  }
+
+  .gradient-sunrise {
+    background: var(--gradient-sunrise);
+  }
+
+  .gradient-mint-fresh {
+    background: var(--gradient-mint-fresh);
+  }
+
+  .gradient-electric-night {
+    background: var(--gradient-electric-night);
+  }
+
   .button--ai-gradient,
   .badge--ai-gradient {
     background-image: linear-gradient(135deg,
         var(--gradient-ai-from),
         var(--gradient-ai-to)) !important;
+    /* !important needed to override HeroUI defaults */
     background-size: 200% 200%;
     transition: background-position 300ms ease;
     color: var(--white) !important;
@@ -414,6 +731,153 @@
   /* Global focus-visible for accessibility */
   :focus-visible {
     outline: 2px solid var(--focus);
+  }
+
+  /* ============================================
+     LIQUID GLASS NAVIGATION
+     iOS 26-style frosted glass component
+     ============================================ */
+
+  .liquid-glass-container {
+    /* Glass Effect */
+    background: color-mix(in oklab, var(--surface) var(--liquid-glass-opacity), transparent);
+    backdrop-filter: blur(var(--liquid-glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--liquid-glass-blur)) saturate(180%);
+
+    /* Liquid Gradient (Convex Illusion) */
+    background-image: radial-gradient(ellipse 80% 50% at 50% 0%,
+        color-mix(in oklab, var(--white) 25%, transparent),
+        transparent 50%);
+
+    /* Borders & Depth */
+    border: 1px solid color-mix(in oklab, var(--white) 20%, transparent);
+
+    /* Specular Highlights & Shadows */
+    box-shadow:
+      inset 0 1px 1px color-mix(in oklab, var(--white) 40%, transparent),
+      inset 0 -1px 1px color-mix(in oklab, var(--black) 5%, transparent),
+      0 8px 32px rgb(0 0 0 / 0.15),
+      0 2px 8px rgb(0 0 0 / 0.1);
+
+    border-radius: var(--radius-full);
+
+    /* Safe Area for iOS Home Indicator */
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Dark Mode Adaptation */
+  .dark .liquid-glass-container,
+  [data-theme="dark"] .liquid-glass-container {
+    background: color-mix(in oklab, var(--surface) var(--liquid-glass-opacity), transparent);
+    border-color: color-mix(in oklab, var(--white) 10%, transparent);
+
+    /* Adjusted for Dark Mode */
+    background-image: radial-gradient(ellipse 80% 50% at 50% 0%,
+        color-mix(in oklab, var(--white) 10%, transparent),
+        transparent 50%);
+
+    box-shadow:
+      inset 0 1px 1px color-mix(in oklab, var(--white) 15%, transparent),
+      inset 0 -1px 1px color-mix(in oklab, var(--black) 10%, transparent),
+      0 8px 32px rgb(0 0 0 / 0.4),
+      0 2px 8px rgb(0 0 0 / 0.3);
+  }
+
+  .liquid-glass-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 4rem;
+    padding: 0.5rem 1rem;
+    color: var(--muted-foreground);
+    border-radius: var(--radius-full);
+    transition: color 200ms var(--ease-out);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  .dark .liquid-glass-item,
+  [data-theme="dark"] .liquid-glass-item {
+    color: color-mix(in oklab, var(--white) 45%, transparent);
+  }
+
+  .liquid-glass-item:hover,
+  .dark .liquid-glass-item:hover,
+  [data-theme="dark"] .liquid-glass-item:hover,
+  .liquid-glass-item--active,
+  .dark .liquid-glass-item--active,
+  [data-theme="dark"] .liquid-glass-item--active {
+    color: var(--foreground);
+    opacity: 1;
+  }
+
+  .liquid-glass-item:focus-visible {
+    outline: 2px solid var(--focus);
     outline-offset: 2px;
+  }
+
+  /* Active Pill Indicator */
+  .liquid-glass-pill {
+    position: absolute;
+    inset: 0;
+
+    /* Enhanced Liquid Glass Effect (Light Mode) */
+    /* Lower base opacity for better transparency */
+    background: color-mix(in oklab, var(--white) var(--pill-glass-opacity-light), transparent);
+
+    /* Stronger lens effect */
+    backdrop-filter: blur(var(--pill-glass-blur)) saturate(200%);
+    -webkit-backdrop-filter: blur(var(--pill-glass-blur)) saturate(200%);
+
+    /* Specular Reflection (Convex look) */
+    background-image: linear-gradient(180deg,
+        color-mix(in oklab, var(--white) 60%, transparent) 0%,
+        transparent 50%);
+
+    /* Double Border for Depth */
+    border: 1px solid color-mix(in oklab, var(--white) 80%, transparent);
+
+    border-radius: var(--radius-full);
+
+    box-shadow:
+      0 4px 12px rgb(0 0 0 / 0.08),
+      inset 0 0 0 1px color-mix(in oklab, var(--white) 20%, transparent);
+
+    animation: liquid-glass-pill-appear 300ms var(--ease-fluid-out);
+  }
+
+  .dark .liquid-glass-pill,
+  [data-theme="dark"] .liquid-glass-pill {
+    background: color-mix(in oklab, var(--white) var(--pill-glass-opacity-dark), transparent);
+    /* Explicitly remove light-mode-only glass effects */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow:
+      0 2px 8px rgb(0 0 0 / 0.2),
+      inset 0 1px 0 color-mix(in oklab, var(--white) 20%, transparent);
+  }
+
+  @keyframes liquid-glass-pill-appear {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Liquid Glass Backdrop Utility */
+  .gradient-liquid-backdrop {
+    background-color: var(--background);
+    background-image: var(--gradient-liquid-backdrop);
+    background-attachment: fixed;
+    background-size: cover;
   }
 }

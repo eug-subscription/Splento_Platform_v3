@@ -43,15 +43,28 @@ export interface LeftMenuProps extends SharedNavigationProps {
 }
 
 export interface MobileNavigationProps extends SharedNavigationProps {
-    credits?: number;
     user: {
         name: string;
-        role?: string;
-        avatar?: string;
+        role: string;
+        avatar: string;
     };
-    organisation?: {
+    organisation: {
         name: string;
         id: string;
     };
-    sections?: NavigationSection[];
+    credits: number;
+}
+
+// Liquid Glass Navigation Types
+// Liquid Glass Navigation Types
+export interface NavItem extends Omit<MenuItem, 'icon'> {
+    icon: string; // Icon is required for Liquid Nav
+    isExternal?: boolean;
+}
+
+export interface LiquidGlassNavProps {
+    items: NavItem[];
+    activeId: string;
+    onNavigate?: (path: string) => void;
+    onMorePress?: () => void;
 }

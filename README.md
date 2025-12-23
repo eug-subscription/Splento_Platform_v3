@@ -33,7 +33,7 @@ company-account-settings/
 │   ├── index.css                      # Global styles with HeroUI v3 theming
 │   └── main.tsx                       # Application entry point
 ├── dev_instruction_v1.5.md            # Development standards (REQUIRED READING)
-├── THEMING.md                         # Theming documentation
+├── DESIGN_SYSTEM.md                   # Splento Design System & Identity
 └── README.md                          # This file
 
 ```
@@ -160,7 +160,8 @@ All other UI needs are met by direct HeroUI imports:
 ## 📚 Documentation
 
 - **[dev_instruction_v1.5.md](./company-account-settings/dev_instruction_v1.5.md)** - Complete development standards (**REQUIRED READING**)
-- **[THEMING.md](./company-account-settings/THEMING.md)** - Theming system guide
+- **[DESIGN_SYSTEM.md](./company-account-settings/DESIGN_SYSTEM.md)** - Official Splento Design System & Identity
+- **[Design System Hub](/#design-hub)** - Interactive design system viewer (run locally)
 - **[HeroUI v3 Docs](https://v3.heroui.com/docs/introduction)** - Official HeroUI documentation
 - **[HeroUI Components List](https://v3.heroui.com/llms.txt)** - Full list of components and descriptions
 - **🤖 HeroUI MCP Server** - Ask your AI to use `heroui-react` tools for real-time docs & examples

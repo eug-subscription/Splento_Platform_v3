@@ -66,7 +66,7 @@ We build **premium, accessible, and maintainable** interfaces. We do not build "
 ```text
 Does HeroUI have it?
 ├─ YES → Import directly from @heroui/react (NO wrappers!)
-├─ ALMOST → Extend it (use asChild or composition)
+├─ ALMOST → Extend it (use composition)
 └─ NO → Only then build custom (with approval)
 ```
 
@@ -282,8 +282,14 @@ interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
    - Available components catalog
    - Check here first (Rule #0)
    - [Full Components List for LLMs](https://v3.heroui.com/llms.txt) - Comprehensive component descriptions
+   - [Design System Hub](/#design-hub) - Interactive documentation
 
-3. **[Full Documentation](./heroui-docs.txt)**
+3. **[Design System Reference](./DESIGN_SYSTEM.md)**
+   - **Colors, Tokens, Typography**
+   - Single source of truth for Splento Identity
+   - Replaces old "Theming" guide
+
+4. **[Full Documentation](./heroui-docs.txt)**
    - Complete API reference (Local File)
    - Styling guide
    - All examples
@@ -492,21 +498,6 @@ Use when you need dynamic styling based on state:
 </Button>
 ```
 
-### 🔄 asChild Prop Pattern
-
-Change the rendered element while keeping styles:
-
-```tsx
-import { Button } from '@heroui/react';
-import Link from 'next/link';
-
-// Renders as Next.js Link, looks like Button
-// See: https://github.com/heroui-inc/heroui/tree/v3/packages/react/src/components/button
-<Button asChild>
-  <Link href="/about">About</Link>
-</Button>
-```
-
 ### 🎨 Extending Components
 
 **Method 1: Using tailwind-variants**
@@ -646,6 +637,14 @@ function MyComponent() {
 
 ### 🎨 Color System
 
+**See [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for the complete token reference.**
+
+**Quick Lookup:**
+
+- **Primary**: `--splento-cyan` (`#2EDBE3`)
+- **Backgrounds**: `--canvas` (Light) / `--midnight` (Dark)
+- **Semantic**: `--success`, `--warning`, `--danger`, `--info`
+
 **Always use semantic color pairs:**
 
 ```tsx
@@ -660,15 +659,10 @@ function MyComponent() {
 </div>
 ```
 
-**Available Colors:**
-
 - `background` / `foreground`
 - `accent` / `accent-foreground`
 - `success` / `success-foreground`
-- `warning` / `warning-foreground`
-- `danger` / `danger-foreground`
-- `surface-1`, `surface-2`, `surface-3`
-- `muted`, `border`, `focus`
+- ...and more. See [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md).
 
 ### ✨ Interactive States
 
@@ -936,6 +930,28 @@ export function MyComponent({ onSubmit }: MyComponentProps) {
 - **Component Styles (CSS):** <https://github.com/heroui-inc/heroui/tree/v3/packages/styles/components>
 - **Tailwind v4:** <https://tailwindcss.com/docs>
 - **React Aria:** <https://react-spectrum.adobe.com/react-aria/>
+
+---
+
+## Time Window Logic (Last Active)
+
+When displaying "Last Active" or similar relative timestamps, use the following ruleset to balance immediacy with precision:
+
+| Time Window | Display Text | Example |
+| :--- | :--- | :--- |
+| **< 1 minute** | `Just now` | *Just now* |
+| **< 1 hour** | `X minutes ago` | *12 minutes ago* |
+| **< 24 hours** | `X hours ago` | *3 hours ago* |
+| **24 - 48 hours** | `Yesterday` | *Yesterday* |
+| **3 - 7 days** | `X days ago` | *5 days ago* |
+| **Current Year** | `MMM DD` | *Dec 12* |
+| **Previous Years** | `MMM DD, YYYY` | *Dec 12, 2023* |
+
+### Logic Keys
+
+1. **Immediacy (0-7 days):** Recent activity should feel "close".
+2. **Precision (>7 days):** Older activity needs specific dates.
+3. **Clarity (>1 year):** Always show year for activity older than current year to avoid ambiguity.
 
 ---
 

@@ -56,17 +56,15 @@ export function ProductCard({ product }: ProductCardProps) {
 
             <Card.Footer className="px-4 pb-4">
                 <Button
-                    asChild
+                    // @ts-ignore
+                    href={product.ctaUrl}
+                    as="a"
                     variant={isAI ? 'primary' : 'secondary'}
                     className={`w-full font-medium ${isAI ? 'button--ai-gradient' : ''}`}
+                    aria-label={`${product.ctaLabel} - ${product.title}`}
                 >
-                    <a
-                        href={product.ctaUrl}
-                        aria-label={`${product.ctaLabel} - ${product.title}`}
-                    >
-                        {isAI && <Icon icon="gravity-ui:bolt" className="size-4" />}
-                        {product.ctaLabel}
-                    </a>
+                    {isAI && <Icon icon="gravity-ui:bolt" className="size-4" />}
+                    {product.ctaLabel}
                 </Button>
             </Card.Footer>
         </Card>
