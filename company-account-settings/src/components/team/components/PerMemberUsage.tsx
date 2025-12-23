@@ -5,18 +5,17 @@ import { formatValue } from "../utils/usage";
 interface PerMemberUsageProps {
     members: MemberUsage[];
     totals: {
-        imageCredits: number;
-        videoCredits: number;
-        apiCalls: number;
-        storage: number;
+        aiCredits: number;
+        photoSessions: number;
+        videoSessions: number;
     };
     onMemberClick?: (memberId: string) => void;
 }
 
 export function PerMemberUsage({ members, totals, onMemberClick }: PerMemberUsageProps) {
-    // Sort by total usage (images + videos) descending
+    // Sort by AI Credits descending
     const sortedMembers = [...members].sort(
-        (a, b) => (b.imageCredits + b.videoCredits) - (a.imageCredits + a.videoCredits)
+        (a, b) => b.aiCredits - a.aiCredits
     );
 
     return (
@@ -31,10 +30,9 @@ export function PerMemberUsage({ members, totals, onMemberClick }: PerMemberUsag
                         <thead>
                             <tr className="border-b border-default-200 bg-default-100/50">
                                 <th className="p-4 text-left text-sm font-medium text-default-500">Member</th>
-                                <th className="p-4 text-right text-sm font-medium text-default-500">AI Images</th>
-                                <th className="p-4 text-right text-sm font-medium text-default-500">AI Videos</th>
-                                <th className="p-4 text-right text-sm font-medium text-default-500">API Calls</th>
-                                <th className="p-4 text-right text-sm font-medium text-default-500">Storage</th>
+                                <th className="p-4 text-right text-sm font-medium text-default-500">AI Credits</th>
+                                <th className="p-4 text-right text-sm font-medium text-default-500">Photo Session</th>
+                                <th className="p-4 text-right text-sm font-medium text-default-500">Video Sessions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-default-200">
@@ -61,19 +59,15 @@ export function PerMemberUsage({ members, totals, onMemberClick }: PerMemberUsag
                                     </td>
 
                                     <td className="p-4 text-right">
-                                        <span className="text-sm text-foreground">{formatValue(member.imageCredits)}</span>
+                                        <span className="text-sm text-foreground">{formatValue(member.aiCredits)}</span>
                                     </td>
 
                                     <td className="p-4 text-right">
-                                        <span className="text-sm text-foreground">{formatValue(member.videoCredits)}</span>
+                                        <span className="text-sm text-foreground">{formatValue(member.photoSessions)}</span>
                                     </td>
 
                                     <td className="p-4 text-right">
-                                        <span className="text-sm text-foreground">{formatValue(member.apiCalls)}</span>
-                                    </td>
-
-                                    <td className="p-4 text-right">
-                                        <span className="text-sm text-foreground">{member.storage.toFixed(1)} GB</span>
+                                        <span className="text-sm text-foreground">{formatValue(member.videoSessions)}</span>
                                     </td>
                                 </tr>
                             ))}
@@ -84,16 +78,13 @@ export function PerMemberUsage({ members, totals, onMemberClick }: PerMemberUsag
                                     <span className="text-sm text-foreground">Total</span>
                                 </td>
                                 <td className="p-4 text-right">
-                                    <span className="text-sm text-foreground">{formatValue(totals.imageCredits)}</span>
+                                    <span className="text-sm text-foreground">{formatValue(totals.aiCredits)}</span>
                                 </td>
                                 <td className="p-4 text-right">
-                                    <span className="text-sm text-foreground">{formatValue(totals.videoCredits)}</span>
+                                    <span className="text-sm text-foreground">{formatValue(totals.photoSessions)}</span>
                                 </td>
                                 <td className="p-4 text-right">
-                                    <span className="text-sm text-foreground">{formatValue(totals.apiCalls)}</span>
-                                </td>
-                                <td className="p-4 text-right">
-                                    <span className="text-sm text-foreground">{totals.storage.toFixed(1)} GB</span>
+                                    <span className="text-sm text-foreground">{formatValue(totals.videoSessions)}</span>
                                 </td>
                             </tr>
                         </tbody>

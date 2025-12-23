@@ -12,6 +12,15 @@ export function formatValue(value: number, unit?: string): string {
     return unit ? `${value.toLocaleString()} ${unit}` : value.toLocaleString();
 }
 
+export function formatCurrency(amount: number, currency: string = 'EUR'): string {
+    return new Intl.NumberFormat('en-IE', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(amount);
+}
+
 export function getPeriodDateRange(periodId: string): { start: Date; end: Date } {
     const today = new Date();
 

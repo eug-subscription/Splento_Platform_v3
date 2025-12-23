@@ -124,10 +124,9 @@ export interface MemberUsage {
     name: string;
     email: string;
     avatar: string;
-    imageCredits: number;
-    videoCredits: number;
-    apiCalls: number;
-    storage: number;
+    aiCredits: number;
+    photoSessions: number;
+    videoSessions: number;
 }
 
 export interface UsageAlertsConfig {

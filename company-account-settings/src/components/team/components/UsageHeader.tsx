@@ -10,7 +10,9 @@ interface UsageHeaderProps {
     onCustomDateChange?: (range: { start: Date; end: Date }) => void;
     onExport: () => void;
     isExporting: boolean;
+    hidePeriodSelector?: boolean;
 }
+
 
 export function UsageHeader({
     selectedPeriod,
@@ -18,6 +20,7 @@ export function UsageHeader({
     customDateRange,
     onExport,
     isExporting,
+    hidePeriodSelector = false,
 }: UsageHeaderProps) {
 
     const periods = [
@@ -46,43 +49,49 @@ export function UsageHeader({
     return (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-4">
-                <Select
-                    selectedKey={selectedPeriod}
-                    onSelectionChange={(key) => onPeriodChange(key as string)}
-                    className="w-48"
-                    aria-label="Select Time Period"
-                    placeholder="Select period"
-                >
-                    <Select.Trigger>
-                        <Select.Value>
-                            {currentPeriod?.label}
-                        </Select.Value>
-                        <Select.Indicator />
-                    </Select.Trigger>
-                    <Select.Popover>
-                        <ListBox items={periods}>
-                            {(period) => (
-                                <ListBox.Item key={period.id} id={period.id} textValue={period.label}>
-                                    {period.label}
-                                </ListBox.Item>
-                            )}
-                        </ListBox>
-                    </Select.Popover>
-                </Select>
-
-                <span className="text-sm text-default-500">
-                    {formatDateRange()}
-                </span>
+                {/* Left side empty or title if needed later */}
             </div>
 
-            <Button
-                variant="secondary"
-                onPress={onExport}
-                isPending={isExporting}
-            >
-                <Icon icon="gravity-ui:file-arrow-down" className="w-4 h-4 mr-2" />
-                Export CSV
-            </Button>
+            <div className="flex items-center gap-3">
+                <span className="text-sm text-default-500 mr-2">
+                    {formatDateRange()}
+                </span>
+
+                {!hidePeriodSelector && (
+                    <Select
+                        selectedKey={selectedPeriod}
+                        onSelectionChange={(key) => onPeriodChange(key as string)}
+                        className="w-48"
+                        aria-label="Select Time Period"
+                        placeholder="Select period"
+                    >
+                        <Select.Trigger>
+                            <Select.Value>
+                                {currentPeriod?.label}
+                            </Select.Value>
+                            <Select.Indicator />
+                        </Select.Trigger>
+                        <Select.Popover>
+                            <ListBox items={periods}>
+                                {(period) => (
+                                    <ListBox.Item key={period.id} id={period.id} textValue={period.label}>
+                                        {period.label}
+                                    </ListBox.Item>
+                                )}
+                            </ListBox>
+                        </Select.Popover>
+                    </Select>
+                )}
+
+                <Button
+                    variant="secondary"
+                    onPress={onExport}
+                    isPending={isExporting}
+                >
+                    <Icon icon="gravity-ui:file-arrow-down" className="w-4 h-4 mr-2" />
+                    Export CSV
+                </Button>
+            </div>
         </div>
     );
 }

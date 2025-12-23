@@ -31,7 +31,7 @@ export function TeamHeader({ team, onInvite }: TeamHeaderProps) {
                         <Chip
                             size="sm"
                             variant={getPlanColor(team.plan) as any}
-                            className="uppercase font-bold text-[10px]"
+                            className="uppercase font-bold text-[10px] px-3"
                         >
                             {team.plan}
                         </Chip>

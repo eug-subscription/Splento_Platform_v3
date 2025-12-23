@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import type { Member, UsageSummaryMetric, DetailedMetric, MemberUsage, UsageAlertsConfig } from '../../../types/team';
+import { useState, useMemo } from 'react';
+import type { Member, MemberUsage, UsageAlertsConfig } from '../../../types/team';
+import type { UsageSectionData, BillingSummaryData } from '../../../types/usage';
 import { UsageHeader } from '../components/UsageHeader';
-import { SummaryCards } from '../components/SummaryCards';
+import { UsageDashboard } from '../usage/UsageDashboard';
 import { UsageAlertsSection } from '../components/UsageAlertsSection';
-import { DetailedBreakdown } from '../components/DetailedBreakdown';
 import { PerMemberUsage } from '../components/PerMemberUsage';
 import { DateRangePickerModal } from '../modals/DateRangePickerModal';
 
@@ -33,39 +33,192 @@ export function UsageTab({ teamId: _teamId, members: _members, onNavigateToMembe
         }
     };
 
-    // Mock data - replace with API calls in real implementation
-    const summaryMetrics: UsageSummaryMetric[] = [
-        { id: 'images', label: 'AI Image Credits', icon: 'gravity-ui:picture', used: 3253, total: 5000, trend: { value: 12, direction: 'up' } },
-        { id: 'videos', label: 'AI Video Credits', icon: 'gravity-ui:video', used: 42, total: 100, trend: { value: 8, direction: 'up' } },
-        { id: 'api', label: 'API Calls', icon: 'gravity-ui:plug-connection', used: 58420, total: 100000, trend: { value: 5, direction: 'down' } },
-        { id: 'storage', label: 'Storage', icon: 'gravity-ui:database', used: 4.5, total: 5, unit: 'GB' },
-    ];
+    // Calculate Credits Data (Mock)
+    const creditsData: UsageSectionData = useMemo(() => {
+        // In real app, fetch based on selectedPeriod
+        const total = 20000;
+        const used = 4615;
+        const percent = (used / total) * 100;
 
-    const detailedMetrics: DetailedMetric[] = [
-        { id: 'images', label: 'AI Image Credits', icon: 'gravity-ui:picture', used: 3253, total: 5000 },
-        { id: 'videos', label: 'AI Video Credits', icon: 'gravity-ui:video', used: 42, total: 100 },
-        { id: 'api', label: 'API Calls', icon: 'gravity-ui:plug-connection', used: 58420, total: 100000 },
-        { id: 'storage', label: 'Storage', icon: 'gravity-ui:database', used: 4.5, total: 5, unit: 'GB' },
-        { id: 'batch', label: 'Batch Exports', icon: 'gravity-ui:layers-3-diagonal', used: 73, total: null },
-        { id: 'photo-sessions', label: 'Photo Sessions', icon: 'gravity-ui:camera', used: 156, total: null },
-        { id: 'video-sessions', label: 'Video Sessions', icon: 'gravity-ui:video', used: 23, total: null },
-        { id: 'generated', label: 'Images Generated', icon: 'gravity-ui:picture', used: 8432, total: null },
-        { id: 'menus', label: 'Menus Recognised', icon: 'gravity-ui:file-text', used: 1247, total: null },
-    ];
+        return {
+            id: 'credits',
+            title: 'AI Credits',
+            used,
+            total,
+            unit: 'credits',
+            percentUsed: percent,
+
+            status: percent > 90 ? 'critical' : percent > 80 ? 'warning' : 'normal',
+            features: [
+                {
+                    id: 'images',
+                    label: 'Images',
+                    color: 'bg-dataviz-1', // Cyan
+                    count: 8240,
+                    countUnit: 'generated',
+                    value: 3389,
+                    valueUnit: 'credits',
+                    percentage: 73,
+                    trend: 12
+                },
+                {
+                    id: 'videos',
+                    label: 'Videos',
+                    color: 'bg-dataviz-2', // Electric Blue
+                    count: 156,
+                    countUnit: 'generated',
+                    value: 780,
+                    valueUnit: 'credits',
+                    percentage: 17,
+                    trend: -8
+                },
+                {
+                    id: 'ocr',
+                    label: 'Menu OCR',
+                    color: 'bg-dataviz-6', // Lavender
+                    count: 892,
+                    countUnit: 'scans',
+                    value: 446,
+                    valueUnit: 'credits',
+                    percentage: 10,
+                    trend: -1
+                },
+                {
+                    id: 'available',
+                    label: 'Available Credits',
+                    color: 'bg-grey-300',
+                    count: 0,
+                    countUnit: '',
+                    value: 15385,
+                    valueUnit: 'credits',
+                    percentage: 77, // Remaining
+                    trend: 0
+                }
+            ],
+            actionButton: {
+                label: 'Buy Credits',
+                variant: 'ghost',
+                onPress: () => { }
+            }
+        };
+    }, [selectedPeriod]);
+
+    // Calculate Storage Data (Mock)
+    const storageData: UsageSectionData = useMemo(() => {
+        const total = 5;
+        const used = 4.5;
+        const percent = (used / total) * 100;
+
+        // Mock critical state for demo if needed, currently 90% is critical threshold
+        // 4.5/5 = 90%. UsageStatus = 'critical'.
+
+        return {
+            id: 'storage',
+            title: 'Storage',
+            used,
+            total,
+            unit: 'GB',
+            percentUsed: percent,
+            status: percent >= 90 ? 'critical' : percent > 80 ? 'warning' : 'normal',
+            features: [
+                {
+                    id: 'images',
+                    label: 'Images',
+                    color: 'bg-dataviz-1',
+                    count: 1847,
+                    countUnit: 'files',
+                    value: 2.8,
+                    valueUnit: 'GB',
+                    percentage: 62
+                },
+                {
+                    id: 'videos',
+                    label: 'Videos',
+                    color: 'bg-dataviz-2',
+                    count: 42,
+                    countUnit: 'files',
+                    value: 1.3,
+                    valueUnit: 'GB',
+                    percentage: 28
+                },
+                {
+                    id: 'other',
+                    label: 'Other',
+                    color: 'bg-grey-400',
+                    count: 156,
+                    countUnit: 'files',
+                    value: 0.4,
+                    valueUnit: 'GB',
+                    percentage: 10,
+                    trend: 0
+                },
+                {
+                    id: 'free',
+                    label: 'Free Storage',
+                    color: 'bg-grey-300',
+                    count: 0,
+                    countUnit: '',
+                    value: 0.5,
+                    valueUnit: 'GB',
+                    percentage: 10, // Remaining
+                    trend: 0
+                }
+            ],
+            actionButton: {
+                label: 'Manage Storage',
+                variant: 'ghost',
+                onPress: () => { }
+            }
+        };
+    }, []);
+
+    // Calculate Pro Services Data (Mock)
+    const proServicesData: any = useMemo(() => {
+        return {
+            period: selectedPeriod,
+            totalSpend: 2450,
+            sessionCount: 3,
+            currency: 'EUR',
+            services: [
+                {
+                    id: 'photo',
+                    label: 'Photo Sessions',
+                    count: 2,
+                    spend: 1800,
+                    deliverables: 623,
+                    deliverableUnit: 'photos',
+                    color: 'success'
+                },
+                {
+                    id: 'video',
+                    label: 'Video Sessions',
+                    count: 1,
+                    spend: 650,
+                    deliverables: 12,
+                    deliverableUnit: 'videos',
+                    color: 'info'
+                }
+            ],
+            upcoming: {
+                count: 1,
+                cost: 850,
+                nextDate: '14 Jan'
+            }
+        };
+    }, [selectedPeriod]);
 
     const memberUsage: MemberUsage[] = [
-        { memberId: '1', name: 'Anna Kowalski', email: 'anna@wolt.com', avatar: 'https://i.pravatar.cc/150?u=anna', imageCredits: 1247, videoCredits: 18, apiCalls: 12400, storage: 1.2 },
-        { memberId: '2', name: 'John Doe', email: 'john@wolt.com', avatar: 'https://i.pravatar.cc/150?u=john', imageCredits: 892, videoCredits: 12, apiCalls: 28900, storage: 1.8 },
-        { memberId: '3', name: 'Maria Santos', email: 'maria@wolt.com', avatar: 'https://i.pravatar.cc/150?u=maria', imageCredits: 654, videoCredits: 8, apiCalls: 8200, storage: 0.8 },
-        { memberId: '4', name: 'Mike Johnson', email: 'mike@wolt.com', avatar: 'https://i.pravatar.cc/150?u=mike', imageCredits: 460, videoCredits: 4, apiCalls: 8920, storage: 0.7 },
-        { memberId: '5', name: 'David Kim', email: 'david@wolt.com', avatar: 'https://i.pravatar.cc/150?u=david', imageCredits: 15, videoCredits: 0, apiCalls: 120, storage: 0.1 },
+        { memberId: '1', name: 'Anna Kowalski', email: 'anna@wolt.com', avatar: 'https://i.pravatar.cc/150?u=anna', aiCredits: 1247, photoSessions: 18, videoSessions: 12 },
+        { memberId: '2', name: 'John Doe', email: 'john@wolt.com', avatar: 'https://i.pravatar.cc/150?u=john', aiCredits: 892, photoSessions: 12, videoSessions: 4 },
+        { memberId: '3', name: 'Maria Santos', email: 'maria@wolt.com', avatar: 'https://i.pravatar.cc/150?u=maria', aiCredits: 654, photoSessions: 8, videoSessions: 2 },
+        { memberId: '4', name: 'Mike Johnson', email: 'mike@wolt.com', avatar: 'https://i.pravatar.cc/150?u=mike', aiCredits: 460, photoSessions: 4, videoSessions: 1 },
+        { memberId: '5', name: 'David Kim', email: 'david@wolt.com', avatar: 'https://i.pravatar.cc/150?u=david', aiCredits: 15, photoSessions: 0, videoSessions: 0 },
     ];
 
     const memberTotals = {
-        imageCredits: memberUsage.reduce((sum, m) => sum + m.imageCredits, 0),
-        videoCredits: memberUsage.reduce((sum, m) => sum + m.videoCredits, 0),
-        apiCalls: memberUsage.reduce((sum, m) => sum + m.apiCalls, 0),
-        storage: memberUsage.reduce((sum, m) => sum + m.storage, 0),
+        aiCredits: memberUsage.reduce((sum, m) => sum + m.aiCredits, 0),
+        photoSessions: memberUsage.reduce((sum, m) => sum + m.photoSessions, 0),
+        videoSessions: memberUsage.reduce((sum, m) => sum + m.videoSessions, 0),
     };
 
     const handleExport = async () => {
@@ -87,37 +240,78 @@ export function UsageTab({ teamId: _teamId, members: _members, onNavigateToMembe
         }
     };
 
+    // Calculate Billing Summary Data (Mock)
+    const billingSummaryData: BillingSummaryData = useMemo(() => ({
+        period: selectedPeriod,
+        totalSpend: 5350,
+        currency: 'EUR',
+        trend: {
+            value: 8,
+            direction: 'up'
+        },
+        avgMonthly: 4920,
+        categories: [
+            {
+                id: 'credits',
+                label: 'AI Credits',
+                amount: 2100,
+                percentage: 39,
+                color: 'bg-dataviz-1'
+            },
+            {
+                id: 'storage',
+                label: 'Storage',
+                amount: 800,
+                percentage: 15,
+                color: 'bg-dataviz-2'
+            },
+            {
+                id: 'pro-services',
+                label: 'Pro Services',
+                amount: 2450,
+                percentage: 46,
+                color: 'bg-success'
+            }
+        ]
+    }), [selectedPeriod]);
+
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Header with Period Selector */}
+            {/* Header (Export only now, period is inside dashboard) */}
             <UsageHeader
                 selectedPeriod={selectedPeriod}
-                onPeriodChange={handlePeriodChange}
+                onPeriodChange={handlePeriodChange} // Kept for mobile/generic fallback if needed
                 customDateRange={customDateRange}
                 onCustomDateChange={setCustomDateRange}
                 onExport={handleExport}
                 isExporting={isExporting}
+                hidePeriodSelector={false}
             />
 
-            {/* Summary Cards */}
-            <SummaryCards metrics={summaryMetrics} />
+            {/* Main Dashboard */}
+            <UsageDashboard
+                creditsData={creditsData}
+                storageData={storageData}
+                proServicesData={proServicesData}
+                billingSummaryData={billingSummaryData}
+
+                manageStorage={() => { }}
+            />
+
+            {/* Per-Member Usage Table */}
+            <PerMemberUsage
+                members={memberUsage}
+                totals={memberTotals}
+                onMemberClick={onNavigateToMember}
+            />
 
             {/* Usage Alerts Configuration */}
+            {/* Moved below member usage to deprioritize settings */}
             <UsageAlertsSection
                 config={alertsConfig}
                 onChange={setAlertsConfig}
                 onSave={handleSaveAlerts}
                 isSaving={isSavingAlerts}
-            />
-
-            {/* Detailed Breakdown */}
-            <DetailedBreakdown metrics={detailedMetrics} />
-
-            {/* Per-Member Usage */}
-            <PerMemberUsage
-                members={memberUsage}
-                totals={memberTotals}
-                onMemberClick={onNavigateToMember}
             />
 
             {/* Modals */}
@@ -133,3 +327,4 @@ export function UsageTab({ teamId: _teamId, members: _members, onNavigateToMembe
         </div>
     );
 }
+
