@@ -1,4 +1,4 @@
-"use client";
+
 
 import { Modal, ListBox, Avatar, Label, Header, Button, Separator } from "@heroui/react";
 import { Icon } from "@iconify/react";

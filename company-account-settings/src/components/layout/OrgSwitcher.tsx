@@ -1,4 +1,4 @@
-"use client";
+
 
 import { useState } from 'react';
 import { ComboBox, Input, ListBox, Label } from '@heroui/react';
