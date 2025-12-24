@@ -7,7 +7,7 @@ export const MENU_SECTIONS: NavigationSection[] = [
         items: [
             { id: 'home', label: 'Home', icon: 'gravity-ui:house', href: '/dashboard' },
             { id: 'studio', label: 'Studio', icon: 'gravity-ui:palette', href: '/studio' },
-            { id: 'services', label: 'Services', icon: 'gravity-ui:shopping-bag', href: '#services' },
+            { id: 'services', label: 'Services', icon: 'gravity-ui:shopping-bag', href: '/services' },
             { id: 'analytics', label: 'Analytics', icon: 'gravity-ui:chart-column', href: '/analytics' },
         ]
     },
@@ -25,10 +25,10 @@ export const MENU_SECTIONS: NavigationSection[] = [
         id: 'company',
         title: 'Company',
         items: [
-            { id: 'team', label: 'Team', icon: 'gravity-ui:persons', href: '#team' },
+            { id: 'team', label: 'Team', icon: 'gravity-ui:persons', href: '/team' },
             { id: 'developers', label: 'Developers', icon: 'gravity-ui:code', href: '/developers' },
-            { id: 'settings', label: 'Settings', icon: 'gravity-ui:gear', href: '#settings' },
-            { id: 'design-hub', label: 'Design Hub', icon: 'gravity-ui:compass', href: '#design-hub' },
+            { id: 'settings', label: 'Settings', icon: 'gravity-ui:gear', href: '/settings' },
+            { id: 'design-hub', label: 'Design Hub', icon: 'gravity-ui:compass', href: '/design-hub' },
         ]
     }
 ];
@@ -37,7 +37,7 @@ export const MENU_SECTIONS: NavigationSection[] = [
 export const PRIMARY_TABS: NavItem[] = [
     { id: 'home', label: 'Home', icon: 'gravity-ui:house', href: '/dashboard' },
     { id: 'studio', label: 'Studio', icon: 'gravity-ui:palette', href: '/studio' },
-    { id: 'services', label: 'Services', icon: 'gravity-ui:shopping-bag', href: '#services' },
+    { id: 'services', label: 'Services', icon: 'gravity-ui:shopping-bag', href: '/services' },
     { id: 'orders', label: 'Orders', icon: 'gravity-ui:shopping-cart', href: '/orders', badge: 3 },
 ];
 

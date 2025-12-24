@@ -5,6 +5,7 @@
  */
 
 import type { CommandItem } from "../types/command-palette";
+import { router } from "../router";
 
 export const enterpriseCommands: CommandItem[] = [
     // ==================== Navigation ====================
@@ -16,7 +17,7 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: "H", modifier: "command" },
         section: "Navigation",
         action: () => {
-            window.location.hash = "";
+            router.navigate({ to: "/dashboard" });
         },
         keywords: ["dashboard", "main"],
     },
@@ -28,7 +29,7 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: ",", modifier: "command" },
         section: "Navigation",
         action: () => {
-            window.location.hash = "settings";
+            router.navigate({ to: "/settings" });
         },
         keywords: ["preferences", "config", "configuration", "account"],
     },
@@ -40,8 +41,7 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: "B", modifier: "command" },
         section: "Navigation",
         action: () => {
-            console.log("Navigate: Billing");
-            // window.location.href = "/billing";
+            router.navigate({ to: "/settings" });
         },
         keywords: ["payments", "subscription", "credits"],
     },
@@ -52,8 +52,7 @@ export const enterpriseCommands: CommandItem[] = [
         icon: "gravity-ui:persons",
         section: "Navigation",
         action: () => {
-            console.log("Navigate: Team");
-            // window.location.href = "/team";
+            router.navigate({ to: "/team" });
         },
         keywords: ["users", "permissions", "managers"],
     },
@@ -119,7 +118,7 @@ export const enterpriseCommands: CommandItem[] = [
         section: "Actions",
         action: () => {
             console.log("Action: Buy Credits");
-            // window.location.href = "/billing/buy-credits";
+            router.navigate({ to: "/settings" }); // Mapping to settings/billing for now
         },
         keywords: ["purchase", "top up", "add credits"],
     },
