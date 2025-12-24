@@ -1,4 +1,4 @@
-"use client";
+
 
 import { useMemo } from "react";
 import { ListBox, Avatar, Label, Header, Button } from "@heroui/react";

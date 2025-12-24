@@ -1,4 +1,4 @@
-"use client";
+
 
 import { useState, useEffect } from 'react';
 import { Footer } from './layout/Footer';
@@ -17,7 +17,7 @@ const VIEWS = {
 
 export type DesignSystemView = keyof typeof VIEWS;
 
-export default function SplentoDesignSystem() {
+export function SplentoDesignSystem() {
     const [activeView, setActiveView] = useState<DesignSystemView>('hub');
     const { setHeaderTitle, setHeaderLeft, setShowCredits, setShowCommandPalette, resetToDefault } = useLayout();
 

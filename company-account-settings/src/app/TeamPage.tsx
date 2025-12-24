@@ -15,15 +15,15 @@ export function TeamPage() {
     const [activeTab, setActiveTab] = useState('overview');
 
     const handleInvite = () => {
-        console.log('Invite member triggered');
+        // Handle invite logic
     };
 
     const handleBuyCredits = () => {
-        console.log('Buy credits triggered');
+        // Handle buy credits logic
     };
 
     const handleExportReport = () => {
-        console.log('Export report triggered');
+        // Handle export report logic
     };
 
     return (
@@ -60,7 +60,7 @@ export function TeamPage() {
                     <UsageTab
                         teamId={MOCK_TEAM.id}
                         members={MOCK_MEMBERS}
-                        onNavigateToMember={(memberId) => console.log('Navigate to member', memberId)}
+                        onNavigateToMember={(_memberId) => { }}
                     />
                 ) : (
                     <Card className="border-dashed border-2 border-default-200 bg-transparent shadow-none">
