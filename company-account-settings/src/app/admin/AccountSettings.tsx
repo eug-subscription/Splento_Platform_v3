@@ -9,7 +9,7 @@ import { TagsSection } from './sections/TagsSection';
 import { SocialLinksSection } from './sections/SocialLinksSection';
 import { DisplaySettingsSection } from './sections/DisplaySettingsSection';
 
-export default function AccountSettings() {
+export function AccountSettings() {
     const {
         managers, newManager, setNewManager,
         companyInfo, setCompanyInfo,

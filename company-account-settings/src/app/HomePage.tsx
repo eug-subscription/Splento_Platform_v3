@@ -28,20 +28,19 @@ import {
  * - onPress events, not onClick
  * - Semantic variants
  */
-export default function HomePage({ onToolClick, className }: HomePageProps) {
+export function HomePage({ onToolClick, className }: HomePageProps) {
     // ========== STATE MANAGEMENT ==========
 
     // Low credits warning
     const [showLowCreditsWarning, setShowLowCreditsWarning] = useState(true);
 
-    // Loading states (Demonstration only - will be replaced with actual state management)
+    // Loading and Error states
     const loadingStates = {
         metrics: false,
         tools: false,
         quickAccess: false,
     };
 
-    // Error states (for demonstration only)
     const errors = {
         metrics: null as string | null,
         tools: null as string | null,

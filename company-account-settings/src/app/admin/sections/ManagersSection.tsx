@@ -9,7 +9,7 @@ interface ManagersSectionProps {
         email: string;
         role: Manager['role'];
     };
-    setNewManager: (manager: any) => void;
+    setNewManager: (manager: ManagersSectionProps['newManager']) => void;
     handlers: {
         handleAddManager: () => void;
         handleDeleteManager: (id: string) => void;

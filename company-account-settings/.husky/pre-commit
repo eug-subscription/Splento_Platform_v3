@@ -1,0 +1,1 @@
+cd company-account-settings && npx lint-staged

@@ -99,10 +99,8 @@ export const useAccountSettings = () => {
     };
 
     const handleSave = () => {
-        // TODO: Implement actual save logic
-        // This will send: companyInfo, autorenameMode, unpaidInvoicesLimit,
-        // mailSettings, fileNamePrefixes, prebookingSettings, otherSettings,
-        // managers, billingAddress, socialLinks, tags
+        // TODO: Integrate with backend API to persist changes
+        // Required data: companyInfo, managers, billingAddress, socialLinks, tags, and settings
     };
 
     return {

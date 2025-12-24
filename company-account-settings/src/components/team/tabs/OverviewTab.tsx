@@ -10,7 +10,6 @@ interface OverviewTabProps {
     onNavigateToTab: (tabId: string) => void;
 }
 
-// Sub-component removed, using shared StatsCard
 import { StatsCard } from "../../ui/StatsCard/StatsCard";
 
 // Using Mock Activity Data
@@ -183,6 +182,6 @@ export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportRe
                     </div>
                 </Card.Content>
             </Card>
-        </div >
+        </div>
     );
 }
