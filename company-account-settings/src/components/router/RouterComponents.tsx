@@ -1,10 +1,12 @@
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
+
 import { Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { LeftMenu, MobileNavigation } from '@/components/navigation';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { LayoutProvider } from '@/context/LayoutContext';
 import { Spinner } from '@heroui/react';
+
+
 
 // Wrapper to provide contexts to the entire app within the router
 export const RootComponent = () => (
@@ -19,7 +21,7 @@ export const RootComponent = () => (
                 </a>
                 <Outlet />
             </div>
-            <TanStackRouterDevtools />
+
         </LayoutProvider>
     </ThemeProvider>
 );

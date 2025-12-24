@@ -102,7 +102,6 @@ export interface QuickAccessSection {
  * HomePage component props
  */
 export interface HomePageProps {
-    onOrgChange?: (org: Organization) => void;
     onToolClick?: (tool: ToolData) => void;
     className?: string;
 }

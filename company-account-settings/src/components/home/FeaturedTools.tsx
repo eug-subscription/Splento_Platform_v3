@@ -66,6 +66,10 @@ export function FeaturedTools({ tools, isLoading = false, onToolClick }: Feature
                 {tools.map((tool) => (
                     <Card
                         key={tool.id}
+                        /* 
+                            NOTE: Using onClick because HeroUI v3 Card does not support onPress directly.
+                            Ideally should use a Pressable wrapper, but for now maintaining original behavior with correct prop.
+                        */
                         onClick={() => handleToolClick(tool)}
                         variant="default"
                         className="group cursor-pointer rounded-large border-separator hover:shadow-lg transition-all"

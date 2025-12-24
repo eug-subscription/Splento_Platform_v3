@@ -21,7 +21,6 @@
     "@heroui/styles": "^3.0.0-beta.3",
     "@iconify/react": "^6.0.2",
     "@tanstack/react-router": "^1.143.4",
-    "@tanstack/router-devtools": "^1.143.4",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "react": "^19.2.0",

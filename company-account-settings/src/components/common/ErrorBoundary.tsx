@@ -1,4 +1,5 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
+import { Button } from '@heroui/react';
 
 interface Props {
     children: ReactNode;
@@ -27,12 +28,12 @@ export class ErrorBoundary extends Component<Props, State> {
                 <div className="flex min-h-screen flex-col items-center justify-center p-4 text-center">
                     <h2 className="mb-2 text-2xl font-bold">Something went wrong</h2>
                     <p className="mb-4 text-gray-600">We apologize for the inconvenience.</p>
-                    <button
-                        onClick={() => window.location.reload()}
-                        className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                    <Button
+                        onPress={() => window.location.reload()}
+                        className="bg-blue-600 text-white hover:bg-blue-700"
                     >
                         Reload Page
-                    </button>
+                    </Button>
                 </div>
             );
         }
