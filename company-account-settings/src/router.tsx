@@ -1,13 +1,13 @@
 import { createRouter, createRoute, createRootRoute, Navigate, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { AppLayout } from './components/layout/AppLayout';
+import { AppLayout } from '@/components/layout/AppLayout';
 import HomePage from './app/HomePage';
-import AccountSettings from './app/admin/AccountSettings';
+import AccountSettings from '@/app/admin/AccountSettings';
 import { ServicesPage } from './app/admin/ServicesPage';
 import { TeamPage } from './app/TeamPage';
-import SplentoDesignSystem from './components/design-system/SplentoDesignSystem';
-import { ThemeProvider } from './context/ThemeContext';
-import { LayoutProvider } from './context/LayoutContext';
+import SplentoDesignSystem from '@/components/design-system/SplentoDesignSystem';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { LayoutProvider } from '@/context/LayoutContext';
 import { Spinner } from '@heroui/react';
 
 // --- Components ---
