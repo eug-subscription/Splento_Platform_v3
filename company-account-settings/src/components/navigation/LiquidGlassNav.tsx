@@ -1,7 +1,7 @@
 
 
 import { Icon } from '@iconify/react';
-import { Chip } from '@heroui/react';
+import { Chip, Button } from '@heroui/react';
 import type { LiquidGlassNavProps } from '../../types/navigation';
 
 export function LiquidGlassNav({ items, activeId, onNavigate, onMorePress }: LiquidGlassNavProps) {
@@ -15,22 +15,22 @@ export function LiquidGlassNav({ items, activeId, onNavigate, onMorePress }: Liq
                     {items.map((item) => (
                         <li key={item.id} className="relative z-10 top-0 bottom-0">
                             {/* 
-                            NOTE: Using native button instead of HeroUI Button to maintain precise control 
-                            over the liquid glass layout and animations. 
-                            onClick is used here as this is a native element.
+                            NOTE: Using HeroUI Button for accessibility (onPress support).
+                            Styles maintained via className to preserve liquid glass effect.
                         */}
-                            <button
+                            <Button
                                 data-id={item.id}
-                                onClick={() => {
+                                onPress={() => {
                                     if (item.id === 'more') {
                                         onMorePress?.();
                                     } else if (item.href) {
                                         onNavigate?.(item.href);
                                     }
                                 }}
-                                className={`liquid-glass-item flex-col gap-1 ${activeId === item.id ? 'liquid-glass-item--active' : ''}`}
+                                className={`liquid-glass-item flex-col gap-1 h-auto bg-transparent hover:bg-white/10 ${activeId === item.id ? 'liquid-glass-item--active' : ''}`}
                                 aria-current={activeId === item.id ? 'page' : undefined}
                                 aria-label={item.label}
+
                             >
                                 {/* Active Pill (Internal) - Ensures perfect alignment with content */}
                                 {activeId === item.id && (
@@ -56,7 +56,7 @@ export function LiquidGlassNav({ items, activeId, onNavigate, onMorePress }: Liq
                                     )}
                                 </div>
                                 <span className="relative z-10 text-xs font-medium leading-none mt-1">{item.label}</span>
-                            </button>
+                            </Button>
                         </li>
                     ))}
                 </ul>
