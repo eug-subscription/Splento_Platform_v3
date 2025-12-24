@@ -66,7 +66,6 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: "N", modifier: "command" },
         section: "Actions",
         action: () => {
-            console.log("Action: New Project");
             // openModal("create-project")
         },
         keywords: ["add", "create", "new"],
@@ -79,7 +78,6 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: "U", modifier: "command" },
         section: "Actions",
         action: () => {
-            console.log("Action: Upload");
             // openFileDialog()
         },
         keywords: ["import", "add files", "images"],
@@ -92,7 +90,6 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: "G", modifier: "command" },
         section: "Actions",
         action: () => {
-            console.log("Action: AI Generate");
             // openAIGenerator()
         },
         keywords: ["ai", "artificial intelligence", "create", "generate"],
@@ -105,7 +102,6 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: "E", modifier: "command" },
         section: "Actions",
         action: () => {
-            console.log("Action: Export");
             // exportData()
         },
         keywords: ["download", "save", "backup"],
@@ -117,7 +113,6 @@ export const enterpriseCommands: CommandItem[] = [
         icon: "gravity-ui:coins",
         section: "Actions",
         action: () => {
-            console.log("Action: Buy Credits");
             router.navigate({ to: "/settings" }); // Mapping to settings/billing for now
         },
         keywords: ["purchase", "top up", "add credits"],
@@ -131,7 +126,6 @@ export const enterpriseCommands: CommandItem[] = [
         icon: "gravity-ui:book-open",
         section: "Help",
         action: () => {
-            console.log("Help: Docs");
             window.open("https://docs.example.com", "_blank");
         },
         keywords: ["guide", "manual", "help"],
@@ -144,7 +138,6 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: "?", modifier: "shift" },
         section: "Help",
         action: () => {
-            console.log("Help: Shortcuts");
             // openModal("shortcuts")
         },
         keywords: ["hotkeys", "commands"],
@@ -156,7 +149,6 @@ export const enterpriseCommands: CommandItem[] = [
         icon: "gravity-ui:comment",
         section: "Help",
         action: () => {
-            console.log("Help: Support");
             // openChat()
         },
         keywords: ["contact", "help", "chat"],
@@ -168,7 +160,6 @@ export const enterpriseCommands: CommandItem[] = [
         icon: "gravity-ui:thumbs-up",
         section: "Help",
         action: () => {
-            console.log("Help: Feedback");
             // openFeedbackForm()
         },
         keywords: ["suggest", "report", "idea"],
@@ -183,7 +174,6 @@ export const enterpriseCommands: CommandItem[] = [
         shortcut: { key: "T", modifier: "command" },
         section: "System",
         action: () => {
-            console.log("System: Toggle Theme");
             const html = document.documentElement;
             const currentTheme = html.classList.contains("dark") ? "dark" : "light";
             const newTheme = currentTheme === "dark" ? "light" : "dark";
@@ -201,7 +191,6 @@ export const enterpriseCommands: CommandItem[] = [
         icon: "gravity-ui:arrow-right-from-square",
         section: "System",
         action: () => {
-            console.log("System: Logout");
             // logout()
         },
         keywords: ["sign out", "exit"],

@@ -37,7 +37,7 @@ export function HeroBanner() {
                             variant="primary"
                             size="lg"
                             className="bg-white text-purple-700 hover:bg-gray-100"
-                            onPress={() => console.log('Open Studio clicked')}
+                            onPress={() => { }}
                         >
                             <Icon icon="gravity-ui:sparkle" className="size-5" />
                             Open Studio
@@ -47,7 +47,7 @@ export function HeroBanner() {
                             variant="secondary"
                             size="lg"
                             className="border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
-                            onPress={() => console.log('View Documentation clicked')}
+                            onPress={() => { }}
                         >
                             View Documentation
                         </Button>

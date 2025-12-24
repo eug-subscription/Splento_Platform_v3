@@ -103,7 +103,6 @@ export const useAccountSettings = () => {
         // This will send: companyInfo, autorenameMode, unpaidInvoicesLimit,
         // mailSettings, fileNamePrefixes, prebookingSettings, otherSettings,
         // managers, billingAddress, socialLinks, tags
-        console.log('Saving settings...');
     };
 
     return {
