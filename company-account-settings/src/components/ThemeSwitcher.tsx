@@ -2,7 +2,7 @@
 
 import { Button } from '@heroui/react';
 import { Icon } from '@iconify/react';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/useTheme';
 
 export function ThemeSwitcher() {
     const { theme, toggleTheme } = useTheme();

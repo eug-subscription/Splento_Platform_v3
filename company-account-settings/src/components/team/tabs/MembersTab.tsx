@@ -81,7 +81,7 @@ export function MembersTab() {
         setInvites([...invites, newInvite]);
     };
 
-    const handleBulkImport = async (_file: File) => {
+    const handleBulkImport = async () => {
 
         await new Promise(resolve => setTimeout(resolve, 1500));
     };

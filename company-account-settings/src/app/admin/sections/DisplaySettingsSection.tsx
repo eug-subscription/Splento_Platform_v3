@@ -1,10 +1,9 @@
 import { Card, Checkbox, Label, Description } from "@heroui/react";
+import type { OtherSettings } from '@/types';
 
 interface DisplaySettingsSectionProps {
-    otherSettings: {
-        showPhotographerDetails: boolean;
-    };
-    setOtherSettings: (settings: any) => void;
+    otherSettings: OtherSettings;
+    setOtherSettings: (settings: OtherSettings) => void;
 }
 
 export function DisplaySettingsSection({ otherSettings, setOtherSettings }: DisplaySettingsSectionProps) {

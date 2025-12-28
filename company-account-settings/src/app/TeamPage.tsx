@@ -8,6 +8,7 @@ import { PermissionsTab } from '../components/team/tabs/PermissionsTab';
 import { UsageTab } from '../components/team/tabs/UsageTab';
 
 
+import { BillingTab } from './admin/billing/BillingTab';
 import { MOCK_TEAM, TEAM_OVERVIEW_DATA, MOCK_MEMBERS } from '../data/mock-team';
 
 
@@ -54,13 +55,17 @@ export function TeamPage() {
                     />
                 ) : activeTab === 'members' ? (
                     <MembersTab />
+                ) : activeTab === 'billing' ? (
+                    <BillingTab
+                        currentUser={MOCK_MEMBERS[0]}
+                    />
                 ) : activeTab === 'permissions' ? (
                     <PermissionsTab members={MOCK_MEMBERS} />
                 ) : activeTab === 'usage' ? (
                     <UsageTab
                         teamId={MOCK_TEAM.id}
                         members={MOCK_MEMBERS}
-                        onNavigateToMember={(_memberId) => { }}
+                        onNavigateToMember={() => { }}
                     />
                 ) : (
                     <Card className="border-dashed border-2 border-default-200 bg-transparent shadow-none">

@@ -6,7 +6,7 @@ import { SwatchButton } from '../primitives/SwatchButton';
 import { SampleBentoGrid } from '../samples/SampleBentoGrid';
 import { SampleCreatorCard } from '../samples/SampleCreatorCard';
 import { DataChart } from '../samples/DataChart';
-import { useTheme } from '../../../context/ThemeContext';
+import { useTheme } from '../../../hooks/useTheme';
 
 export function ColoursContent() {
     const { theme } = useTheme();

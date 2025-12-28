@@ -1,16 +1,10 @@
-import React from 'react';
 import { Card, TextField, Label, InputGroup } from "@heroui/react";
 import { Icon } from '@iconify/react';
+import type { SocialLinks } from '@/types';
 
 interface SocialLinksSectionProps {
-    socialLinks: {
-        website: string;
-        linkedin: string;
-        instagram: string;
-        twitter: string;
-        facebook: string;
-    };
-    setSocialLinks: (links: any) => void;
+    socialLinks: SocialLinks;
+    setSocialLinks: (links: SocialLinks) => void;
 }
 
 export function SocialLinksSection({ socialLinks, setSocialLinks }: SocialLinksSectionProps) {

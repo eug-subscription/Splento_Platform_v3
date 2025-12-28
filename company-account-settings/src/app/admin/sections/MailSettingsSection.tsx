@@ -1,11 +1,9 @@
 import { Card, Checkbox, Label, Description } from "@heroui/react";
+import type { MailSettings } from '@/types';
 
 interface MailSettingsSectionProps {
-    mailSettings: {
-        disableAllEmails: boolean;
-        sendChatNotifications: boolean;
-    };
-    setMailSettings: (settings: any) => void;
+    mailSettings: MailSettings;
+    setMailSettings: (settings: MailSettings) => void;
 }
 
 export function MailSettingsSection({ mailSettings, setMailSettings }: MailSettingsSectionProps) {

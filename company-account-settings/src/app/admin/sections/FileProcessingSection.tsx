@@ -1,17 +1,13 @@
 import { Card, Select, ListBox, Label, Checkbox, Description } from "@heroui/react";
+import type { AutorenameMode, FileNamePrefixes, PrebookingSettings } from '@/types';
 
 interface FileProcessingSectionProps {
-    autorenameMode: string;
-    setAutorenameMode: (mode: string) => void;
-    fileNamePrefixes: {
-        webAppPhotography: boolean;
-        professionalPhotography: boolean;
-    };
-    setFileNamePrefixes: (prefixes: any) => void;
-    prebookingSettings: {
-        enableSessionDateInCSV: boolean;
-    };
-    setPrebookingSettings: (settings: any) => void;
+    autorenameMode: AutorenameMode;
+    setAutorenameMode: (mode: AutorenameMode) => void;
+    fileNamePrefixes: FileNamePrefixes;
+    setFileNamePrefixes: (prefixes: FileNamePrefixes) => void;
+    prebookingSettings: PrebookingSettings;
+    setPrebookingSettings: (settings: PrebookingSettings) => void;
 }
 
 export function FileProcessingSection({
@@ -37,7 +33,7 @@ export function FileProcessingSection({
                     {/* Autorename Mode Dropdown */}
                     <Select
                         selectedKey={autorenameMode}
-                        onSelectionChange={(key) => setAutorenameMode(key as string)}
+                        onSelectionChange={(key) => setAutorenameMode(key as AutorenameMode)}
                     >
                         <Label>Autorename Mode</Label>
                         <Select.Trigger>

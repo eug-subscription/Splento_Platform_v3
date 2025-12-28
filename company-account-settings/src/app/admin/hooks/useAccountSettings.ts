@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Manager } from '../../../types';
+import type { Manager, AutorenameMode } from '../../../types';
 
 export const useAccountSettings = () => {
     // ========== STATE MANAGEMENT ==========
@@ -28,7 +28,7 @@ export const useAccountSettings = () => {
     });
 
     // Settings states
-    const [autorenameMode, setAutorenameMode] = useState('external-id');
+    const [autorenameMode, setAutorenameMode] = useState<AutorenameMode>('external-id');
     const [unpaidInvoicesLimit, setUnpaidInvoicesLimit] = useState('');
     const [mailSettings, setMailSettings] = useState({
         disableAllEmails: false,

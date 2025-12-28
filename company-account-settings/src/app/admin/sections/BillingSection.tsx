@@ -1,18 +1,20 @@
 import React from 'react';
 import { Card, TextField, Label, Input, ComboBox, ListBox, Header, Separator } from "@heroui/react";
-import { COUNTRY_REGIONS } from '../../../data/countries';
+import { COUNTRY_REGIONS } from '@/data/countries';
+
+interface BillingAddress {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+}
 
 interface BillingSectionProps {
     unpaidInvoicesLimit: string;
     setUnpaidInvoicesLimit: (limit: string) => void;
-    billingAddress: {
-        street: string;
-        city: string;
-        state: string;
-        postalCode: string;
-        country: string;
-    };
-    setBillingAddress: (address: any) => void;
+    billingAddress: BillingAddress;
+    setBillingAddress: (address: BillingAddress) => void;
 }
 
 export function BillingSection({ unpaidInvoicesLimit, setUnpaidInvoicesLimit, billingAddress, setBillingAddress }: BillingSectionProps) {
@@ -26,50 +28,65 @@ export function BillingSection({ unpaidInvoicesLimit, setUnpaidInvoicesLimit, bi
 
             <Card.Content className="p-2">
                 <div className="space-y-4">
-                    <TextField name="unpaidInvoicesLimit" className="w-full">
+                    <TextField
+                        name="unpaidInvoicesLimit"
+                        className="w-full"
+                        value={unpaidInvoicesLimit}
+                        onChange={setUnpaidInvoicesLimit}
+                    >
                         <Label>Limit on unpaid invoices</Label>
                         <Input
                             type="number"
                             placeholder="0"
-                            value={unpaidInvoicesLimit}
-                            onChange={(e) => setUnpaidInvoicesLimit(e.target.value)}
                         />
                     </TextField>
 
-                    <TextField name="street" className="w-full">
+                    <TextField
+                        name="street"
+                        className="w-full"
+                        value={billingAddress.street}
+                        onChange={(val) => setBillingAddress({ ...billingAddress, street: val })}
+                    >
                         <Label>Street Address</Label>
                         <Input
                             placeholder="123 Main St"
-                            value={billingAddress.street}
-                            onChange={(e) => setBillingAddress({ ...billingAddress, street: e.target.value })}
                         />
                     </TextField>
 
-                    <TextField name="city" className="w-full">
+                    <TextField
+                        name="city"
+                        className="w-full"
+                        value={billingAddress.city}
+                        onChange={(val) => setBillingAddress({ ...billingAddress, city: val })}
+                    >
                         <Label>City</Label>
                         <Input
                             placeholder="San Francisco"
-                            value={billingAddress.city}
-                            onChange={(e) => setBillingAddress({ ...billingAddress, city: e.target.value })}
                         />
                     </TextField>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <TextField name="state" className="w-full">
+                        <TextField
+                            name="state"
+                            className="w-full"
+                            value={billingAddress.state}
+                            onChange={(val) => setBillingAddress({ ...billingAddress, state: val })}
+                        >
                             <Label>State/Province</Label>
                             <Input
                                 placeholder="CA"
-                                value={billingAddress.state}
-                                onChange={(e) => setBillingAddress({ ...billingAddress, state: e.target.value })}
                             />
                         </TextField>
 
-                        <TextField name="postalCode" className="w-full">
+                        <TextField
+                            name="postalCode"
+                            className="w-full"
+                            value={billingAddress.postalCode}
+                            onChange={(val) => setBillingAddress({ ...billingAddress, postalCode: val })}
+                        >
                             <Label>Postal Code</Label>
                             <Input
                                 placeholder="94102"
-                                value={billingAddress.postalCode}
-                                onChange={(e) => setBillingAddress({ ...billingAddress, postalCode: e.target.value })}
                             />
                         </TextField>
                     </div>
@@ -79,6 +96,7 @@ export function BillingSection({ unpaidInvoicesLimit, setUnpaidInvoicesLimit, bi
                         className="w-full"
                         selectedKey={billingAddress.country}
                         onSelectionChange={(key) => setBillingAddress({ ...billingAddress, country: key as string })}
+                        aria-label="Select country"
                     >
                         <Label>Country</Label>
                         <ComboBox.InputGroup>

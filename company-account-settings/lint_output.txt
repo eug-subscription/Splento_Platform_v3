@@ -1,0 +1,73 @@
+
+> company-account-settings@0.0.0 lint
+> eslint .
+
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/app/TeamPage.tsx
+  68:46  error  '_memberId' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/app/admin/sections/CompanyInfoSection.tsx
+  11:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/app/admin/sections/DisplaySettingsSection.tsx
+  7:34  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/app/admin/sections/FileProcessingSection.tsx
+  10:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  14:39  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/app/admin/sections/MailSettingsSection.tsx
+  8:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/app/admin/sections/SocialLinksSection.tsx
+  13:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/components/common/SplentoChip.tsx
+  4:18  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/components/products/ProductCard.tsx
+  59:21  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/components/team/TeamHeader.tsx
+  33:65  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/components/team/modals/InviteMemberModal.tsx
+  101:51  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  112:55  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/components/team/tabs/MembersTab.tsx
+  84:37  error  '_file' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/components/team/tabs/UsageTab.tsx
+   16:36  error    '_teamId' is defined but never used                                                                                   @typescript-eslint/no-unused-vars
+   16:54  error    '_members' is defined but never used                                                                                  @typescript-eslint/no-unused-vars
+  104:8   warning  React Hook useMemo has an unnecessary dependency: 'selectedPeriod'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+  176:28  error    Unexpected any. Specify a different type                                                                              @typescript-eslint/no-explicit-any
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/components/team/utils/usage.ts
+  31:13  error  Unexpected lexical declaration in case block  no-case-declarations
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/context/LayoutContext.tsx
+  66:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/context/ThemeContext.tsx
+  41:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/eugene/Library/CloudStorage/GoogleDrive-info@semeykin.com/My Drive/Antigravity/Splento_Platform_v3/company-account-settings/src/context/ThemeContext.tsx:41:9
+  39 |
+  40 |     useEffect(() => {
+> 41 |         setMounted(true);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  42 |         // 1. Check localStorage
+  43 |         const saved = getStoredTheme();
+  44 |         if (saved) {  react-hooks/set-state-in-effect
+  99:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                react-refresh/only-export-components
+
+✖ 21 problems (20 errors, 1 warning)
+

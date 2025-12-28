@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { Member, MemberUsage, UsageAlertsConfig } from '../../../types/team';
-import type { UsageSectionData, BillingSummaryData } from '../../../types/usage';
+import type { UsageSectionData, BillingSummaryData, ProServicesData } from '../../../types/usage';
 import { UsageHeader } from '../components/UsageHeader';
 import { UsageDashboard } from '../usage/UsageDashboard';
 import { UsageAlertsSection } from '../components/UsageAlertsSection';
@@ -13,7 +13,7 @@ interface UsageTabProps {
     onNavigateToMember?: (memberId: string) => void;
 }
 
-export function UsageTab({ teamId: _teamId, members: _members, onNavigateToMember }: UsageTabProps) {
+export function UsageTab({ onNavigateToMember }: UsageTabProps) {
     const [selectedPeriod, setSelectedPeriod] = useState('this-month');
     const [customDateRange, setCustomDateRange] = useState<{ start: Date; end: Date } | undefined>();
     const [isExporting, setIsExporting] = useState(false);
@@ -101,7 +101,7 @@ export function UsageTab({ teamId: _teamId, members: _members, onNavigateToMembe
                 onPress: () => { }
             }
         };
-    }, [selectedPeriod]);
+    }, []);
 
     // Calculate Storage Data (Mock)
     const storageData: UsageSectionData = useMemo(() => {
@@ -173,7 +173,7 @@ export function UsageTab({ teamId: _teamId, members: _members, onNavigateToMembe
     }, []);
 
     // Calculate Pro Services Data (Mock)
-    const proServicesData: any = useMemo(() => {
+    const proServicesData: ProServicesData = useMemo(() => {
         return {
             period: selectedPeriod,
             totalSpend: 2450,

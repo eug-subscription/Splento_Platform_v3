@@ -2,8 +2,8 @@
 import { Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { LeftMenu, MobileNavigation } from '@/components/navigation';
-import { ThemeProvider } from '@/context/ThemeContext';
-import { LayoutProvider } from '@/context/LayoutContext';
+import { ThemeProvider } from '@/context/ThemeProvider';
+import { LayoutProvider } from '@/context/LayoutProvider';
 import { Spinner } from '@heroui/react';
 
 

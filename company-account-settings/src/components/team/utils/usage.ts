@@ -27,9 +27,10 @@ export function getPeriodDateRange(periodId: string): { start: Date; end: Date }
     switch (periodId) {
         case 'this-month':
             return { start: startOfMonth(today), end: today };
-        case 'last-month':
+        case 'last-month': {
             const lastMonth = subMonths(today, 1);
             return { start: startOfMonth(lastMonth), end: endOfMonth(lastMonth) };
+        }
         case 'last-90-days':
             return { start: subDays(today, 90), end: today };
         case 'this-year':

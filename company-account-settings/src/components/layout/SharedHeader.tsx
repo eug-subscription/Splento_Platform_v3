@@ -2,7 +2,7 @@
 
 import { Button } from '@heroui/react';
 import { Icon } from '@iconify/react';
-import { useLayout } from '../../context/LayoutContext';
+import { useLayout } from '../../hooks/useLayout';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import { CommandPalette } from '../CommandPalette';
 import { OrgSwitcher } from './OrgSwitcher';

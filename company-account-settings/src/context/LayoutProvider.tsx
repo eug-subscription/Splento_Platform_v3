@@ -1,30 +1,7 @@
-
-
-import { createContext, useContext, useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import type { ReactNode } from "react";
-
-export type HeaderLeftContent =
-    | { type: "org-switcher" }
-    | { type: "back-button"; label?: string; onBack: () => void } // label defaults to "Back" if undefined. Consumer MUST handle cleanup (use resetToDefault).
-    | { type: "custom"; content: ReactNode };
-
-export interface LayoutContextType {
-    headerLeft: HeaderLeftContent;
-    setHeaderLeft: (content: HeaderLeftContent) => void;
-
-    showCommandPalette: boolean;
-    setShowCommandPalette: (show: boolean) => void;
-
-    showCredits: boolean;
-    setShowCredits: (show: boolean) => void;
-
-    headerTitle: string | undefined;
-    setHeaderTitle: (title: string | undefined) => void;
-
-    resetToDefault: () => void;
-}
-
-const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
+import { LayoutContext } from "./LayoutContext";
+import type { HeaderLeftContent } from "./LayoutContext";
 
 export function LayoutProvider({ children }: { children: ReactNode }) {
     const [headerLeft, setHeaderLeft] = useState<HeaderLeftContent>({ type: "org-switcher" });
@@ -61,12 +38,4 @@ export function LayoutProvider({ children }: { children: ReactNode }) {
             {children}
         </LayoutContext.Provider>
     );
-}
-
-export function useLayout() {
-    const context = useContext(LayoutContext);
-    if (!context) {
-        throw new Error("useLayout must be used within a LayoutProvider");
-    }
-    return context;
 }
