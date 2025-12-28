@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, lazy, Suspense } from 'react';
 import { Card, Alert } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import { useBilling } from '@/hooks/useBilling';
@@ -14,10 +14,10 @@ import { InvoiceHistoryTable } from '@/app/admin/billing/InvoiceHistoryTable';
 import { BillingAlertBanner } from '@/app/admin/billing/BillingAlertBanner';
 import { BillingTabSkeleton } from '@/app/admin/billing/BillingTabSkeleton';
 
-import { BuyCreditsModal } from './modals/BuyCreditsModal';
-import { UpdatePaymentMethodModal } from './modals/UpdatePaymentMethodModal';
-import { ChangePlanModal } from './modals/ChangePlanModal';
-import { SwitchBillingModelModal } from './modals/SwitchBillingModelModal';
+const BuyCreditsModal = lazy(() => import('./modals/BuyCreditsModal').then(m => ({ default: m.BuyCreditsModal })));
+const UpdatePaymentMethodModal = lazy(() => import('./modals/UpdatePaymentMethodModal').then(m => ({ default: m.UpdatePaymentMethodModal })));
+const ChangePlanModal = lazy(() => import('./modals/ChangePlanModal').then(m => ({ default: m.ChangePlanModal })));
+const SwitchBillingModelModal = lazy(() => import('./modals/SwitchBillingModelModal').then(m => ({ default: m.SwitchBillingModelModal })));
 import type { ModalType, BillingAlert } from '@/types/billing';
 import type { Member } from '@/types/team';
 
@@ -137,25 +137,34 @@ export function BillingTab({ currentUser }: BillingTabProps) {
             <InvoiceHistoryTable invoices={invoices} />
 
             {/* Modals */}
-            <BuyCreditsModal
-                isOpen={activeModal === 'buy_credits'}
-                onClose={closeModal}
-            />
-            <UpdatePaymentMethodModal
-                isOpen={activeModal === 'update_payment'}
-                onClose={closeModal}
-            />
-
-            <ChangePlanModal
-                isOpen={activeModal === 'change_plan'}
-                onClose={closeModal}
-                currentPlan={billing.plan}
-            />
-            <SwitchBillingModelModal
-                isOpen={activeModal === 'switch_billing_model'}
-                onClose={closeModal}
-                currentModel={billing.billingType}
-            />
+            <Suspense fallback={null}>
+                {activeModal === 'buy_credits' && (
+                    <BuyCreditsModal
+                        isOpen={activeModal === 'buy_credits'}
+                        onClose={closeModal}
+                    />
+                )}
+                {activeModal === 'update_payment' && (
+                    <UpdatePaymentMethodModal
+                        isOpen={activeModal === 'update_payment'}
+                        onClose={closeModal}
+                    />
+                )}
+                {activeModal === 'change_plan' && (
+                    <ChangePlanModal
+                        isOpen={activeModal === 'change_plan'}
+                        onClose={closeModal}
+                        currentPlan={billing.plan}
+                    />
+                )}
+                {activeModal === 'switch_billing_model' && (
+                    <SwitchBillingModelModal
+                        isOpen={activeModal === 'switch_billing_model'}
+                        onClose={closeModal}
+                        currentModel={billing.billingType}
+                    />
+                )}
+            </Suspense>
         </div>
     );
 }

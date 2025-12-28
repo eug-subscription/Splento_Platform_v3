@@ -1,9 +1,12 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState, lazy, Suspense, type ChangeEvent } from 'react';
 import { Button, Card, TextField, Select, Checkbox, Chip, Avatar, InputGroup, ListBox, Accordion } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import { InviteMemberModal, type InviteFormData } from "../modals/InviteMemberModal";
-import { BulkImportModal } from "../modals/BulkImportModal";
-import { MemberProfileModal } from "../modals/MemberProfileModal";
+
+const InviteMemberModal = lazy(() => import("../modals/InviteMemberModal").then(m => ({ default: m.InviteMemberModal })));
+const BulkImportModal = lazy(() => import("../modals/BulkImportModal").then(m => ({ default: m.BulkImportModal })));
+const MemberProfileModal = lazy(() => import("../modals/MemberProfileModal").then(m => ({ default: m.MemberProfileModal })));
+
+import type { InviteFormData } from "../modals/InviteMemberModal";
 import type { Member, PendingInvite, FeatureArea, PermissionLevel } from "../../../types/team";
 
 // Helper for relative time formatting
@@ -399,24 +402,32 @@ export function MembersTab() {
             </Card>
 
             {/* Modals */}
-            <InviteMemberModal
-                isOpen={isInviteModalOpen}
-                onClose={() => setIsInviteModalOpen(false)}
-                onSubmit={handleInviteSubmit}
-            />
+            <Suspense fallback={null}>
+                {isInviteModalOpen && (
+                    <InviteMemberModal
+                        isOpen={isInviteModalOpen}
+                        onClose={() => setIsInviteModalOpen(false)}
+                        onSubmit={handleInviteSubmit}
+                    />
+                )}
 
-            <BulkImportModal
-                isOpen={isBulkImportModalOpen}
-                onClose={() => setIsBulkImportModalOpen(false)}
-                onSubmit={handleBulkImport}
-            />
+                {isBulkImportModalOpen && (
+                    <BulkImportModal
+                        isOpen={isBulkImportModalOpen}
+                        onClose={() => setIsBulkImportModalOpen(false)}
+                        onSubmit={handleBulkImport}
+                    />
+                )}
 
-            <MemberProfileModal
-                isOpen={!!selectedMember}
-                onClose={() => setSelectedMember(null)}
-                member={selectedMember}
-                onUpdatePermissions={handleUpdatePermissions}
-            />
+                {selectedMember && (
+                    <MemberProfileModal
+                        isOpen={!!selectedMember}
+                        onClose={() => setSelectedMember(null)}
+                        member={selectedMember}
+                        onUpdatePermissions={handleUpdatePermissions}
+                    />
+                )}
+            </Suspense>
         </div>
     );
 }

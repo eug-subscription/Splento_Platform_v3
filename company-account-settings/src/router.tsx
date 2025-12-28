@@ -1,10 +1,14 @@
+import { lazy } from 'react';
 import { createRouter, createRoute, createRootRoute, Navigate } from '@tanstack/react-router';
-import { HomePage } from './app/HomePage';
-import { AccountSettings } from '@/app/admin/AccountSettings';
-import { ServicesPage } from './app/admin/ServicesPage';
-import { TeamPage } from './app/TeamPage';
-import { SplentoDesignSystem } from '@/components/design-system/SplentoDesignSystem';
 import { RootComponent, AuthLayoutComponent, LoadingComponent } from '@/components/router/RouterComponents';
+
+// --- Lazy loaded page components (Phase 1: Route Splitting) ---
+
+const HomePage = lazy(() => import('./app/HomePage').then(m => ({ default: m.HomePage })));
+const AccountSettings = lazy(() => import('@/app/admin/AccountSettings').then(m => ({ default: m.AccountSettings })));
+const ServicesPage = lazy(() => import('./app/admin/ServicesPage').then(m => ({ default: m.ServicesPage })));
+const TeamPage = lazy(() => import('./app/TeamPage').then(m => ({ default: m.TeamPage })));
+const SplentoDesignSystem = lazy(() => import('@/components/design-system/SplentoDesignSystem').then(m => ({ default: m.SplentoDesignSystem })));
 
 // --- Routes ---
 

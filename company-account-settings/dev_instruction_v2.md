@@ -341,19 +341,35 @@ Wrap all major features or routes in an `ErrorBoundary` to prevent entire app cr
 
 ---
 
-## Performance & Reliability
+### 1. Lazy Loading (Main Bundle Optimization)
 
-### 1. Lazy Loading
+- **Rule**: Lazy load ALL route components, heavy page sections (Tabs), and Modals.
+- **Pattern (Named Exports)**: Since we use Named Exports, always use the resolution pattern:
 
-- **Rule**: Lazy load route components and devtools.
+  ```tsx
+  const MyComponent = lazy(() => import('./MyComponent').then(m => ({ default: m.MyComponent })));
+  ```
 
-- **Tool**: `React.lazy` and `Suspense`.
+- **Pattern (Modals)**: Never bundle modals with their parent. Load them on demand:
 
-### 2. Dependency Management
+  ```tsx
+  {isOpen && (
+    <Suspense fallback={null}>
+      <LazyModal isOpen={isOpen} onClose={close} />
+    </Suspense>
+  )}
+  ```
+
+### 2. Layout Shift & UX
+
+- **Rule**: Use `Skeleton` or themed `Spinner` for `Suspense` fallbacks.
+- **Goal**: Maintain the "Premium" feel (Aesthetics) even during chunk loading.
+
+### 3. Dependency Management
 
 - **Rule**: Check bundle size impact before adding new libraries.
-
 - **Standard**: Use tree-shakeable imports.
+- **Target**: Keep the main entry bundle below **500 KB**.
 
 ---
 
@@ -596,6 +612,10 @@ export function MyComponent({ label, onPress }: MyComponentProps) {
   - [ ] Complex components have JSDoc.
   - [ ] Custom props documented.
 - [ ] **Performance**:
+  - [ ] **Main bundle stays under 500 KB**.
+  - [ ] All route components in `router.tsx` are lazy loaded.
+  - [ ] All heavy modals are lazy loaded and conditionally rendered.
+  - [ ] `Suspense` boundaries have appropriate themed fallbacks (Skeleton).
   - [ ] Tree-shakeable imports used.
   - [ ] No console errors/warnings.
   - [ ] Images optimized.

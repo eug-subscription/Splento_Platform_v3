@@ -1,10 +1,12 @@
 
 
+import { lazy, Suspense } from 'react';
 import { Button } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import { useLayout } from '../../hooks/useLayout';
 import { ThemeSwitcher } from '../ThemeSwitcher';
-import { CommandPalette } from '../CommandPalette';
+
+const CommandPalette = lazy(() => import('../CommandPalette').then(m => ({ default: m.CommandPalette })));
 import { OrgSwitcher } from './OrgSwitcher';
 import { enterpriseCommands } from '../../data/enterprise-commands';
 
@@ -52,7 +54,11 @@ export function SharedHeader() {
                         {headerTitle ? (
                             <h1 className="text-lg font-semibold">{headerTitle}</h1>
                         ) : showCommandPalette ? (
-                            <CommandPalette items={enterpriseCommands} />
+                            <Suspense fallback={<div className="h-10 bg-default-100 animate-pulse rounded-lg w-full" />}>
+                                {showCommandPalette && (
+                                    <CommandPalette items={enterpriseCommands} />
+                                )}
+                            </Suspense>
                         ) : null}
                     </div>
 
