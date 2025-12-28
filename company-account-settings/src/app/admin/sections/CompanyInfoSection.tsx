@@ -1,14 +1,9 @@
 import { Card, TextField, Label, Input } from "@heroui/react";
+import type { CompanyInfo } from '@/types';
 
 interface CompanyInfoSectionProps {
-    companyInfo: {
-        companyName: string;
-        companyEmail: string;
-        coordinatorEmail: string;
-        phone: string;
-        vatNumber: string;
-    };
-    setCompanyInfo: (info: any) => void;
+    companyInfo: CompanyInfo;
+    setCompanyInfo: (info: CompanyInfo) => void;
 }
 
 export function CompanyInfoSection({ companyInfo, setCompanyInfo }: CompanyInfoSectionProps) {

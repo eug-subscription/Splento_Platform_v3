@@ -1,4 +1,4 @@
-import { Avatar, Button, Chip } from "@heroui/react";
+import { Avatar, Button, Chip, type ChipProps } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import type { Team } from "../../types/team";
 
@@ -8,7 +8,7 @@ interface TeamHeaderProps {
 }
 
 export function TeamHeader({ team, onInvite }: TeamHeaderProps) {
-    const getPlanColor = (plan: string) => {
+    const getPlanColor = (plan: string): ChipProps['variant'] => {
         switch (plan) {
             case 'Enterprise': return 'secondary';
             case 'Professional': return 'primary';
@@ -30,7 +30,7 @@ export function TeamHeader({ team, onInvite }: TeamHeaderProps) {
                         <h1 className="text-2xl font-bold leading-none">{team.name}</h1>
                         <Chip
                             size="sm"
-                            variant={getPlanColor(team.plan) as any}
+                            variant={getPlanColor(team.plan)}
                             className="uppercase font-bold text-[10px] px-3"
                         >
                             {team.plan}

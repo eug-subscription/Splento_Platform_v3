@@ -5,28 +5,49 @@ export interface Manager {
     role: 'Admin' | 'Edit' | 'Read Only';
 }
 
-export interface CompanySettings {
+export interface CompanyInfo {
     companyName: string;
     companyEmail: string;
     coordinatorEmail: string;
     phone: string;
     vatNumber: string;
-    autorenameMode: 'external-id' | 'dish-name' | 'external-id-dish-name';
+}
+
+export interface OtherSettings {
+    showPhotographerDetails: boolean;
+}
+
+export type AutorenameMode = 'external-id' | 'dish-name' | 'external-id-dish-name';
+
+export interface FileNamePrefixes {
+    webAppPhotography: boolean;
+    professionalPhotography: boolean;
+}
+
+export interface PrebookingSettings {
+    enableSessionDateInCSV: boolean;
+}
+
+export interface MailSettings {
+    disableAllEmails: boolean;
+    sendChatNotifications: boolean;
+}
+
+export interface SocialLinks {
+    website: string;
+    linkedin: string;
+    instagram: string;
+    twitter: string;
+    facebook: string;
+}
+
+export interface CompanySettings extends CompanyInfo {
+    autorenameMode: AutorenameMode;
     unpaidInvoicesLimit: string;
-    mailSettings: {
-        disableAllEmails: boolean;
-        sendChatNotifications: boolean;
-    };
-    fileNamePrefixes: {
-        webAppPhotography: boolean;
-        professionalPhotography: boolean;
-    };
-    prebookingFiles: {
-        enableSessionDateInCSV: boolean;
-    };
-    otherSettings: {
-        showPhotographerDetails: boolean;
-    };
+    mailSettings: MailSettings;
+    fileNamePrefixes: FileNamePrefixes;
+    prebookingFiles: PrebookingSettings;
+    otherSettings: OtherSettings;
     billingAddress: {
         street: string;
         city: string;
@@ -34,12 +55,7 @@ export interface CompanySettings {
         postalCode: string;
         country: string;
     };
-    socialLinks: {
-        website: string;
-        linkedin: string;
-        twitter: string;
-        facebook: string;
-    };
+    socialLinks: SocialLinks;
 }
 
 // ========== HomePage Types ==========

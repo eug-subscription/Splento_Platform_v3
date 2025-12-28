@@ -6,7 +6,7 @@ import { Hub } from './views/Hub';
 import { ColoursContent } from './views/ColoursContent';
 import { TypographyContent } from './views/TypographyContent';
 import { FoundationsContent } from './views/FoundationsContent';
-import { useLayout } from '../../context/LayoutContext';
+import { useLayout } from '../../hooks/useLayout';
 
 const VIEWS = {
     hub: Hub,

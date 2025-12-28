@@ -98,7 +98,7 @@ export function InviteMemberModal({ isOpen, onClose, onSubmit }: InviteMemberMod
                                     type="email"
                                     placeholder="sarah@company.com"
                                     value={email}
-                                    onChange={(e: any) => setEmail(e.target.value)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                                 />
                             </TextField>
 
@@ -109,7 +109,7 @@ export function InviteMemberModal({ isOpen, onClose, onSubmit }: InviteMemberMod
                                     <Input
                                         placeholder="Sarah Johnson"
                                         value={name}
-                                        onChange={(e: any) => setName(e.target.value)}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                                     />
                                 </TextField>
                             )}

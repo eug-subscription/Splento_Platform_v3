@@ -56,7 +56,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
             <Card.Footer className="px-4 pb-4">
                 <Button
-                    // @ts-ignore
+                    // @ts-expect-error - Button does not natively support href, used here with as="a"
                     href={product.ctaUrl}
                     as="a"
                     variant={isAI ? 'primary' : 'secondary'}
