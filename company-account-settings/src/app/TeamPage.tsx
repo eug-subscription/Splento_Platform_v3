@@ -10,6 +10,7 @@ const PermissionsTab = lazy(() => import('../components/team/tabs/PermissionsTab
 const UsageTab = lazy(() => import('../components/team/tabs/UsageTab').then(m => ({ default: m.UsageTab })));
 const BillingTab = lazy(() => import('./admin/billing/BillingTab').then(m => ({ default: m.BillingTab })));
 const DevelopersTab = lazy(() => import('./admin/developers/DevelopersTab').then(m => ({ default: m.DevelopersTab })));
+const SecurityTab = lazy(() => import('../components/team/tabs/SecurityTab').then(m => ({ default: m.SecurityTab })));
 import { MOCK_TEAM, TEAM_OVERVIEW_DATA, MOCK_MEMBERS } from '../data/mock-team';
 
 
@@ -76,6 +77,8 @@ export function TeamPage() {
                         />
                     ) : activeTab === 'developers' ? (
                         <DevelopersTab />
+                    ) : activeTab === 'security' ? (
+                        <SecurityTab />
                     ) : (
                         <Card className="border-dashed border-2 border-default-200 bg-transparent shadow-none">
                             <Card.Content className="p-12 flex flex-col items-center justify-center text-center">
