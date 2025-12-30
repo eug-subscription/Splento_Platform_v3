@@ -29,7 +29,7 @@ export function BulkImportModal({ isOpen, onClose, onSubmit }: BulkImportModalPr
         <Modal isOpen={isOpen} onOpenChange={onClose}>
             <Modal.Backdrop variant="blur">
                 <Modal.Container>
-                    <Modal.Dialog className="bg-surface-1/80 backdrop-blur-xl border border-separator max-w-md">
+                    <Modal.Dialog className="max-w-md rounded-3xl border border-separator">
                         <Modal.CloseTrigger />
                         <Modal.Header>
                             <Modal.Heading>Bulk Import Members</Modal.Heading>

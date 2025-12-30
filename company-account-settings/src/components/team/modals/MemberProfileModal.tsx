@@ -26,7 +26,7 @@ export function MemberProfileModal({ isOpen, onClose, member, onUpdatePermission
         <Modal isOpen={isOpen} onOpenChange={onClose}>
             <Modal.Backdrop variant="blur">
                 <Modal.Container>
-                    <Modal.Dialog className="w-[56rem] max-w-[95vw] h-[700px] bg-surface flex flex-col">
+                    <Modal.Dialog className="w-[56rem] max-w-[95vw] h-[700px] flex flex-col rounded-3xl">
                         <Modal.CloseTrigger />
                         <Modal.Header>
                             <Modal.Heading className="sr-only">Member Profile: {member.name}</Modal.Heading>
@@ -171,7 +171,7 @@ export function MemberProfileModal({ isOpen, onClose, member, onUpdatePermission
 
                             {/* Footer Actions */}
                         </Modal.Body>
-                        <Modal.Footer className="p-4 border-t border-default-200 bg-default-50 flex justify-end gap-2">
+                        <Modal.Footer className="p-4 border-t border-default-200 flex justify-end gap-2">
                             <Button variant="secondary">
                                 Reset Password
                             </Button>

@@ -66,7 +66,7 @@ export function InviteMemberModal({ isOpen, onClose, onSubmit }: InviteMemberMod
         <Modal isOpen={isOpen} onOpenChange={onClose}>
             <Modal.Backdrop variant="blur">
                 <Modal.Container>
-                    <Modal.Dialog className="bg-surface-1/80 backdrop-blur-xl border border-separator">
+                    <Modal.Dialog className="rounded-3xl border border-separator">
                         <Modal.CloseTrigger />
                         <Modal.Header>
                             <Modal.Heading>Add Member</Modal.Heading>

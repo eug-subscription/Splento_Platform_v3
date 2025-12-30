@@ -1,4 +1,26 @@
-import type { WebhookEvent } from '@/types/developers';
+import type { WebhookEvent, DeveloperSectionConfig } from '@/types/developers';
+
+export const DEVELOPER_SECTIONS: DeveloperSectionConfig[] = [
+    {
+        id: 'api-keys',
+        label: 'API Keys',
+        icon: 'gravity-ui:key',
+        description: 'Manage secret keys for API access'
+    },
+    {
+        id: 'webhooks',
+        label: 'Webhooks',
+        icon: 'gravity-ui:bell',
+        description: 'Configure event notifications'
+    },
+    {
+        id: 'api-logs',
+        label: 'API Logs',
+        icon: 'gravity-ui:list-timeline',
+        description: 'View API request history'
+    },
+];
+
 
 export const WEBHOOK_EVENT_CATEGORIES: Record<string, { label: string; events: WebhookEvent[] }> = {
     orders: {

@@ -131,3 +131,15 @@ export interface DeveloperStats {
     webhookSuccessRate: number;
     avgResponseTime: number;         // ms
 }
+// ============================================================
+// NAVIGATION
+// ============================================================
+
+export type DeveloperSectionId = 'api-keys' | 'webhooks' | 'api-logs';
+
+export interface DeveloperSectionConfig {
+    id: DeveloperSectionId;
+    label: string;
+    icon: string;
+    description?: string;
+}
