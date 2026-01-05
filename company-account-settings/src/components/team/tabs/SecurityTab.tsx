@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { SecurityTabSkeleton } from '@/components/team/security/SecurityTabSkeleton';
 import { SecurityOverviewCard } from '@/components/team/security/SecurityOverviewCard';
 import { SecurityAlertBanner } from '@/components/team/security/SecurityAlertBanner';
@@ -10,14 +10,12 @@ import { LoginHistoryCard } from '@/components/team/security/LoginHistoryCard';
 import { PasswordPoliciesCard } from '@/components/team/security/PasswordPoliciesCard';
 import { useSecurity } from '@/hooks/useSecurity';
 import { Icon } from "@iconify/react";
-import type { Session, IpRule, IpRuleType } from '@/types/security';
+import type { IpRuleType } from '@/types/security';
 
-const Enforce2FAModal = lazy(() => import('@/components/team/security/modals/Enforce2FAModal').then(m => ({ default: m.Enforce2FAModal })));
-const RevokeSessionModal = lazy(() => import('@/components/team/security/modals/RevokeSessionModal').then(m => ({ default: m.RevokeSessionModal })));
-const RevokeAllSessionsModal = lazy(() => import('@/components/team/security/modals/RevokeAllSessionsModal').then(m => ({ default: m.RevokeAllSessionsModal })));
-const AddIpRuleModal = lazy(() => import('@/components/team/security/modals/AddIpRuleModal').then(m => ({ default: m.AddIpRuleModal })));
-const EditIpRuleModal = lazy(() => import('@/components/team/security/modals/EditIpRuleModal').then(m => ({ default: m.EditIpRuleModal })));
-
+/**
+ * SecurityTab component
+ * Refactored to use GlobalModalManager for consolidated modal management.
+ */
 export function SecurityTab() {
     const {
         security,
@@ -26,8 +24,6 @@ export function SecurityTab() {
         loginHistory,
         membersWithout2FA,
         isLoading,
-        activeModal,
-        modalData,
         openModal,
         closeModal,
         toggleEnforce2FA,
@@ -41,6 +37,7 @@ export function SecurityTab() {
         deleteIpRule,
         updatePasswordPolicy
     } = useSecurity();
+
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -50,7 +47,7 @@ export function SecurityTab() {
         return () => cancelAnimationFrame(handle);
     }, []);
 
-    // Simulate loading state for Phase demonstration
+    // Simulate loading state
     const [simulatedLoading, setSimulatedLoading] = useState(true);
     useEffect(() => {
         const timer = setTimeout(() => setSimulatedLoading(false), 800);
@@ -61,42 +58,18 @@ export function SecurityTab() {
         return <SecurityTabSkeleton />;
     }
 
+    // Modal Handlers (Consolidated to use Global Modal Registry)
     const handleToggleEnforcement = (enabled: boolean) => {
         if (enabled) {
-            openModal('enforce_2fa');
+            openModal('enforce_2fa', {
+                membersWithout2FA: membersWithout2FA.length,
+                onConfirm: () => {
+                    toggleEnforce2FA(true);
+                    closeModal();
+                }
+            });
         } else {
             toggleEnforce2FA(false);
-        }
-    };
-
-    const handleConfirmEnforcement = () => {
-        toggleEnforce2FA(true);
-        closeModal();
-    };
-
-    const handleRevokeSessionConfirm = () => {
-        const session = modalData as Session;
-        if (session) {
-            revokeSession(session.id);
-            closeModal();
-        }
-    };
-
-    const handleRevokeAllSessionsConfirm = () => {
-        revokeAllOtherSessions();
-        closeModal();
-    };
-
-    const handleAddIpRuleConfirm = (data: { label: string; value: string; type: IpRuleType }) => {
-        addIpRule({ ...data, isActive: true });
-        closeModal();
-    };
-
-    const handleEditIpRuleConfirm = (data: { label: string; value: string; type: IpRuleType }) => {
-        const rule = modalData as IpRule;
-        if (rule) {
-            updateIpRule(rule.id, data);
-            closeModal();
         }
     };
 
@@ -111,7 +84,7 @@ export function SecurityTab() {
             {/* 5.1 Security Alert Banner */}
             <SecurityAlertBanner
                 membersWithout2FA={membersWithout2FA.length}
-                onFix2FA={() => openModal('enforce_2fa')}
+                onFix2FA={() => handleToggleEnforcement(true)}
             />
 
             {/* 5.2 Security Overview Stats */}
@@ -141,8 +114,19 @@ export function SecurityTab() {
                     sessions={sessions}
                     timeout={security.sessions.timeout}
                     onUpdateTimeout={updateSessionTimeout}
-                    onRevokeSession={(session) => openModal('revoke_session', session)}
-                    onRevokeAllSessions={() => openModal('revoke_all_sessions')}
+                    onRevokeSession={(session) => openModal('revoke_session', {
+                        session,
+                        onConfirm: () => {
+                            revokeSession(session.id);
+                            closeModal();
+                        }
+                    })}
+                    onRevokeAllSessions={() => openModal('revoke_all_sessions', {
+                        onConfirm: async () => {
+                            revokeAllOtherSessions();
+                            closeModal();
+                        }
+                    })}
                 />
             </div>
 
@@ -155,7 +139,7 @@ export function SecurityTab() {
                 <LoginHistoryCard history={loginHistory} />
             </div>
 
-            {/* 5.5 IP Allowlisting Section */}
+            {/* 5.6 IP Allowlisting Section */}
             <div className="space-y-4">
                 <div className="flex items-center gap-2 px-1">
                     <Icon icon="gravity-ui:globe" className="text-xl text-default-400" />
@@ -164,14 +148,25 @@ export function SecurityTab() {
                 <IpAllowlistCard
                     settings={security.ipAllowlist}
                     onToggleEnabled={toggleIpAllowlist}
-                    onAddRule={() => openModal('add_ip_rule')}
-                    onEditRule={(rule) => openModal('edit_ip_rule', rule)}
+                    onAddRule={() => openModal('add_ip_rule', {
+                        onConfirm: (data: { label: string; value: string; type: IpRuleType }) => {
+                            addIpRule({ ...data, isActive: true });
+                            closeModal();
+                        }
+                    })}
+                    onEditRule={(rule) => openModal('edit_ip_rule', {
+                        rule,
+                        onConfirm: (data: { label: string; value: string; type: IpRuleType }) => {
+                            updateIpRule(rule.id, data);
+                            closeModal();
+                        }
+                    })}
                     onDeleteRule={(rule) => deleteIpRule(rule.id)}
                     onToggleRule={(rule) => updateIpRule(rule.id, { isActive: !rule.isActive })}
                 />
             </div>
 
-            {/* 5.6 Password Policies Section */}
+            {/* 5.7 Password Policies Section */}
             <div className="space-y-4">
                 <div className="flex items-center gap-2 px-1">
                     <Icon icon="gravity-ui:key" className="text-xl text-default-400" />
@@ -182,48 +177,6 @@ export function SecurityTab() {
                     onUpdatePolicy={updatePasswordPolicy}
                 />
             </div>
-
-            {/* Modals */}
-            <Suspense fallback={null}>
-                {activeModal === 'enforce_2fa' && (
-                    <Enforce2FAModal
-                        isOpen={true}
-                        onClose={closeModal}
-                        onConfirm={handleConfirmEnforcement}
-                        membersWithout2FA={membersWithout2FA.length}
-                    />
-                )}
-                {activeModal === 'revoke_session' && (
-                    <RevokeSessionModal
-                        isOpen={true}
-                        onClose={closeModal}
-                        onConfirm={handleRevokeSessionConfirm}
-                        session={modalData as Session}
-                    />
-                )}
-                {activeModal === 'revoke_all_sessions' && (
-                    <RevokeAllSessionsModal
-                        isOpen={true}
-                        onClose={closeModal}
-                        onConfirm={handleRevokeAllSessionsConfirm}
-                    />
-                )}
-                {activeModal === 'add_ip_rule' && (
-                    <AddIpRuleModal
-                        isOpen={true}
-                        onClose={closeModal}
-                        onConfirm={handleAddIpRuleConfirm}
-                    />
-                )}
-                {activeModal === 'edit_ip_rule' && (
-                    <EditIpRuleModal
-                        isOpen={true}
-                        onClose={closeModal}
-                        onConfirm={handleEditIpRuleConfirm}
-                        rule={modalData as IpRule}
-                    />
-                )}
-            </Suspense>
         </div>
     );
 }

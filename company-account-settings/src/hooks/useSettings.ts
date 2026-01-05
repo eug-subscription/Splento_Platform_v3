@@ -61,8 +61,8 @@ export function useSettings() {
      * Download data export (Mock)
      */
     const downloadExport = useCallback((exportId: string) => {
-        console.log(`Downloading export: ${exportId}`);
-        // In real app: window.open(export.downloadUrl)
+        if (!exportId) return;
+        // Mock download logic
     }, []);
 
     /**
@@ -76,12 +76,9 @@ export function useSettings() {
      * Transfer admin rights (Mock)
      */
     const transferAdminRights = useCallback(async (request: AdminTransferRequest) => {
+        if (!request) return;
         setIsLoading(true);
         await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // In real app: this would trigger an email or immediate role change
-        console.log('Admin rights transferred to:', request.targetUserId);
-
         setIsLoading(false);
     }, []);
 
@@ -89,11 +86,9 @@ export function useSettings() {
      * Delete team (Mock)
      */
     const deleteTeam = useCallback(async (request: TeamDeletionRequest) => {
+        if (!request) return;
         setIsLoading(true);
         await new Promise(resolve => setTimeout(resolve, 3000));
-
-        console.log('Team deleted successfully:', request.teamNameConfirmation);
-
         setIsLoading(false);
     }, []);
 

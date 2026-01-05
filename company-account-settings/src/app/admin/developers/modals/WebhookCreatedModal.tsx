@@ -29,6 +29,7 @@ export function WebhookCreatedModal({ isOpen, onClose, webhook, signingSecret }:
             <Modal.Backdrop variant="blur" className="p-4">
                 <Modal.Container placement="center">
                     <Modal.Dialog className="sm:max-w-[550px] rounded-3xl">
+                        <Modal.CloseTrigger />
                         <Modal.Header className="flex flex-col gap-1 pb-2">
                             <Modal.Icon className="bg-success-soft text-success">
                                 <Icon icon="gravity-ui:circle-check" className="size-5" />
@@ -104,4 +105,3 @@ export function WebhookCreatedModal({ isOpen, onClose, webhook, signingSecret }:
     );
 }
 
-export default WebhookCreatedModal;

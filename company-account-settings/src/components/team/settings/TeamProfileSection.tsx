@@ -84,15 +84,16 @@ export function TeamProfileSection({ team, onUpdateTeam }: TeamProfileSectionPro
                         />
                         <Button
                             variant="ghost"
+                            isIconOnly
                             onPress={() => fileInputRef.current?.click()}
-                            className="relative rounded-full overflow-hidden transition-all duration-300 ring-offset-4 ring-offset-background hover:ring-2 hover:ring-accent focus:outline-none focus:ring-2 focus:ring-accent p-0"
+                            className="relative size-24 md:size-32 rounded-full overflow-hidden transition-all duration-300 ring-offset-4 ring-offset-background hover:ring-2 hover:ring-accent focus:outline-none focus:ring-2 focus:ring-accent group"
                             aria-label="Change team logo"
                         >
-                            <Avatar className="size-24 md:size-32 text-4xl border-2 border-default-100 dark:border-default-50 shadow-sm">
+                            <Avatar className="size-full rounded-full text-4xl border-2 border-default-100 dark:border-default-50 shadow-sm">
                                 <Avatar.Image src={team.logo || ''} alt={team.name} />
-                                <Avatar.Fallback>{team.name.charAt(0)}</Avatar.Fallback>
+                                <Avatar.Fallback className="rounded-full shadow-inner">{team.name.charAt(0)}</Avatar.Fallback>
                             </Avatar>
-                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 gap-1">
+                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 gap-1 rounded-full">
                                 <Icon icon="gravity-ui:camera" className="size-6 text-white" />
                                 <span className="text-[10px] text-white font-bold uppercase tracking-wider">Change</span>
                             </div>

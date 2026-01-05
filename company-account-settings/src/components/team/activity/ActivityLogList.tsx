@@ -1,11 +1,9 @@
 import { Button, Spinner } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import { useState, lazy, Suspense } from "react";
 import type { ActivityLogEntry } from "@/types/activity";
 import { ActivityLogRow } from "./ActivityLogRow";
 import { ActivityEmptyState } from "./ActivityEmptyState";
-
-const ActivityDetailModal = lazy(() => import("./modals/ActivityDetailModal").then(m => ({ default: m.ActivityDetailModal })));
+import { useModal } from "@/hooks/useModal";
 
 export interface ActivityLogListProps {
     activities: ActivityLogEntry[];
@@ -24,7 +22,7 @@ export function ActivityLogList({
     isFiltered,
     onResetFilters,
 }: ActivityLogListProps) {
-    const [selectedEntry, setSelectedEntry] = useState<ActivityLogEntry | null>(null);
+    const { openModal } = useModal();
 
     if (!activities.length && !isLoading) {
         return (
@@ -43,19 +41,10 @@ export function ActivityLogList({
                     <ActivityLogRow
                         key={entry.id}
                         entry={entry}
-                        onPress={(e) => setSelectedEntry(e)}
+                        onPress={(e) => openModal('activity_detail', { entry: e })}
                     />
                 ))}
             </div>
-
-            {/* Modal */}
-            <Suspense fallback={null}>
-                <ActivityDetailModal
-                    isOpen={!!selectedEntry}
-                    onClose={() => setSelectedEntry(null)}
-                    entry={selectedEntry}
-                />
-            </Suspense>
 
             {/* Pagination / Load More */}
             {hasMore && (

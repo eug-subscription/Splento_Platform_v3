@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense } from 'react';
-import type { Member, FeatureArea, PermissionLevel } from '../../../types/team';
+import type { Member, FeatureArea, PermissionLevel } from '@/types/team';
 import { MemberSelector } from '../components/MemberSelector';
 import { PresetTemplates } from '../components/PresetTemplates';
 import { UnsavedChangesBar } from '../components/UnsavedChangesBar';
@@ -87,8 +87,14 @@ export function PermissionsTab({ members, onSavePermissions }: PermissionsTabPro
     };
 
     return (
-        <div className="pb-24 animate-in fade-in duration-500">
+        <div className="space-y-6 pb-24 animate-in fade-in duration-500">
+            <div className="flex flex-col gap-1 px-1">
+                <h1 className="text-2xl font-bold text-foreground">Permissions Management</h1>
+                <p className="text-default-500">Assign and manage granular permissions for individual team members using templates or custom rules.</p>
+            </div>
+
             {/* Member Selector */}
+
             <MemberSelector
                 members={members}
                 selectedMemberId={selectedMemberId}

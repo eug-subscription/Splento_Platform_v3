@@ -1,6 +1,8 @@
 import { Card, Button, Alert, Avatar } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import type { TeamOverviewData, ActivityEntry } from "../../../types/team";
+import type { TeamOverviewData } from "@/types/team";
+import { StatsCard } from "@/components/ui/StatsCard/StatsCard";
+import { MOCK_RECENT_ACTIVITY } from "@/data/mock-activity";
 
 interface OverviewTabProps {
     teamData: TeamOverviewData;
@@ -10,21 +12,15 @@ interface OverviewTabProps {
     onNavigateToTab: (tabId: string) => void;
 }
 
-import { StatsCard } from "../../ui/StatsCard/StatsCard";
-
-// Using Mock Activity Data
-const RECENT_ACTIVITY: ActivityEntry[] = [
-    { id: '1', user: { name: 'Anna K.', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026024d' }, action: 'invited sarah@wolt.com', category: 'members', timestamp: '2 hours ago' },
-    { id: '2', user: { name: 'John D.', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d' }, action: 'updated permissions for Mike', category: 'permissions', timestamp: '5 hours ago' },
-    { id: '3', user: null, action: 'Invoice #1247 paid successfully', category: 'billing', timestamp: 'Yesterday' },
-    { id: '4', user: { name: 'Maria S.', avatar: 'https://i.pravatar.cc/150?u=a048581f4e29026701d' }, action: 'created API key "Production"', category: 'api', timestamp: '2 days ago' },
-    { id: '5', user: { name: 'Anna K.', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026024d' }, action: 'enabled 2FA enforcement', category: 'security', timestamp: '3 days ago' },
-];
-
 export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportReport, onNavigateToTab }: OverviewTabProps) {
 
     return (
         <div className="space-y-6">
+            <div className="flex flex-col gap-1 px-1">
+                <h1 className="text-2xl font-bold text-foreground">Team Overview</h1>
+                <p className="text-default-500">View your team's key metrics, usage snapshot, and recent activity.</p>
+            </div>
+
             {/* 1. Alert Banner (Conditional) */}
             {(teamData.alerts.lowCredits || teamData.alerts.creditsDepleted) && (
                 <Alert status={teamData.alerts.creditsDepleted ? "danger" : "warning"} className="mb-6 items-center">
@@ -88,7 +84,7 @@ export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportRe
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                        <div className="flex-1 h-2 bg-default-200 rounded-full overflow-hidden">
                                             <div
                                                 className={`h-full rounded-full transition-all ${metric.percentage > 80 ? 'bg-danger' :
                                                     metric.percentage > 60 ? 'bg-warning' : 'bg-success'
@@ -119,12 +115,12 @@ export function OverviewTab({ teamData, onInviteMember, onBuyCredits, onExportRe
                     </Card.Header>
                     <Card.Content className="py-4">
                         <ul className="space-y-4">
-                            {RECENT_ACTIVITY.map((activity) => (
+                            {MOCK_RECENT_ACTIVITY.map((activity) => (
                                 <li key={activity.id} className="flex items-start gap-3">
                                     {activity.user ? (
-                                        <Avatar size="sm">
+                                        <Avatar size="sm" className="rounded-full">
                                             <Avatar.Image src={activity.user.avatar} alt={activity.user.name} />
-                                            <Avatar.Fallback>{activity.user.name.charAt(0)}</Avatar.Fallback>
+                                            <Avatar.Fallback className="rounded-full shadow-inner">{activity.user.name.charAt(0)}</Avatar.Fallback>
                                         </Avatar>
                                     ) : (
                                         <div className="w-8 h-8 rounded-full bg-default-100 flex items-center justify-center min-w-8">

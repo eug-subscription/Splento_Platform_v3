@@ -5,7 +5,7 @@ import type { Session } from "@/types/security";
 interface RevokeSessionModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onConfirm: () => void;
+    onConfirm: () => void | Promise<void>;
     session: Session | null;
 }
 

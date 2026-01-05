@@ -13,7 +13,12 @@ export function DevelopersTab() {
     const [activeSection, setActiveSection] = useState<DeveloperSectionId>('api-keys');
 
     return (
-        <div className="w-full">
+        <div className="w-full space-y-6">
+            <div className="flex flex-col gap-1 px-1">
+                <h1 className="text-2xl font-bold text-foreground">Developer Tools</h1>
+                <p className="text-default-500">Configure API access, manage webhooks, and monitor integration logs.</p>
+            </div>
+
             {/* Desktop Layout (md+) */}
             <div className="hidden md:grid grid-cols-[240px_1fr] gap-8 min-h-[600px]">
                 <aside className="border-r border-default-100 pr-4">

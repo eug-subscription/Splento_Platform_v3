@@ -1,34 +1,43 @@
 import { useState, lazy, Suspense } from 'react';
 import { Card, Spinner } from "@heroui/react";
-import { TeamHeader } from '../components/team/TeamHeader';
-import { TeamTabs } from '../components/team/TeamTabs';
+import { useModal } from '@/hooks/useModal';
+import { TeamHeader } from '@/components/team/TeamHeader';
+import { TeamTabs } from '@/components/team/TeamTabs';
+import { useSecurity } from '@/hooks/useSecurity';
 
 // --- Lazy loaded Team tabs ---
-const OverviewTab = lazy(() => import('../components/team/tabs/OverviewTab').then(m => ({ default: m.OverviewTab })));
-const MembersTab = lazy(() => import('../components/team/tabs/MembersTab').then(m => ({ default: m.MembersTab })));
-const PermissionsTab = lazy(() => import('../components/team/tabs/PermissionsTab').then(m => ({ default: m.PermissionsTab })));
-const UsageTab = lazy(() => import('../components/team/tabs/UsageTab').then(m => ({ default: m.UsageTab })));
-const BillingTab = lazy(() => import('./admin/billing/BillingTab').then(m => ({ default: m.BillingTab })));
-const DevelopersTab = lazy(() => import('./admin/developers/DevelopersTab').then(m => ({ default: m.DevelopersTab })));
-const SecurityTab = lazy(() => import('../components/team/tabs/SecurityTab').then(m => ({ default: m.SecurityTab })));
-const ActivityTab = lazy(() => import('../components/team/tabs/ActivityTab').then(m => ({ default: m.ActivityTab })));
-const SettingsTab = lazy(() => import('../components/team/tabs/SettingsTab').then(m => ({ default: m.SettingsTab })));
-import { MOCK_TEAM, TEAM_OVERVIEW_DATA, MOCK_MEMBERS } from '../data/mock-team';
+const OverviewTab = lazy(() => import('@/components/team/tabs/OverviewTab').then(m => ({ default: m.OverviewTab })));
+const MembersTab = lazy(() => import('@/components/team/tabs/MembersTab').then(m => ({ default: m.MembersTab })));
+const PermissionsTab = lazy(() => import('@/components/team/tabs/PermissionsTab').then(m => ({ default: m.PermissionsTab })));
+const UsageTab = lazy(() => import('@/components/team/tabs/UsageTab').then(m => ({ default: m.UsageTab })));
+const BillingTab = lazy(() => import('@/app/admin/billing/BillingTab').then(m => ({ default: m.BillingTab })));
+const DevelopersTab = lazy(() => import('@/app/admin/developers/DevelopersTab').then(m => ({ default: m.DevelopersTab })));
+const SecurityTab = lazy(() => import('@/components/team/tabs/SecurityTab').then(m => ({ default: m.SecurityTab })));
+const ActivityTab = lazy(() => import('@/components/team/tabs/ActivityTab').then(m => ({ default: m.ActivityTab })));
+const SettingsTab = lazy(() => import('@/components/team/tabs/SettingsTab').then(m => ({ default: m.SettingsTab })));
 
+import { MOCK_TEAM, TEAM_OVERVIEW_DATA, MOCK_MEMBERS } from '@/data/mock-team';
 
 export function TeamPage() {
     const [activeTab, setActiveTab] = useState('overview');
+    const { openModal } = useModal();
+    const { hasSecurityIssues } = useSecurity();
 
     const handleInvite = () => {
-        // Handle invite logic
+        openModal('invite_member', {
+            onSubmit: async () => {
+                // Removed log
+                // Real app would update state here
+            }
+        });
     };
 
     const handleBuyCredits = () => {
-        // Handle buy credits logic
+        openModal('buy_credits');
     };
 
     const handleExportReport = () => {
-        // Handle export report logic
+        openModal('request_data_export');
     };
 
     return (
@@ -44,11 +53,11 @@ export function TeamPage() {
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
                 memberCount={MOCK_TEAM.memberCount}
-                hasSecurityIssues={true} // Mock state
+                hasSecurityIssues={hasSecurityIssues}
             />
 
             {/* Dynamic Tab Content Area */}
-            <div className="mt-2 min-h-[400px]">
+            <div className="mt-6 min-h-[400px]">
                 <Suspense fallback={
                     <div className="flex flex-col items-center justify-center p-12 gap-4">
                         <Spinner size="lg" />

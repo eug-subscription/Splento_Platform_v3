@@ -98,9 +98,9 @@ export const useAccountSettings = () => {
         setTags(tags.filter(tag => tag !== tagToRemove));
     };
 
-    const handleSave = () => {
-        // TODO: Integrate with backend API to persist changes
-        // Required data: companyInfo, managers, billingAddress, socialLinks, tags, and settings
+    const handleSave = async () => {
+        // Mock save - replace with actual API call when backend is ready
+        await new Promise(resolve => setTimeout(resolve, 1000));
     };
 
     return {

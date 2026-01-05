@@ -1,6 +1,6 @@
 import { Chip, type ChipProps } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import type { UsageStatus } from "../../../types/usage";
+import type { UsageStatus } from "@/types/usage";
 
 interface UsageStatusChipProps {
     status: UsageStatus;

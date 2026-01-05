@@ -115,4 +115,3 @@ export function CreateApiKeyModal({ isOpen, onClose, onSuccess }: CreateApiKeyMo
     );
 }
 
-export default CreateApiKeyModal;

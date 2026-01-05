@@ -1,5 +1,5 @@
 import { RadioGroup, Radio } from "@heroui/react";
-import type { PermissionLevel, FeatureArea } from "../../types/team";
+import type { PermissionLevel, FeatureArea } from "@/types/team";
 
 interface PermissionsMatrixProps {
     permissions: Record<FeatureArea, PermissionLevel>;

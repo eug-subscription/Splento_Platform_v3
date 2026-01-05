@@ -1,6 +1,6 @@
-import { StatsCard } from "../../ui/StatsCard/StatsCard";
-import type { UsageSummaryMetric } from "../../../types/team";
-import { formatValue } from "../utils/usage";
+import { StatsCard } from "@/components/ui/StatsCard/StatsCard";
+import type { UsageSummaryMetric } from "@/types/team";
+import { formatValue } from "@/components/team/utils/usage";
 
 interface SummaryCardsProps {
     metrics: UsageSummaryMetric[];

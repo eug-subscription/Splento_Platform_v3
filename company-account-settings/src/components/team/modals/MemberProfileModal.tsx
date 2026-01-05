@@ -1,8 +1,8 @@
 import { Modal, Button, Avatar, Chip, Tabs, TextField, Label, Input, InputGroup, Tooltip } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
-import { PermissionsMatrix } from "../PermissionsMatrix";
-import type { Member, FeatureArea, PermissionLevel } from "../../../types/team";
+import { PermissionsMatrix } from "@/components/team/PermissionsMatrix";
+import type { Member, FeatureArea, PermissionLevel } from "@/types/team";
 
 interface MemberProfileModalProps {
     isOpen: boolean;

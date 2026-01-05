@@ -1,4 +1,5 @@
 import type { ActivityLogEntry, ActivityActor } from '@/types/activity';
+import type { ActivityEntry } from '@/types/team';
 import { MOCK_MEMBERS } from './mock-team';
 
 const ACTORS: ActivityActor[] = MOCK_MEMBERS.map(m => ({
@@ -108,4 +109,12 @@ export const MOCK_ACTIVITIES: ActivityLogEntry[] = [
     createActivity('50', ACTORS[0], 'exports', 'Annual Report', 'Generated fiscal year 2024 activity report', 24 * 90),
     createActivity('51', ACTORS[2], 'assets', 'Archive Cleaned', 'Deleted 500 expired assets to free up storage', 24 * 95),
     createActivity('52', SYSTEM_ACTOR, 'login', 'Maintenance Login', 'System maintenance access recorded from internal IP', 24 * 100),
+];
+
+export const MOCK_RECENT_ACTIVITY: ActivityEntry[] = [
+    { id: '1', user: { name: 'Anna K.', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026024d' }, action: 'invited sarah@wolt.com', category: 'members', timestamp: '2 hours ago' },
+    { id: '2', user: { name: 'John D.', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d' }, action: 'updated permissions for Mike', category: 'permissions', timestamp: '5 hours ago' },
+    { id: '3', user: null, action: 'Invoice #1247 paid successfully', category: 'billing', timestamp: 'Yesterday' },
+    { id: '4', user: { name: 'Maria S.', avatar: 'https://i.pravatar.cc/150?u=a048581f4e29026701d' }, action: 'created API key "Production"', category: 'api', timestamp: '2 days ago' },
+    { id: '5', user: { name: 'Anna K.', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026024d' }, action: 'enabled 2FA enforcement', category: 'security', timestamp: '3 days ago' },
 ];

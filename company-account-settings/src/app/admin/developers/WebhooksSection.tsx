@@ -1,50 +1,28 @@
-import { useState } from 'react';
 import { Button } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import { useDevelopers } from '@/hooks/useDevelopers';
 import { EmptyState } from '@/components/developers/EmptyState';
 import { WebhookCard } from '@/components/developers/WebhookCard';
-import { AddWebhookModal } from './modals/AddWebhookModal';
-import { EditWebhookModal } from './modals/EditWebhookModal';
-import { WebhookCreatedModal } from './modals/WebhookCreatedModal';
-import { DeleteWebhookModal } from './modals/DeleteWebhookModal';
-import type { Webhook, WebhookEvent } from '@/types/developers';
+import { useModal } from '@/hooks/useModal';
+import type { WebhookFormData } from '@/types/modals';
 
 export function WebhooksSection() {
     const { webhooks, isLoading, deleteWebhook, toggleWebhookStatus, createWebhook, updateWebhook } = useDevelopers();
+    const { openModal, closeModal } = useModal();
 
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [isCreatedModalOpen, setIsCreatedModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-    const [selectedWebhook, setSelectedWebhook] = useState<Webhook | null>(null);
-    const [createdWebhookData, setCreatedWebhookData] = useState<{ webhook: Webhook; signingSecret: string } | null>(null);
-
-    const handleAddWebhook = async (data: { name: string; url: string; events: WebhookEvent[] }) => {
+    const handleAddWebhook = async (data: WebhookFormData) => {
         const response = await createWebhook(data);
-        setCreatedWebhookData(response);
-        setIsCreatedModalOpen(true);
+        openModal('webhook_created', response);
     };
 
-    const handleEditWebhook = (webhook: Webhook) => {
-        setSelectedWebhook(webhook);
-        setIsEditModalOpen(true);
-    };
-
-    const handleUpdateWebhook = async (id: string, data: { name: string; url: string; events: WebhookEvent[] }) => {
+    const handleUpdateWebhook = async (id: string, data: WebhookFormData) => {
         await updateWebhook(id, data);
-        setIsEditModalOpen(false);
-    };
-
-    const handleDeleteClick = (webhook: Webhook) => {
-        setSelectedWebhook(webhook);
-        setIsDeleteModalOpen(true);
+        closeModal();
     };
 
     const handleConfirmDelete = async (id: string) => {
         await deleteWebhook(id);
-        setIsDeleteModalOpen(false);
+        closeModal();
     };
 
     if (webhooks.length === 0 && !isLoading) {
@@ -55,13 +33,7 @@ export function WebhooksSection() {
                     title="No webhooks configured"
                     description="Webhooks allow you to receive real-time notifications when events happen in your account."
                     actionLabel="Add Webhook"
-                    onAction={() => setIsAddModalOpen(true)}
-                />
-
-                <AddWebhookModal
-                    isOpen={isAddModalOpen}
-                    onClose={() => setIsAddModalOpen(false)}
-                    onSubmit={handleAddWebhook}
+                    onAction={() => openModal('create_webhook', { onSubmit: handleAddWebhook })}
                 />
             </div>
         );
@@ -78,7 +50,7 @@ export function WebhooksSection() {
                 </div>
                 <Button
                     variant="primary"
-                    onPress={() => setIsAddModalOpen(true)}
+                    onPress={() => openModal('create_webhook', { onSubmit: handleAddWebhook })}
                     className="rounded-full px-6 font-bold shadow-lg shadow-accent/20"
                 >
                     <Icon icon="gravity-ui:plus" className="size-4 mr-2" />
@@ -91,43 +63,18 @@ export function WebhooksSection() {
                     <WebhookCard
                         key={webhook.id}
                         webhook={webhook}
-                        onEdit={handleEditWebhook}
-                        onDelete={() => handleDeleteClick(webhook)}
+                        onEdit={(webhookItem) => openModal('edit_webhook', {
+                            webhook: webhookItem,
+                            onSubmit: (id: string, data: WebhookFormData) => handleUpdateWebhook(id, data)
+                        })}
+                        onDelete={() => openModal('delete_webhook', {
+                            webhook,
+                            onConfirm: () => handleConfirmDelete(webhook.id)
+                        })}
                         onToggleStatus={toggleWebhookStatus}
                     />
                 ))}
             </div>
-
-            {/* Modals */}
-            <AddWebhookModal
-                isOpen={isAddModalOpen}
-                onClose={() => setIsAddModalOpen(false)}
-                onSubmit={handleAddWebhook}
-            />
-
-            <EditWebhookModal
-                isOpen={isEditModalOpen}
-                onClose={() => setIsEditModalOpen(false)}
-                webhook={selectedWebhook}
-                onSubmit={handleUpdateWebhook}
-            />
-
-            <DeleteWebhookModal
-                isOpen={isDeleteModalOpen}
-                onClose={() => setIsDeleteModalOpen(false)}
-                webhook={selectedWebhook}
-                onConfirm={handleConfirmDelete}
-            />
-
-            {createdWebhookData && (
-                <WebhookCreatedModal
-                    isOpen={isCreatedModalOpen}
-                    onClose={() => setIsCreatedModalOpen(false)}
-                    webhook={createdWebhookData.webhook}
-                    signingSecret={createdWebhookData.signingSecret}
-                />
-            )}
         </div>
     );
 }
-

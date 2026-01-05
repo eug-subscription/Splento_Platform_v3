@@ -46,6 +46,8 @@ export function BulkImportModal({ isOpen, onClose, onSubmit }: BulkImportModalPr
 
                             {/* Drag & Drop Zone */}
                             <div
+                                role="button"
+                                tabIndex={0}
                                 className={`
                 border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer
                 ${isDragging ? 'border-primary bg-primary/5' : 'border-default-200'}
@@ -59,6 +61,12 @@ export function BulkImportModal({ isOpen, onClose, onSubmit }: BulkImportModalPr
                                     const droppedFile = e.dataTransfer.files[0];
                                     if (droppedFile?.type === 'text/csv' || droppedFile?.name.endsWith('.csv')) {
                                         setFile(droppedFile);
+                                    }
+                                }}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        document.getElementById('csv-upload')?.click();
                                     }
                                 }}
                                 onClick={() => document.getElementById('csv-upload')?.click()}
@@ -91,8 +99,7 @@ export function BulkImportModal({ isOpen, onClose, onSubmit }: BulkImportModalPr
                                         <Button
                                             variant="secondary"
                                             size="sm"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
+                                            onPress={() => {
                                                 document.getElementById('csv-upload')?.click();
                                             }}
                                         >
@@ -102,7 +109,7 @@ export function BulkImportModal({ isOpen, onClose, onSubmit }: BulkImportModalPr
                                 )}
                             </div>
 
-                            <Button variant="ghost" size="sm" className="text-primary w-full justify-start">
+                            <Button variant="ghost" size="sm" className="text-primary w-full justify-start" onPress={() => { /* TODO: Implement template download */ }}>
                                 <Icon icon="gravity-ui:arrow-down-to-line" className="size-4 mr-2" />
                                 Download Template CSV
                             </Button>

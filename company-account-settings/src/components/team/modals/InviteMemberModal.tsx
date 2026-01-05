@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Modal, Button, TextField, Label, Input, ListBox, Tabs, ComboBox, Description } from "@heroui/react";
-import { PermissionsMatrix } from "../PermissionsMatrix";
-import type { FeatureArea, PermissionLevel } from "../../../types/team";
+import { Modal, Button, TextField, ListBox, Tabs, ComboBox, Label, Input, Description } from "@heroui/react";
+import { PermissionsMatrix } from "@/components/team/PermissionsMatrix";
+import type { FeatureArea, PermissionLevel } from "@/types/team";
 
 interface InviteMemberModalProps {
     isOpen: boolean;

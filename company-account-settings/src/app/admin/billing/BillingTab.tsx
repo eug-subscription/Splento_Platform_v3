@@ -1,4 +1,4 @@
-import { useRef, lazy, Suspense } from 'react';
+import { useRef } from 'react';
 import { Card, Alert } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import { useBilling } from '@/hooks/useBilling';
@@ -14,10 +14,6 @@ import { InvoiceHistoryTable } from '@/app/admin/billing/InvoiceHistoryTable';
 import { BillingAlertBanner } from '@/app/admin/billing/BillingAlertBanner';
 import { BillingTabSkeleton } from '@/app/admin/billing/BillingTabSkeleton';
 
-const BuyCreditsModal = lazy(() => import('./modals/BuyCreditsModal').then(m => ({ default: m.BuyCreditsModal })));
-const UpdatePaymentMethodModal = lazy(() => import('./modals/UpdatePaymentMethodModal').then(m => ({ default: m.UpdatePaymentMethodModal })));
-const ChangePlanModal = lazy(() => import('./modals/ChangePlanModal').then(m => ({ default: m.ChangePlanModal })));
-const SwitchBillingModelModal = lazy(() => import('./modals/SwitchBillingModelModal').then(m => ({ default: m.SwitchBillingModelModal })));
 import type { ModalType, BillingAlert } from '@/types/billing';
 import type { Member } from '@/types/team';
 
@@ -33,9 +29,7 @@ export function BillingTab({ currentUser }: BillingTabProps) {
         alerts,
         isLoading,
         error,
-        activeModal,
         openModal,
-        closeModal,
         dismissAlert
     } = useBilling();
 
@@ -86,6 +80,11 @@ export function BillingTab({ currentUser }: BillingTabProps) {
 
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
+            <div className="flex flex-col gap-1 px-1">
+                <h1 className="text-2xl font-bold text-foreground">Billing & Plans</h1>
+                <p className="text-default-500">Manage your subscription, purchase credits, and view your billing history.</p>
+            </div>
+
             {/* Alerts Banner */}
             {alerts.length > 0 && (
                 <BillingAlertBanner
@@ -103,8 +102,8 @@ export function BillingTab({ currentUser }: BillingTabProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
                 <CurrentPlanCard
                     billing={billing}
-                    onChangePlan={() => openModal('change_plan')}
-                    onSwitchModel={() => openModal('switch_billing_model')}
+                    onChangePlan={() => billing.plan && openModal('change_plan', { currentPlan: billing.plan })}
+                    onSwitchModel={() => openModal('switch_billing_model', { currentModel: billing.billingType })}
                 />
                 <CreditsCard
                     billing={billing}
@@ -135,36 +134,6 @@ export function BillingTab({ currentUser }: BillingTabProps) {
 
             {/* Invoice History */}
             <InvoiceHistoryTable invoices={invoices} />
-
-            {/* Modals */}
-            <Suspense fallback={null}>
-                {activeModal === 'buy_credits' && (
-                    <BuyCreditsModal
-                        isOpen={activeModal === 'buy_credits'}
-                        onClose={closeModal}
-                    />
-                )}
-                {activeModal === 'update_payment' && (
-                    <UpdatePaymentMethodModal
-                        isOpen={activeModal === 'update_payment'}
-                        onClose={closeModal}
-                    />
-                )}
-                {activeModal === 'change_plan' && (
-                    <ChangePlanModal
-                        isOpen={activeModal === 'change_plan'}
-                        onClose={closeModal}
-                        currentPlan={billing.plan}
-                    />
-                )}
-                {activeModal === 'switch_billing_model' && (
-                    <SwitchBillingModelModal
-                        isOpen={activeModal === 'switch_billing_model'}
-                        onClose={closeModal}
-                        currentModel={billing.billingType}
-                    />
-                )}
-            </Suspense>
         </div>
     );
 }

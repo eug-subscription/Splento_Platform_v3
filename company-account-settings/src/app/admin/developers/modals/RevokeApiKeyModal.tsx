@@ -5,7 +5,7 @@ import { useState } from 'react';
 interface RevokeApiKeyModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onConfirm: () => Promise<void>;
+    onConfirm: () => void | Promise<void>;
 }
 
 export function RevokeApiKeyModal({ isOpen, onClose, onConfirm }: RevokeApiKeyModalProps) {
@@ -22,6 +22,7 @@ export function RevokeApiKeyModal({ isOpen, onClose, onConfirm }: RevokeApiKeyMo
             <Modal.Backdrop variant="blur" className="p-4">
                 <Modal.Container placement="center">
                     <Modal.Dialog className="sm:max-w-[400px] rounded-3xl">
+                        <Modal.CloseTrigger />
                         <Modal.Header className="flex flex-col gap-1 pb-2">
                             <Modal.Icon className="bg-danger-soft text-danger">
                                 <Icon icon="gravity-ui:trash-bin" className="size-5" />
@@ -60,4 +61,3 @@ export function RevokeApiKeyModal({ isOpen, onClose, onConfirm }: RevokeApiKeyMo
     );
 }
 
-export default RevokeApiKeyModal;

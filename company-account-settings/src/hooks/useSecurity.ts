@@ -1,7 +1,8 @@
 import { useState, useCallback, useMemo } from 'react';
+import { useModal } from '@/hooks/useModal';
+import type { ModalType, ModalData, OpenModalFn } from '@/types/modals';
 import type {
     SecurityState,
-    SecurityModalType,
     MemberSecurityStatus,
     Session,
     LoginEvent,
@@ -26,9 +27,9 @@ interface UseSecurityReturn {
     error: Error | null;
 
     // Modal state
-    activeModal: SecurityModalType | null;
-    modalData: unknown;
-    openModal: (modal: SecurityModalType, data?: unknown) => void;
+    activeModal: ModalType | null;
+    modalData: ModalData['data'] | null;
+    openModal: OpenModalFn;
     closeModal: () => void;
 
     // 2FA Actions
@@ -65,20 +66,10 @@ export function useSecurity(): UseSecurityReturn {
     const [isLoading] = useState(false);
     const [error] = useState<Error | null>(null);
 
-    const [activeModal, setActiveModal] = useState<SecurityModalType | null>(null);
-    const [modalData, setModalData] = useState<unknown>(null);
-
-    const openModal = useCallback((modal: SecurityModalType, data?: unknown) => {
-        setActiveModal(modal);
-        setModalData(data);
-    }, []);
-
-    const closeModal = useCallback(() => {
-        setActiveModal(null);
-        setModalData(null);
-    }, []);
+    const { activeModal, modalData, openModal, closeModal } = useModal();
 
     // 2FA Actions
+
     const toggleEnforce2FA = useCallback((enforced: boolean) => {
         setSecurity(prev => ({
             ...prev,
@@ -102,8 +93,8 @@ export function useSecurity(): UseSecurityReturn {
     }, []);
 
     const send2FAReminder = useCallback((memberIds: string[]) => {
-        console.log('Sending 2FA reminders to:', memberIds);
-        // In a real app, this would be an API call
+        if (!memberIds) return;
+        // Mock implementation
     }, []);
 
     // Session Actions

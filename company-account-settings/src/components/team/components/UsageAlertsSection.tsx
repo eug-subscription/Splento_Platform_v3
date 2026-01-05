@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, Checkbox, Button, Chip, Disclosure, TextField, Input } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import type { UsageAlertsConfig } from "../../../types/team";
+import type { UsageAlertsConfig } from "@/types/team";
 
 interface UsageAlertsSectionProps {
     config: UsageAlertsConfig;

@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 interface Enforce2FAModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onConfirm: () => void;
+    onConfirm: () => void | Promise<void>;
     membersWithout2FA: number;
 }
 

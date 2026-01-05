@@ -1,11 +1,8 @@
-import { useState, lazy, Suspense } from 'react';
 import { Card, Button } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import { ExportHistoryTable } from './ExportHistoryTable';
+import { useModal } from '@/hooks/useModal';
 import type { DataExport, DataExportRequest } from '@/types/settings';
-
-// Lazy load modal
-const RequestDataExportModal = lazy(() => import('./modals/RequestDataExportModal').then(m => ({ default: m.RequestDataExportModal })));
 
 interface DataManagementSectionProps {
     exports: DataExport[];
@@ -15,7 +12,7 @@ interface DataManagementSectionProps {
 }
 
 export function DataManagementSection({ exports, onRequestExport, onDownload, onDelete }: DataManagementSectionProps) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { openModal } = useModal();
 
     return (
         <Card>
@@ -29,7 +26,7 @@ export function DataManagementSection({ exports, onRequestExport, onDownload, on
                 <Button
                     variant="secondary"
                     size="sm"
-                    onPress={() => setIsModalOpen(true)}
+                    onPress={() => openModal('request_data_export', { onSubmit: onRequestExport })}
                     className="font-bold gap-2"
                 >
                     <Icon icon="gravity-ui:file-arrow-down" className="size-4" />
@@ -56,16 +53,6 @@ export function DataManagementSection({ exports, onRequestExport, onDownload, on
                     </div>
                 </div>
             </Card.Content>
-
-            <Suspense fallback={null}>
-                {isModalOpen && (
-                    <RequestDataExportModal
-                        isOpen={isModalOpen}
-                        onClose={() => setIsModalOpen(false)}
-                        onSubmit={onRequestExport}
-                    />
-                )}
-            </Suspense>
         </Card>
     );
 }

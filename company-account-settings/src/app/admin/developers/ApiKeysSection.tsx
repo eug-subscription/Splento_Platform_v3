@@ -3,23 +3,13 @@ import { Icon } from '@iconify/react';
 import { useDevelopers } from '@/hooks/useDevelopers';
 import { ApiKeyRow } from '@/components/developers/ApiKeyRow';
 import { EmptyState } from '@/components/developers/EmptyState';
-import { useState, lazy, Suspense } from 'react';
+import { useModal } from '@/hooks/useModal';
 import type { ApiKey } from '@/types/developers';
-
-const CreateApiKeyModal = lazy(() => import('./modals/CreateApiKeyModal'));
-const RevokeApiKeyModal = lazy(() => import('./modals/RevokeApiKeyModal'));
-const ApiKeyCreatedModal = lazy(() => import('./modals/ApiKeyCreatedModal'));
+import type { ApiKeyCreatedModalData } from '@/types/modals';
 
 export function ApiKeysSection() {
     const { apiKeys, isLoading, revokeApiKey } = useDevelopers();
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [revokingKeyId, setRevokingKeyId] = useState<string | null>(null);
-    const [newKeyData, setNewKeyData] = useState<{ apiKey: ApiKey, secretKey: string } | null>(null);
-
-    const handleKeyCreated = (data: { apiKey: ApiKey; secretKey: string }) => {
-        setNewKeyData(data);
-        setIsCreateModalOpen(false);
-    };
+    const { openModal, closeModal } = useModal();
 
     if (isLoading && apiKeys.length === 0) {
         return (
@@ -28,6 +18,22 @@ export function ApiKeysSection() {
             </div>
         );
     }
+
+    const handleCreateClick = () => {
+        openModal('create_api_key', {
+            onSuccess: (data: ApiKeyCreatedModalData) => openModal('api_key_created', data)
+        });
+    };
+
+    const handleRevokeClick = (apiKey: ApiKey) => {
+        openModal('revoke_api_key', {
+            apiKey,
+            onConfirm: async () => {
+                await revokeApiKey(apiKey.id);
+                closeModal();
+            }
+        });
+    };
 
     return (
         <div className="space-y-6">
@@ -50,7 +56,7 @@ export function ApiKeysSection() {
                 </div>
                 <Button
                     variant="primary"
-                    onPress={() => setIsCreateModalOpen(true)}
+                    onPress={handleCreateClick}
                     className="rounded-full px-6 font-medium shadow-lg shadow-accent/20"
                 >
                     <Icon icon="gravity-ui:plus" className="size-4 mr-2" />
@@ -64,7 +70,7 @@ export function ApiKeysSection() {
                     title="No API keys created yet"
                     description="API keys allow external applications to access your Splento account programmatically."
                     actionLabel="Create your first API key"
-                    onAction={() => setIsCreateModalOpen(true)}
+                    onAction={handleCreateClick}
                 />
             ) : (
                 <div className="grid grid-cols-1 gap-4">
@@ -72,42 +78,11 @@ export function ApiKeysSection() {
                         <ApiKeyRow
                             key={apiKey.id}
                             apiKey={apiKey}
-                            onRevoke={() => setRevokingKeyId(apiKey.id)}
+                            onRevoke={() => handleRevokeClick(apiKey)}
                         />
                     ))}
                 </div>
             )}
-
-            {/* Modals */}
-            <Suspense fallback={null}>
-                {isCreateModalOpen && (
-                    <CreateApiKeyModal
-                        isOpen={isCreateModalOpen}
-                        onClose={() => setIsCreateModalOpen(false)}
-                        onSuccess={handleKeyCreated}
-                    />
-                )}
-
-                {revokingKeyId && (
-                    <RevokeApiKeyModal
-                        isOpen={!!revokingKeyId}
-                        onClose={() => setRevokingKeyId(null)}
-                        onConfirm={async () => {
-                            await revokeApiKey(revokingKeyId);
-                            setRevokingKeyId(null);
-                        }}
-                    />
-                )}
-
-                {newKeyData && (
-                    <ApiKeyCreatedModal
-                        isOpen={!!newKeyData}
-                        onClose={() => setNewKeyData(null)}
-                        apiKey={newKeyData.apiKey}
-                        secretKey={newKeyData.secretKey}
-                    />
-                )}
-            </Suspense>
         </div>
     );
 }
