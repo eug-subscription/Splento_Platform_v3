@@ -12,6 +12,7 @@ const BillingTab = lazy(() => import('./admin/billing/BillingTab').then(m => ({ 
 const DevelopersTab = lazy(() => import('./admin/developers/DevelopersTab').then(m => ({ default: m.DevelopersTab })));
 const SecurityTab = lazy(() => import('../components/team/tabs/SecurityTab').then(m => ({ default: m.SecurityTab })));
 const ActivityTab = lazy(() => import('../components/team/tabs/ActivityTab').then(m => ({ default: m.ActivityTab })));
+const SettingsTab = lazy(() => import('../components/team/tabs/SettingsTab').then(m => ({ default: m.SettingsTab })));
 import { MOCK_TEAM, TEAM_OVERVIEW_DATA, MOCK_MEMBERS } from '../data/mock-team';
 
 
@@ -82,6 +83,8 @@ export function TeamPage() {
                         <SecurityTab />
                     ) : activeTab === 'activity' ? (
                         <ActivityTab />
+                    ) : activeTab === 'settings' ? (
+                        <SettingsTab />
                     ) : (
                         <Card className="border-dashed border-2 border-default-200 bg-transparent shadow-none">
                             <Card.Content className="p-12 flex flex-col items-center justify-center text-center">
