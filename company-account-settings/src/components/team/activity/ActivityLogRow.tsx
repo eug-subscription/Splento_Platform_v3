@@ -64,11 +64,11 @@ export function ActivityLogRow({ entry, onPress }: ActivityLogRowProps) {
                             {categoryConfig.label}
                         </Chip>
 
-                        <span className="text-xs text-default-500 sm:hidden">
+                        <span className="text-xs text-muted-foreground sm:hidden">
                             • {formatRelativeTime(entry.timestamp)}
                         </span>
                     </div>
-                    <span className="text-xs md:text-sm text-default-500 shrink-0 hidden sm:inline">
+                    <span className="text-xs md:text-sm text-muted-foreground shrink-0 hidden sm:inline">
                         {formatRelativeTime(entry.timestamp)}
                     </span>
                 </div>
@@ -79,21 +79,21 @@ export function ActivityLogRow({ entry, onPress }: ActivityLogRowProps) {
                 </p>
 
                 {/* 4. Bottom Line: Metadata (IP & Location) */}
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-default-500 text-left">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground text-left">
                     {entry.metadata?.ip && (
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 text-muted-foreground">
                             <Icon icon="gravity-ui:tag" className="size-2.5 md:size-3" />
                             <span>{entry.metadata.ip}</span>
                         </div>
                     )}
                     {entry.metadata?.location && (
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 text-muted-foreground">
                             <Icon icon="gravity-ui:location" className="size-2.5 md:size-3" />
                             <span>{entry.metadata.location}</span>
                         </div>
                     )}
                     {entry.metadata?.userAgent && (
-                        <div className="flex items-center gap-1 lg:flex hidden">
+                        <div className="flex items-center gap-1 lg:flex hidden text-muted-foreground">
                             <Icon icon="gravity-ui:laptop" className="size-2.5 md:size-3" />
                             <span className="truncate max-w-48">
                                 {entry.metadata.userAgent}
