@@ -5,17 +5,14 @@ import type { Member } from "@/types/team";
 import { CATEGORY_OPTIONS, ACTIVITY_CATEGORIES } from "@/data/activity-constants";
 import { UnifiedDateRangePicker } from "./UnifiedDateRangePicker";
 
-interface SelectItemNode {
-    key: string | number;
-    textValue?: string;
-}
-
 export interface ActivityFilterBarProps {
     filters: ActivityFilters;
     onFiltersChange: (filters: Partial<ActivityFilters>) => void;
     members: Member[];
-    onExport: () => void;
+    onExport?: () => void;
     isExporting?: boolean;
+    hideDateRange?: boolean;
+    hideExport?: boolean;
 }
 
 export function ActivityFilterBar({
@@ -24,6 +21,8 @@ export function ActivityFilterBar({
     members,
     onExport,
     isExporting = false,
+    hideDateRange = false,
+    hideExport = false,
 }: ActivityFilterBarProps) {
 
     const handleDateRangeChange = (preset: DateRangePreset, range?: DateRange) => {
@@ -42,7 +41,7 @@ export function ActivityFilterBar({
     const filterGroups = (
         <>
             {/* 1. Activity Type Select */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full md:w-56">
                 <span className="text-xs font-semibold text-default-500 px-1 uppercase tracking-wider">
                     Category
                 </span>
@@ -56,24 +55,21 @@ export function ActivityFilterBar({
                 >
                     <Select.Trigger className="h-10 rounded-field bg-background border-default-200 px-3">
                         <Select.Value>
-                            {({ selectedItems }) => {
-                                const selected = selectedItems[0] as unknown as SelectItemNode;
-                                if (!selected || String(selected.key) === 'all') {
-                                    return (
-                                        <div className="flex items-center gap-2">
-                                            <Icon icon="gravity-ui:layers" className="text-default-400 size-4" />
-                                            <span className="text-sm">All Activity</span>
-                                        </div>
-                                    );
-                                }
-                                const category = ACTIVITY_CATEGORIES[selected.key as ActivityCategory];
-                                return (
-                                    <div className="flex items-center gap-2">
-                                        <Icon icon={category.icon} className="size-4" style={{ color: category.colorToken }} />
-                                        <span className="text-sm">{category.label}</span>
-                                    </div>
-                                );
-                            }}
+                            {filters.category === 'all' ? (
+                                <div className="flex items-center gap-2">
+                                    <Icon icon="gravity-ui:layers" className="text-default-400 size-4" />
+                                    <span className="text-sm">All Activity</span>
+                                </div>
+                            ) : (
+                                <div className="flex items-center gap-2">
+                                    <Icon
+                                        icon={ACTIVITY_CATEGORIES[filters.category as ActivityCategory]?.icon || 'gravity-ui:circle'}
+                                        className="size-4"
+                                        style={{ color: ACTIVITY_CATEGORIES[filters.category as ActivityCategory]?.colorToken }}
+                                    />
+                                    <span className="text-sm">{ACTIVITY_CATEGORIES[filters.category as ActivityCategory]?.label}</span>
+                                </div>
+                            )}
                         </Select.Value>
                         <Select.Indicator />
                     </Select.Trigger>
@@ -109,7 +105,7 @@ export function ActivityFilterBar({
             </div>
 
             {/* 2. Member Select */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full md:w-56">
                 <span className="text-xs font-semibold text-default-500 px-1 uppercase tracking-wider">
                     Member
                 </span>
@@ -123,11 +119,8 @@ export function ActivityFilterBar({
                 >
                     <Select.Trigger className="h-10 rounded-field bg-background border-default-200 px-3">
                         <Select.Value>
-                            {({ selectedItems }) => {
-                                const selected = selectedItems[0] as unknown as SelectItemNode;
-                                const selectedKey = selected ? String(selected.key) : 'all';
-
-                                if (selectedKey === 'all') {
+                            {(() => {
+                                if (filters.memberId === 'all') {
                                     return (
                                         <div className="flex items-center gap-2">
                                             <Icon icon="gravity-ui:persons" className="text-default-400 size-4" />
@@ -135,7 +128,7 @@ export function ActivityFilterBar({
                                         </div>
                                     );
                                 }
-                                if (selectedKey === 'system') {
+                                if (filters.memberId === 'system') {
                                     return (
                                         <div className="flex items-center gap-2">
                                             <Icon icon="gravity-ui:gear" className="text-default-400 size-4" />
@@ -143,7 +136,7 @@ export function ActivityFilterBar({
                                         </div>
                                     );
                                 }
-                                const member = members.find(m => m.id === selectedKey);
+                                const member = members.find(m => m.id === filters.memberId);
                                 return (
                                     <div className="flex items-center gap-2">
                                         {member?.avatar ? (
@@ -151,10 +144,10 @@ export function ActivityFilterBar({
                                         ) : (
                                             <Icon icon="gravity-ui:person" className="text-default-400 size-4" />
                                         )}
-                                        <span className="text-sm">{member?.name || selected.textValue}</span>
+                                        <span className="text-sm">{member?.name || 'Unknown Member'}</span>
                                     </div>
                                 );
-                            }}
+                            })()}
                         </Select.Value>
                         <Select.Indicator />
                     </Select.Trigger>
@@ -201,26 +194,30 @@ export function ActivityFilterBar({
             </div>
 
             {/* 3. Date Range Unified Picker */}
-            <div className="flex flex-col gap-2">
-                <span className="text-xs font-semibold text-default-500 px-1 uppercase tracking-wider">
-                    Date Range
-                </span>
-                <UnifiedDateRangePicker
-                    value={filters.dateRange}
-                    customRange={filters.customDateRange}
-                    onChange={handleDateRangeChange}
-                />
-            </div>
+            {!hideDateRange && (
+                <div className="flex flex-col gap-2 w-full md:w-56">
+                    <span className="text-xs font-semibold text-default-500 px-1 uppercase tracking-wider">
+                        Date Range
+                    </span>
+                    <UnifiedDateRangePicker
+                        value={filters.dateRange}
+                        customRange={filters.customDateRange}
+                        onChange={handleDateRangeChange}
+                    />
+                </div>
+            )}
         </>
     );
 
     return (
         <>
             <Card className="hidden md:block p-6 bg-default-50/50 border-default-100 shadow-none rounded-(radius-3xl)">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-start">
-                    {filterGroups}
+                <div className="flex flex-col lg:flex-row gap-4 items-start w-full">
+                    <div className="w-full md:w-auto flex flex-col md:flex-row gap-4">
+                        {filterGroups}
+                    </div>
 
-                    <div className="flex flex-col gap-2 lg:col-span-1">
+                    <div className="flex flex-col gap-2 w-full md:flex-1">
                         <span className="text-xs font-semibold text-default-500 px-1 uppercase tracking-wider">
                             Search
                         </span>
@@ -240,21 +237,23 @@ export function ActivityFilterBar({
                         </SearchField>
                     </div>
 
-                    <div className="flex flex-col gap-2">
-                        <span className="text-xs font-semibold invisible uppercase tracking-wider">
-                            Actions
-                        </span>
-                        <Button
-                            variant="secondary"
-                            fullWidth
-                            onPress={onExport}
-                            isPending={isExporting}
-                            className="rounded-field h-10 border-default-200"
-                        >
-                            <Icon icon="gravity-ui:file-arrow-down" className="size-4 mr-2" />
-                            Export
-                        </Button>
-                    </div>
+                    {!hideExport && onExport && (
+                        <div className="flex flex-col gap-2 w-full md:w-auto">
+                            <span className="text-xs font-semibold invisible uppercase tracking-wider">
+                                Actions
+                            </span>
+                            <Button
+                                variant="secondary"
+                                fullWidth
+                                onPress={onExport}
+                                isPending={isExporting}
+                                className="rounded-field h-10 border-default-200 px-6"
+                            >
+                                <Icon icon="gravity-ui:file-arrow-down" className="size-4 mr-2" />
+                                Export
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </Card>
 

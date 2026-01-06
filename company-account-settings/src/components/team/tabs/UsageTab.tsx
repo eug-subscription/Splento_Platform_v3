@@ -280,21 +280,22 @@ export function UsageTab({ onNavigateToMember }: UsageTabProps) {
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="flex flex-col gap-1 px-1">
-                <h1 className="text-2xl font-bold text-foreground">Usage Analytics</h1>
-                <p className="text-default-500">Track your team's service consumption, AI credits, and pro service usage over time.</p>
-            </div>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-1">
+                <div className="flex flex-col gap-1">
+                    <h1 className="text-2xl font-bold text-foreground">Usage Analytics</h1>
+                    <p className="text-default-500">Track your team's service consumption, AI credits, and pro service usage over time.</p>
+                </div>
 
-            {/* Header (Export only now, period is inside dashboard) */}
-            <UsageHeader
-                selectedPeriod={selectedPeriod}
-                onPeriodChange={handlePeriodChange} // Kept for mobile/generic fallback if needed
-                customDateRange={customDateRange}
-                onCustomDateChange={setCustomDateRange}
-                onExport={handleExport}
-                isExporting={isExporting}
-                hidePeriodSelector={false}
-            />
+                <UsageHeader
+                    selectedPeriod={selectedPeriod}
+                    onPeriodChange={handlePeriodChange} // Kept for mobile/generic fallback if needed
+                    customDateRange={customDateRange}
+                    onCustomDateChange={setCustomDateRange}
+                    onExport={handleExport}
+                    isExporting={isExporting}
+                    hidePeriodSelector={false}
+                />
+            </div>
 
             {/* Main Dashboard */}
             <UsageDashboard
