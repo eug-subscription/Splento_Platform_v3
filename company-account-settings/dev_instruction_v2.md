@@ -109,6 +109,52 @@ Separate business logic from UI rendering using custom hooks.
 
 - **Forbidden**: Hardcoded data arrays inside component files.
 
+### 5. Context File Structure (Fast Refresh)
+
+**Split Context files into separate files for React Fast Refresh compatibility.**
+
+Files that export both components AND non-components (hooks, constants) break Fast Refresh in development. ESLint rule: `react-refresh/only-export-components`.
+
+```text
+src/context/
+├── ThemeContext.ts      # Types + createContext ONLY
+├── ThemeProvider.tsx    # Provider component ONLY
+├── LayoutContext.ts     # Types + createContext ONLY
+└── LayoutProvider.tsx   # Provider component ONLY
+```
+
+**Pattern:**
+
+```tsx
+// ThemeContext.ts (Types + Context)
+import { createContext } from 'react';
+
+export type Theme = 'light' | 'dark';
+export interface ThemeContextType {
+  theme: Theme;
+  toggleTheme: () => void;
+}
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+// ThemeProvider.tsx (Component only)
+import { ThemeContext } from './ThemeContext';
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  // ... state logic
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+}
+
+// useTheme.ts (Hook in src/hooks/)
+import { useContext } from 'react';
+import { ThemeContext } from '@/context/ThemeContext';
+
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) throw new Error('useTheme must be used within ThemeProvider');
+  return context;
+}
+```
+
 ---
 
 ## Coding Standards
@@ -145,6 +191,63 @@ Separate business logic from UI rendering using custom hooks.
       isActive?: boolean;
     }
     ```
+
+### 5. Avoid Synchronous setState in Effects
+
+- **Rule**: Never call `setState` synchronously in the body of a `useEffect`.
+- **Why**: Causes cascading renders and hurts performance. ESLint rule: `react-hooks/set-state-in-effect`.
+
+```tsx
+// ❌ Incorrect
+useEffect(() => {
+  setMounted(true); // Direct setState in effect body
+}, []);
+
+// ✅ Correct (defer with requestAnimationFrame)
+useEffect(() => {
+  const handle = requestAnimationFrame(() => {
+    setMounted(true);
+  });
+  return () => cancelAnimationFrame(handle);
+}, []);
+```
+
+### 6. Switch Case Lexical Scoping
+
+- **Rule**: Always wrap `switch` case blocks containing `const`/`let` declarations in braces `{}`.
+- **Why**: Prevents scope leakage and satisfies ESLint `no-case-declarations` rule.
+
+```tsx
+// ❌ Incorrect
+switch (type) {
+  case 'daily':
+    const multiplier = 7; // Error: lexical declaration in case block
+    return value * multiplier;
+}
+
+// ✅ Correct
+switch (type) {
+  case 'daily': {
+    const multiplier = 7;
+    return value * multiplier;
+  }
+}
+```
+
+### 7. TypeScript Error Suppressions
+
+- **Rule**: Use `@ts-expect-error` instead of `@ts-ignore`.
+- **Why**: `@ts-expect-error` errors if there's nothing to suppress, making refactoring safer.
+
+```tsx
+// ❌ Incorrect
+// @ts-ignore
+someCode();
+
+// ✅ Correct (with explanation)
+// @ts-expect-error - HeroUI Button href prop workaround
+someCode();
+```
 
 ---
 
@@ -198,14 +301,18 @@ Separate business logic from UI rendering using custom hooks.
 src/
 ├── app/             # Application pages/features
 │   ├── admin/       # Admin feature modules
+│   │   ├── billing/ # Billing components & modals
+│   │   └── sections/# Settings sections
 │   └── home/        # Home feature modules
 ├── components/
 │   ├── common/      # Generic reusable components (ErrorBoundary, etc.)
 │   ├── navigation/  # Nav bars, sidebars
 │   └── [feature]/   # Feature-specific components
+├── context/         # React Contexts (split: Context.ts + Provider.tsx)
 ├── data/            # Single source of truth for mocks/constants
-├── hooks/           # Shared custom hooks
+├── hooks/           # Shared custom hooks (useTheme, useLayout, useBilling)
 ├── types/           # Global TypeScript definitions
+├── utils/           # Utility functions & helpers
 ├── router.tsx       # TanStack Router configuration
 └── main.tsx         # Entry point
 ```
@@ -343,17 +450,35 @@ Wrap all major features or routes in an `ErrorBoundary` to prevent entire app cr
 
 ## Performance & Reliability
 
-### 1. Lazy Loading
+### 1. Lazy Loading (Main Bundle Optimization)
 
-- **Rule**: Lazy load route components and devtools.
+- **Rule**: Lazy load ALL route components, heavy page sections (Tabs), and Modals.
+- **Pattern (Named Exports)**: Since we use Named Exports, always use the resolution pattern:
 
-- **Tool**: `React.lazy` and `Suspense`.
+  ```tsx
+  const MyComponent = lazy(() => import('./MyComponent').then(m => ({ default: m.MyComponent })));
+  ```
 
-### 2. Dependency Management
+- **Pattern (Modals)**: Never bundle modals with their parent. Load them on demand:
+
+  ```tsx
+  {isOpen && (
+    <Suspense fallback={null}>
+      <LazyModal isOpen={isOpen} onClose={close} />
+    </Suspense>
+  )}
+  ```
+
+### 2. Layout Shift & UX
+
+- **Rule**: Use `Skeleton` or themed `Spinner` for `Suspense` fallbacks.
+- **Goal**: Maintain the "Premium" feel (Aesthetics) even during chunk loading.
+
+### 3. Dependency Management
 
 - **Rule**: Check bundle size impact before adding new libraries.
-
 - **Standard**: Use tree-shakeable imports.
+- **Target**: Keep the main entry bundle below **500 KB**.
 
 ---
 
@@ -432,8 +557,12 @@ import { Alert } from '@heroui/react';
 
 if (error) {
   return (
-    <Alert variant="danger">
-      <Alert.Description>Error: {error}</Alert.Description>
+    <Alert status="danger">
+      <Alert.Indicator />
+      <Alert.Content>
+        <Alert.Title>Error</Alert.Title>
+        <Alert.Description>{error.message}</Alert.Description>
+      </Alert.Content>
     </Alert>
   );
 }
@@ -596,6 +725,10 @@ export function MyComponent({ label, onPress }: MyComponentProps) {
   - [ ] Complex components have JSDoc.
   - [ ] Custom props documented.
 - [ ] **Performance**:
+  - [ ] **Main bundle stays under 500 KB**.
+  - [ ] All route components in `router.tsx` are lazy loaded.
+  - [ ] All heavy modals are lazy loaded and conditionally rendered.
+  - [ ] `Suspense` boundaries have appropriate themed fallbacks (Skeleton).
   - [ ] Tree-shakeable imports used.
   - [ ] No console errors/warnings.
   - [ ] Images optimized.

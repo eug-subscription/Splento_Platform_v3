@@ -36,7 +36,7 @@ export function HeroBanner() {
                         <Button
                             variant="primary"
                             size="lg"
-                            className="bg-white text-purple-700 hover:bg-gray-100"
+                            className="bg-white text-purple-700 hover:bg-default-100"
                             onPress={() => { }}
                         >
                             <Icon icon="gravity-ui:sparkle" className="size-5" />

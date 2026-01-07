@@ -1,7 +1,7 @@
-import type { UsageSectionData, ProServicesData, BillingSummaryData } from "../../../types/usage";
-import { MetricCard, type MetricItem } from "../../ui/MetricCard/MetricCard";
+import type { UsageSectionData, ProServicesData, BillingSummaryData } from "@/types/usage";
+import { MetricCard, type MetricItem } from "@/components/ui/MetricCard/MetricCard";
 import { UsageStatusChip } from "./UsageStatusChip";
-import { formatValue, formatCurrency } from "../utils/usage";
+import { formatValue, formatCurrency } from "@/components/team/utils/usage";
 import { Icon } from "@iconify/react";
 
 // Helper to map usage features to metric items

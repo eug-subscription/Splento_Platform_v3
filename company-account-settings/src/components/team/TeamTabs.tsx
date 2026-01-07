@@ -86,7 +86,7 @@ export function TeamTabs({ activeTab, onTabChange, memberCount, hasSecurityIssue
                         </Select.Value>
                         <Select.Indicator />
                     </Select.Trigger>
-                    
+
                     <Select.Popover>
                         <ListBox items={TABS}>
                             {(tab) => (

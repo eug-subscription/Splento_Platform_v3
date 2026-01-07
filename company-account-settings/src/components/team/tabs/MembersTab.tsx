@@ -1,43 +1,12 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState, useEffect, type ChangeEvent } from 'react';
 import { Button, Card, TextField, Select, Checkbox, Chip, Avatar, InputGroup, ListBox, Accordion } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import { InviteMemberModal, type InviteFormData } from "../modals/InviteMemberModal";
-import { BulkImportModal } from "../modals/BulkImportModal";
-import { MemberProfileModal } from "../modals/MemberProfileModal";
-import type { Member, PendingInvite, FeatureArea, PermissionLevel } from "../../../types/team";
 
-// Helper for relative time formatting
-const formatLastActive = (dateString: string): string => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-    const diffInMinutes = Math.floor(diffInSeconds / 60);
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    const diffInDays = Math.floor(diffInHours / 24);
-
-    // < 1 minute
-    if (diffInSeconds < 60) return 'Just now';
-
-    // < 1 hour
-    if (diffInMinutes < 60) return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
-
-    // < 24 hours
-    if (diffInHours < 24) return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
-
-    // 24 - 48 hours
-    if (diffInHours < 48) return 'Yesterday';
-
-    // 3 - 7 days
-    if (diffInDays < 7) return `${diffInDays} day${diffInDays !== 1 ? 's' : ''} ago`;
-
-    // Current Year (MMM DD)
-    if (date.getFullYear() === now.getFullYear()) {
-        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    }
-
-    // Previous Years (MMM DD, YYYY)
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-};
+import type { Member, PendingInvite, FeatureArea, PermissionLevel } from "@/types/team";
+import type { InviteMemberFormData } from '@/types/modals';
+import { formatRelativeTime } from '@/utils/date-utils';
+import { MembersTabSkeleton } from './MembersTabSkeleton';
+import { useModal } from '@/hooks/useModal';
 
 import { MOCK_MEMBERS, MOCK_PENDING_INVITES } from "@/data/mock-team";
 
@@ -48,11 +17,20 @@ export function MembersTab() {
     const [roleFilter, setRoleFilter] = useState<string>('all');
     const [statusFilter, setStatusFilter] = useState<string>('all');
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    // Modals state
-    const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
-    const [isBulkImportModalOpen, setIsBulkImportModalOpen] = useState(false);
-    const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+    const { openModal, closeModal } = useModal();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 800);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return <MembersTabSkeleton />;
+    }
 
     // Filtering
     const filteredMembers = members.filter(member => {
@@ -65,8 +43,7 @@ export function MembersTab() {
     });
 
     // Handlers
-    const handleInviteSubmit = async (data: InviteFormData) => {
-
+    const handleInviteSubmit = async (data: InviteMemberFormData) => {
         // Mock API call
         await new Promise(resolve => setTimeout(resolve, 1000));
         const newInvite: PendingInvite = {
@@ -78,20 +55,17 @@ export function MembersTab() {
             expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
             daysUntilExpiry: 7
         };
-        setInvites([...invites, newInvite]);
+        setInvites(prev => [...prev, newInvite]);
+        closeModal();
     };
 
     const handleBulkImport = async () => {
-
         await new Promise(resolve => setTimeout(resolve, 1500));
+        closeModal();
     };
 
-    const handleUpdatePermissions = (permissions: Record<FeatureArea, PermissionLevel>) => {
-        if (selectedMember) {
-            const updatedMember = { ...selectedMember, permissions };
-            setSelectedMember(updatedMember);
-            setMembers(members.map(m => m.id === updatedMember.id ? updatedMember : m));
-        }
+    const handleUpdatePermissions = (permissions: Record<FeatureArea, PermissionLevel>, memberId: string) => {
+        setMembers(members.map(m => m.id === memberId ? { ...m, permissions } : m));
     };
 
     const handleSelectionChange = (id: string) => {
@@ -112,6 +86,11 @@ export function MembersTab() {
 
     return (
         <div className="space-y-6">
+            <div className="flex flex-col gap-1 px-1">
+                <h1 className="text-2xl font-bold text-foreground">Team Members</h1>
+                <p className="text-default-500">Manage your team, invite new members, and control their roles and status.</p>
+            </div>
+
             {/* 1. Pending Invitations Section */}
             {invites.length > 0 && (
                 <Accordion variant="surface" className="w-full" >
@@ -236,11 +215,11 @@ export function MembersTab() {
                 </div>
 
                 <div className="flex gap-2">
-                    <Button variant="secondary" onPress={() => setIsBulkImportModalOpen(true)}>
+                    <Button variant="secondary" onPress={() => openModal('bulk_import', { onSubmit: handleBulkImport })}>
                         <Icon icon="gravity-ui:file-arrow-up" className="w-4 h-4" />
                         <span className="hidden lg:inline">Bulk Import</span>
                     </Button>
-                    <Button variant="primary" onPress={() => setIsInviteModalOpen(true)}>
+                    <Button variant="primary" onPress={() => openModal('invite_member', { onSubmit: handleInviteSubmit })}>
                         <Icon icon="gravity-ui:person-plus" className="w-4 h-4" />
                         <span className="hidden sm:inline">Add Member</span>
                     </Button>
@@ -310,10 +289,24 @@ export function MembersTab() {
                                 {filteredMembers.map((member) => (
                                     <tr
                                         key={member.id}
-                                        className="border-b border-default-200 last:border-b-0 hover:bg-default-100/50 cursor-pointer transition-colors"
-                                        onClick={() => setSelectedMember(member)}
+                                        role="button"
+                                        tabIndex={0}
+                                        className="border-b border-default-200 last:border-b-0 hover:bg-default-100/50 cursor-pointer transition-colors outline-none focus-visible:bg-default-100/80"
+                                        onClick={() => openModal('member_profile', {
+                                            member,
+                                            onUpdatePermissions: (perms) => handleUpdatePermissions(perms, member.id)
+                                        })}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                openModal('member_profile', {
+                                                    member,
+                                                    onUpdatePermissions: (perms) => handleUpdatePermissions(perms, member.id)
+                                                });
+                                            }
+                                        }}
                                     >
-                                        <td className="p-4" onClick={(e) => e.stopPropagation()}>
+                                        <td className="p-4" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
                                             <Checkbox
                                                 isSelected={selectedIds.includes(member.id)}
                                                 onChange={() => handleSelectionChange(member.id)}
@@ -322,9 +315,9 @@ export function MembersTab() {
                                         </td>
                                         <td className="p-4">
                                             <div className="flex items-center gap-3">
-                                                <Avatar className="w-8 h-8 text-small">
+                                                <Avatar className="w-8 h-8 text-small rounded-full">
                                                     <Avatar.Image src={member.avatar} alt={member.name} />
-                                                    <Avatar.Fallback>{member.name.charAt(0)}</Avatar.Fallback>
+                                                    <Avatar.Fallback className="rounded-full shadow-inner">{member.name.charAt(0)}</Avatar.Fallback>
                                                 </Avatar>
 
                                                 <div>
@@ -369,15 +362,18 @@ export function MembersTab() {
                                             )}
                                         </td>
                                         <td className="p-4">
-                                            <span className="text-sm text-default-500">{formatLastActive(member.lastActiveAt)}</span>
+                                            <span className="text-sm text-default-500">{formatRelativeTime(member.lastActiveAt)}</span>
                                         </td>
-                                        <td className="p-4" onClick={(e) => e.stopPropagation()}>
+                                        <td className="p-4" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
                                             <Button
                                                 variant="ghost"
                                                 size="sm"
                                                 isIconOnly
                                                 aria-label="View Profile"
-                                                onPress={() => setSelectedMember(member)}
+                                                onPress={() => openModal('member_profile', {
+                                                    member,
+                                                    onUpdatePermissions: (perms) => handleUpdatePermissions(perms, member.id)
+                                                })}
                                             >
                                                 <Icon icon="gravity-ui:eye" className="w-4 h-4 text-default-500" />
                                             </Button>
@@ -397,26 +393,6 @@ export function MembersTab() {
                     </div>
                 </Card.Content>
             </Card>
-
-            {/* Modals */}
-            <InviteMemberModal
-                isOpen={isInviteModalOpen}
-                onClose={() => setIsInviteModalOpen(false)}
-                onSubmit={handleInviteSubmit}
-            />
-
-            <BulkImportModal
-                isOpen={isBulkImportModalOpen}
-                onClose={() => setIsBulkImportModalOpen(false)}
-                onSubmit={handleBulkImport}
-            />
-
-            <MemberProfileModal
-                isOpen={!!selectedMember}
-                onClose={() => setSelectedMember(null)}
-                member={selectedMember}
-                onUpdatePermissions={handleUpdatePermissions}
-            />
         </div>
     );
 }

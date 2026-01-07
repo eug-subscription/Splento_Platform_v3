@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import type { TeamBilling, BillingAlert, Invoice, ModalType } from '../types/billing';
+import { useModal } from '@/hooks/useModal';
+import type { ModalType, ModalData, OpenModalFn } from '@/types/modals';
+import type { TeamBilling, BillingAlert, Invoice } from '../types/billing';
 import { generateBillingAlerts } from '../utils/billing';
 import {
     MOCK_SUBSCRIPTION_BILLING,
@@ -18,7 +20,8 @@ interface UseBillingReturn {
 
     // Modal states
     activeModal: ModalType | null;
-    openModal: (modal: ModalType) => void;
+    modalData: ModalData['data'] | null;
+    openModal: OpenModalFn;
     closeModal: () => void;
 
     // Actions
@@ -31,8 +34,9 @@ export function useBilling(): UseBillingReturn {
     const [invoices, setInvoices] = useState<Invoice[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
-    const [activeModal, setActiveModal] = useState<ModalType | null>(null);
     const [dismissedAlerts, setDismissedAlerts] = useState<Set<string>>(new Set());
+
+    const { activeModal, modalData, openModal, closeModal } = useModal();
 
     // Mock fetch billing data
     const fetchBilling = useCallback(async () => {
@@ -65,14 +69,6 @@ export function useBilling(): UseBillingReturn {
         return generatedAlerts.filter(alert => !dismissedAlerts.has(alert.id));
     }, [billing, dismissedAlerts]);
 
-    const openModal = useCallback((modal: ModalType) => {
-        setActiveModal(modal);
-    }, []);
-
-    const closeModal = useCallback(() => {
-        setActiveModal(null);
-    }, []);
-
     const refreshBilling = async () => {
         await fetchBilling();
     };
@@ -92,6 +88,7 @@ export function useBilling(): UseBillingReturn {
         isLoading,
         error,
         activeModal,
+        modalData,
         openModal,
         closeModal,
         refreshBilling,

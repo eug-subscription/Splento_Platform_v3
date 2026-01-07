@@ -1,6 +1,6 @@
 import { Avatar, Button, Chip, type ChipProps } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import type { Team } from "../../types/team";
+import type { Team } from "@/types/team";
 
 interface TeamHeaderProps {
     team: Team;
@@ -20,9 +20,9 @@ export function TeamHeader({ team, onInvite }: TeamHeaderProps) {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-default-200">
             {/* Left: Team Identity */}
             <div className="flex items-center gap-4">
-                <Avatar className="w-16 h-16 text-large border-small">
+                <Avatar className="w-16 h-16 text-large border-small rounded-full">
                     <Avatar.Image src={team.avatar} alt={team.name} />
-                    <Avatar.Fallback>{team.name.charAt(0)}</Avatar.Fallback>
+                    <Avatar.Fallback className="rounded-full shadow-inner">{team.name.charAt(0)}</Avatar.Fallback>
                 </Avatar>
 
                 <div>

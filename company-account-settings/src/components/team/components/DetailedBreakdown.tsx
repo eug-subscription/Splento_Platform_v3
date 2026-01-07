@@ -1,7 +1,7 @@
 import { Card } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import type { DetailedMetric } from "../../../types/team";
-import { getProgressColor, formatValue } from "../utils/usage";
+import type { DetailedMetric } from "@/types/team";
+import { getProgressColor, formatValue } from "@/components/team/utils/usage";
 
 interface DetailedBreakdownProps {
     metrics: DetailedMetric[];

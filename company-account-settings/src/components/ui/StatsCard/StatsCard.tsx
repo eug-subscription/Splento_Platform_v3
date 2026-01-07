@@ -1,4 +1,4 @@
-import { Card, Chip } from "@heroui/react";
+import { Card, Chip, cn } from "@heroui/react";
 import { Icon } from "@iconify/react";
 
 export interface StatsCardProps {
@@ -29,6 +29,7 @@ export interface StatsCardProps {
         value: string | number;
         direction: 'up' | 'down' | 'neutral';
         label?: string;
+        color?: 'success' | 'danger' | 'default';
     };
 
     /**
@@ -129,9 +130,12 @@ export function StatsCard({
                 <div>
                     {/* Trend */}
                     {trend && (
-                        <p className={`text-xs flex items-center gap-1 ${trend.direction === 'up' ? 'text-success' :
-                            trend.direction === 'down' ? 'text-danger' : 'text-default-500'
-                            }`}>
+                        <p className={cn(
+                            "text-xs flex items-center gap-1",
+                            trend.color === 'success' || (!trend.color && trend.direction === 'up') ? 'text-success' :
+                                trend.color === 'danger' || (!trend.color && trend.direction === 'down') ? 'text-danger' :
+                                    'text-default-500'
+                        )}>
                             <Icon
                                 icon={trend.direction === 'up' ? 'gravity-ui:arrow-up' :
                                     trend.direction === 'down' ? 'gravity-ui:arrow-down' : 'gravity-ui:minus'}

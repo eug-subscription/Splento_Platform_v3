@@ -1,6 +1,6 @@
 import { Card, Avatar } from "@heroui/react";
-import type { MemberUsage } from "../../../types/team";
-import { formatValue } from "../utils/usage";
+import type { MemberUsage } from "@/types/team";
+import { formatValue } from "@/components/team/utils/usage";
 
 interface PerMemberUsageProps {
     members: MemberUsage[];
@@ -39,17 +39,25 @@ export function PerMemberUsage({ members, totals, onMemberClick }: PerMemberUsag
                             {sortedMembers.map((member) => (
                                 <tr
                                     key={member.memberId}
-                                    className="hover:bg-default-100/50 transition-colors cursor-pointer"
+                                    role="button"
+                                    tabIndex={0}
+                                    className="hover:bg-default-100/50 transition-colors cursor-pointer outline-none focus-visible:bg-default-200"
                                     onClick={() => onMemberClick?.(member.memberId)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            onMemberClick?.(member.memberId);
+                                        }
+                                    }}
                                 >
                                     <td className="p-4">
                                         <div className="flex items-center gap-3">
                                             <Avatar
                                                 size="sm"
-                                                className="w-8 h-8"
+                                                className="w-8 h-8 rounded-full"
                                             >
                                                 <Avatar.Image src={member.avatar} alt={member.name} />
-                                                <Avatar.Fallback>{member.name.charAt(0)}</Avatar.Fallback>
+                                                <Avatar.Fallback className="rounded-full shadow-inner">{member.name.charAt(0)}</Avatar.Fallback>
                                             </Avatar>
                                             <div>
                                                 <p className="text-sm font-medium text-foreground">{member.name}</p>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Modal, Button, TextField, Label, Input, ListBox, Tabs, ComboBox, Description } from "@heroui/react";
-import { PermissionsMatrix } from "../PermissionsMatrix";
-import type { FeatureArea, PermissionLevel } from "../../../types/team";
+import { Modal, Button, TextField, ListBox, Tabs, ComboBox, Label, Input, Description } from "@heroui/react";
+import { PermissionsMatrix } from "@/components/team/PermissionsMatrix";
+import type { FeatureArea, PermissionLevel } from "@/types/team";
 
 interface InviteMemberModalProps {
     isOpen: boolean;
@@ -66,7 +66,7 @@ export function InviteMemberModal({ isOpen, onClose, onSubmit }: InviteMemberMod
         <Modal isOpen={isOpen} onOpenChange={onClose}>
             <Modal.Backdrop variant="blur">
                 <Modal.Container>
-                    <Modal.Dialog className="bg-surface-1/80 backdrop-blur-xl border border-separator">
+                    <Modal.Dialog className="rounded-3xl border border-separator">
                         <Modal.CloseTrigger />
                         <Modal.Header>
                             <Modal.Heading>Add Member</Modal.Heading>

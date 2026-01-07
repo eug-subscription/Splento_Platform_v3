@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react';
-import type { Member, MemberUsage, UsageAlertsConfig } from '../../../types/team';
-import type { UsageSectionData, BillingSummaryData, ProServicesData } from '../../../types/usage';
-import { UsageHeader } from '../components/UsageHeader';
-import { UsageDashboard } from '../usage/UsageDashboard';
-import { UsageAlertsSection } from '../components/UsageAlertsSection';
-import { PerMemberUsage } from '../components/PerMemberUsage';
-import { DateRangePickerModal } from '../modals/DateRangePickerModal';
+import type { Member, MemberUsage, UsageAlertsConfig } from '@/types/team';
+import type { UsageSectionData, BillingSummaryData, ProServicesData } from '@/types/usage';
+import { UsageHeader } from '@/components/team/components/UsageHeader';
+import { UsageDashboard } from '@/components/team/usage/UsageDashboard';
+import { UsageAlertsSection } from '@/components/team/components/UsageAlertsSection';
+import { PerMemberUsage } from '@/components/team/components/PerMemberUsage';
+import { useModal } from '@/hooks/useModal';
 
 interface UsageTabProps {
     teamId: string;
@@ -18,7 +18,8 @@ export function UsageTab({ onNavigateToMember }: UsageTabProps) {
     const [customDateRange, setCustomDateRange] = useState<{ start: Date; end: Date } | undefined>();
     const [isExporting, setIsExporting] = useState(false);
     const [isSavingAlerts, setIsSavingAlerts] = useState(false);
-    const [isDateRangeModalOpen, setIsDateRangeModalOpen] = useState(false);
+
+    const { openModal } = useModal();
 
     const [alertsConfig, setAlertsConfig] = useState<UsageAlertsConfig>({
         thresholds: { fifty: true, eighty: true, hundred: true },
@@ -29,7 +30,12 @@ export function UsageTab({ onNavigateToMember }: UsageTabProps) {
     const handlePeriodChange = (periodId: string) => {
         setSelectedPeriod(periodId);
         if (periodId === 'custom') {
-            setIsDateRangeModalOpen(true);
+            openModal('date_range_picker', {
+                initialRange: customDateRange,
+                onApply: (range: { start: Date; end: Date }) => {
+                    setCustomDateRange(range);
+                }
+            });
         }
     };
 
@@ -98,19 +104,16 @@ export function UsageTab({ onNavigateToMember }: UsageTabProps) {
             actionButton: {
                 label: 'Buy Credits',
                 variant: 'ghost',
-                onPress: () => { }
+                onPress: () => openModal('buy_credits')
             }
         };
-    }, []);
+    }, [openModal]);
 
     // Calculate Storage Data (Mock)
     const storageData: UsageSectionData = useMemo(() => {
         const total = 5;
         const used = 4.5;
         const percent = (used / total) * 100;
-
-        // Mock critical state for demo if needed, currently 90% is critical threshold
-        // 4.5/5 = 90%. UsageStatus = 'critical'.
 
         return {
             id: 'storage',
@@ -167,7 +170,7 @@ export function UsageTab({ onNavigateToMember }: UsageTabProps) {
             actionButton: {
                 label: 'Manage Storage',
                 variant: 'ghost',
-                onPress: () => { }
+                onPress: () => { /* TODO: Implement storage management */ }
             }
         };
     }, []);
@@ -277,16 +280,22 @@ export function UsageTab({ onNavigateToMember }: UsageTabProps) {
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Header (Export only now, period is inside dashboard) */}
-            <UsageHeader
-                selectedPeriod={selectedPeriod}
-                onPeriodChange={handlePeriodChange} // Kept for mobile/generic fallback if needed
-                customDateRange={customDateRange}
-                onCustomDateChange={setCustomDateRange}
-                onExport={handleExport}
-                isExporting={isExporting}
-                hidePeriodSelector={false}
-            />
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-1">
+                <div className="flex flex-col gap-1">
+                    <h1 className="text-2xl font-bold text-foreground">Usage Analytics</h1>
+                    <p className="text-default-500">Track your team's service consumption, AI credits, and pro service usage over time.</p>
+                </div>
+
+                <UsageHeader
+                    selectedPeriod={selectedPeriod}
+                    onPeriodChange={handlePeriodChange} // Kept for mobile/generic fallback if needed
+                    customDateRange={customDateRange}
+                    onCustomDateChange={setCustomDateRange}
+                    onExport={handleExport}
+                    isExporting={isExporting}
+                    hidePeriodSelector={false}
+                />
+            </div>
 
             {/* Main Dashboard */}
             <UsageDashboard
@@ -295,7 +304,7 @@ export function UsageTab({ onNavigateToMember }: UsageTabProps) {
                 proServicesData={proServicesData}
                 billingSummaryData={billingSummaryData}
 
-                manageStorage={() => { }}
+                manageStorage={() => { /* TODO: Implement storage management */ }}
             />
 
             {/* Per-Member Usage Table */}
@@ -313,18 +322,6 @@ export function UsageTab({ onNavigateToMember }: UsageTabProps) {
                 onSave={handleSaveAlerts}
                 isSaving={isSavingAlerts}
             />
-
-            {/* Modals */}
-            <DateRangePickerModal
-                isOpen={isDateRangeModalOpen}
-                onClose={() => setIsDateRangeModalOpen(false)}
-                initialRange={customDateRange}
-                onApply={(range) => {
-                    setCustomDateRange(range);
-                    setIsDateRangeModalOpen(false);
-                }}
-            />
         </div>
     );
 }
-

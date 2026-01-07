@@ -1,10 +1,12 @@
-
+import { lazy, Suspense } from 'react';
 import { Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { AppLayout } from '@/components/layout/AppLayout';
-import { LeftMenu, MobileNavigation } from '@/components/navigation';
 import { ThemeProvider } from '@/context/ThemeProvider';
 import { LayoutProvider } from '@/context/LayoutProvider';
 import { Spinner } from '@heroui/react';
+
+const LeftMenu = lazy(() => import('@/components/navigation').then(m => ({ default: m.LeftMenu })));
+const MobileNavigation = lazy(() => import('@/components/navigation').then(m => ({ default: m.MobileNavigation })));
 
 
 
@@ -37,14 +39,18 @@ const AppShell = () => {
 
     return (
         <>
-            <LeftMenu currentPath={currentPath} onNavigate={handleNavigate} />
-            <MobileNavigation
-                currentPath={currentPath}
-                user={{ name: "Jane Doe", role: "Product Designer", avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d" }}
-                organisation={{ name: "Visionary Studio", id: "org-1" }}
-                credits={1247}
-                onNavigate={handleNavigate}
-            />
+            <Suspense fallback={null}>
+                <LeftMenu currentPath={currentPath} onNavigate={handleNavigate} />
+            </Suspense>
+            <Suspense fallback={null}>
+                <MobileNavigation
+                    currentPath={currentPath}
+                    user={{ name: "Jane Doe", role: "Product Designer", avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d" }}
+                    organisation={{ name: "Visionary Studio", id: "org-1" }}
+                    credits={1247}
+                    onNavigate={handleNavigate}
+                />
+            </Suspense>
             <div className="flex-1 w-full lg:ml-[280px] pt-14 pb-24 lg:py-0">
                 <AppLayout>
                     <Outlet />
