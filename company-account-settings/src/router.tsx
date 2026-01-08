@@ -4,11 +4,13 @@ import { RootComponent, AuthLayoutComponent, LoadingComponent } from '@/componen
 
 // --- Lazy loaded page components (Phase 1: Route Splitting) ---
 
-const HomePage = lazy(() => import('./app/HomePage').then(m => ({ default: m.HomePage })));
+const HomePage = lazy(() => import('@/app/HomePage').then(m => ({ default: m.HomePage })));
 const AccountSettings = lazy(() => import('@/app/admin/AccountSettings').then(m => ({ default: m.AccountSettings })));
-const ServicesPage = lazy(() => import('./app/admin/ServicesPage').then(m => ({ default: m.ServicesPage })));
-const TeamPage = lazy(() => import('./app/TeamPage').then(m => ({ default: m.TeamPage })));
+const ServicesPage = lazy(() => import('@/app/admin/ServicesPage').then(m => ({ default: m.ServicesPage })));
+const TeamPage = lazy(() => import('@/app/team/TeamPage').then(m => ({ default: m.TeamPage })));
 const SplentoDesignSystem = lazy(() => import('@/components/design-system/SplentoDesignSystem').then(m => ({ default: m.SplentoDesignSystem })));
+const OrdersPage = lazy(() => import('@/app/orders/OrdersPage').then(m => ({ default: m.OrdersPage })));
+const OrderDetailPage = lazy(() => import('@/app/orders/OrderDetailPage').then(m => ({ default: m.OrderDetailPage })));
 
 // --- Routes ---
 
@@ -58,6 +60,20 @@ const designHubRoute = createRoute({
     pendingComponent: LoadingComponent,
 });
 
+const ordersRoute = createRoute({
+    getParentRoute: () => dashboardShellRoute,
+    path: 'orders',
+    component: OrdersPage,
+    pendingComponent: LoadingComponent,
+});
+
+const orderDetailRoute = createRoute({
+    getParentRoute: () => dashboardShellRoute,
+    path: 'orders/$id',
+    component: OrderDetailPage,
+    pendingComponent: LoadingComponent,
+});
+
 // Default Redirect
 const indexRoute = createRoute({
     getParentRoute: () => dashboardShellRoute,
@@ -80,6 +96,8 @@ const routeTree = rootRoute.addChildren([
         servicesRoute,
         teamRoute,
         designHubRoute,
+        ordersRoute,
+        orderDetailRoute,
     ]),
     notFoundRoute,
 ]);

@@ -323,6 +323,9 @@
     /* Brighter purple for AI/premium features in dark mode */
     --accent-ai-foreground: var(--eclipse);
 
+    --lavender: oklch(0.78 0.12 295);
+    /* Softer lavender for dark mode */
+
     --success: oklch(0.79 0.17 162);
     /* #34D399 */
     --success-foreground: var(--eclipse);

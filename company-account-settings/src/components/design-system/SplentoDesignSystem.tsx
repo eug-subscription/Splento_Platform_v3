@@ -1,12 +1,12 @@
 
 
 import { useState, useEffect } from 'react';
-import { Footer } from './layout/Footer';
-import { Hub } from './views/Hub';
-import { ColoursContent } from './views/ColoursContent';
-import { TypographyContent } from './views/TypographyContent';
-import { FoundationsContent } from './views/FoundationsContent';
-import { useLayout } from '../../hooks/useLayout';
+import { Footer } from '@/components/design-system/layout/Footer';
+import { Hub } from '@/components/design-system/views/Hub';
+import { ColoursContent } from '@/components/design-system/views/ColoursContent';
+import { TypographyContent } from '@/components/design-system/views/TypographyContent';
+import { FoundationsContent } from '@/components/design-system/views/FoundationsContent';
+import { useLayout } from '@/hooks/useLayout';
 
 const VIEWS = {
     hub: Hub,

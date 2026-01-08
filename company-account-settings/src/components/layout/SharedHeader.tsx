@@ -3,12 +3,12 @@
 import { lazy, Suspense } from 'react';
 import { Button } from '@heroui/react';
 import { Icon } from '@iconify/react';
-import { useLayout } from '../../hooks/useLayout';
-import { ThemeSwitcher } from '../ThemeSwitcher';
+import { useLayout } from '@/hooks/useLayout';
+import { ThemeSwitcher } from '@/components/navigation/ThemeSwitcher';
 
-const CommandPalette = lazy(() => import('../CommandPalette').then(m => ({ default: m.CommandPalette })));
+const CommandPalette = lazy(() => import('@/components/navigation/CommandPalette').then(m => ({ default: m.CommandPalette })));
 import { OrgSwitcher } from './OrgSwitcher';
-import { enterpriseCommands } from '../../data/enterprise-commands';
+import { enterpriseCommands } from '@/data/enterprise-commands';
 
 export function SharedHeader() {
     const {

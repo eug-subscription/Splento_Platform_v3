@@ -1,5 +1,5 @@
 import { Button } from "@heroui/react";
-import { useAccountSettings } from './hooks/useAccountSettings';
+import { useAccountSettings } from '@/hooks/useAccountSettings';
 import { CompanyInfoSection } from './sections/CompanyInfoSection';
 import { BillingSection } from './sections/BillingSection';
 import { ManagersSection } from './sections/ManagersSection';

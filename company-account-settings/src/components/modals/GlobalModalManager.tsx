@@ -26,18 +26,18 @@ import type {
 // --- Lazy Loads ---
 
 // Security Modals
-const Enforce2FAModal = lazy(() => import('@/components/team/security/modals/Enforce2FAModal').then(m => ({ default: m.Enforce2FAModal })));
-const RevokeSessionModal = lazy(() => import('@/components/team/security/modals/RevokeSessionModal').then(m => ({ default: m.RevokeSessionModal })));
-const RevokeAllSessionsModal = lazy(() => import('@/components/team/security/modals/RevokeAllSessionsModal').then(m => ({ default: m.RevokeAllSessionsModal })));
-const AddIpRuleModal = lazy(() => import('@/components/team/security/modals/AddIpRuleModal').then(m => ({ default: m.AddIpRuleModal })));
-const EditIpRuleModal = lazy(() => import('@/components/team/security/modals/EditIpRuleModal').then(m => ({ default: m.EditIpRuleModal })));
+const Enforce2FAModal = lazy(() => import('@/app/team/components/security/modals/Enforce2FAModal').then(m => ({ default: m.Enforce2FAModal })));
+const RevokeSessionModal = lazy(() => import('@/app/team/components/security/modals/RevokeSessionModal').then(m => ({ default: m.RevokeSessionModal })));
+const RevokeAllSessionsModal = lazy(() => import('@/app/team/components/security/modals/RevokeAllSessionsModal').then(m => ({ default: m.RevokeAllSessionsModal })));
+const AddIpRuleModal = lazy(() => import('@/app/team/components/security/modals/AddIpRuleModal').then(m => ({ default: m.AddIpRuleModal })));
+const EditIpRuleModal = lazy(() => import('@/app/team/components/security/modals/EditIpRuleModal').then(m => ({ default: m.EditIpRuleModal })));
 
 // Team / Member Modals
-const InviteMemberModal = lazy(() => import('../team/modals/InviteMemberModal').then(m => ({ default: m.InviteMemberModal })));
-const BulkImportModal = lazy(() => import('../team/modals/BulkImportModal').then(m => ({ default: m.BulkImportModal })));
-const MemberProfileModal = lazy(() => import('../team/modals/MemberProfileModal').then(m => ({ default: m.MemberProfileModal })));
-const DateRangePickerModal = lazy(() => import('../team/modals/DateRangePickerModal').then(m => ({ default: m.DateRangePickerModal })));
-const ActivityDetailModal = lazy(() => import('../team/activity/modals/ActivityDetailModal').then(m => ({ default: m.ActivityDetailModal })));
+const InviteMemberModal = lazy(() => import('@/app/team/components/modals/InviteMemberModal').then(m => ({ default: m.InviteMemberModal })));
+const BulkImportModal = lazy(() => import('@/app/team/components/modals/BulkImportModal').then(m => ({ default: m.BulkImportModal })));
+const MemberProfileModal = lazy(() => import('@/app/team/components/modals/MemberProfileModal').then(m => ({ default: m.MemberProfileModal })));
+const DateRangePickerModal = lazy(() => import('@/app/team/components/modals/DateRangePickerModal').then(m => ({ default: m.DateRangePickerModal })));
+const ActivityDetailModal = lazy(() => import('@/app/team/components/activity/modals/ActivityDetailModal').then(m => ({ default: m.ActivityDetailModal })));
 
 // Billing Modals
 const BuyCreditsModal = lazy(() => import('@/app/admin/billing/modals/BuyCreditsModal').then(m => ({ default: m.BuyCreditsModal })));
@@ -55,9 +55,9 @@ const WebhookCreatedModal = lazy(() => import('@/app/admin/developers/modals/Web
 const DeleteWebhookModal = lazy(() => import('@/app/admin/developers/modals/DeleteWebhookModal').then(m => ({ default: m.DeleteWebhookModal })));
 
 // Settings Modals
-const AdminTransferModal = lazy(() => import('../team/settings/modals/AdminTransferModal').then(m => ({ default: m.AdminTransferModal })));
-const DeleteTeamModal = lazy(() => import('../team/settings/modals/DeleteTeamModal').then(m => ({ default: m.DeleteTeamModal })));
-const RequestDataExportModal = lazy(() => import('../team/settings/modals/RequestDataExportModal').then(m => ({ default: m.RequestDataExportModal })));
+const AdminTransferModal = lazy(() => import('@/app/team/components/settings/modals/AdminTransferModal').then(m => ({ default: m.AdminTransferModal })));
+const DeleteTeamModal = lazy(() => import('@/app/team/components/settings/modals/DeleteTeamModal').then(m => ({ default: m.DeleteTeamModal })));
+const RequestDataExportModal = lazy(() => import('@/app/team/components/settings/modals/RequestDataExportModal').then(m => ({ default: m.RequestDataExportModal })));
 
 export function GlobalModalManager() {
     const { activeModal, modalData, closeModal } = useModal();
