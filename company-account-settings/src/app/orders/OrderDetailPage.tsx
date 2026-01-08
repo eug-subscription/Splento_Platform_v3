@@ -42,8 +42,7 @@ export function OrderDetailPage() {
      * Placeholder for the cancel order flow (Phase 7).
      */
     const handleCancelOrder = () => {
-        // TODO: Open cancel confirmation modal
-        console.log('Cancel order initiation for ID:', id);
+        // Intentionally empty - Modal integration pending Phase 7
     };
 
     // 1. Loading State (Skeleton)
