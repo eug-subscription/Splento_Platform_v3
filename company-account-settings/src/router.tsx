@@ -71,6 +71,11 @@ const orderDetailRoute = createRoute({
     getParentRoute: () => dashboardShellRoute,
     path: 'orders/$id',
     component: OrderDetailPage,
+    validateSearch: (search: Record<string, unknown>) => {
+        return {
+            tab: (search.tab as string) || undefined,
+        };
+    },
     pendingComponent: LoadingComponent,
 });
 

@@ -63,7 +63,7 @@ export function OrdersPage() {
     }, [setFilter]);
 
     const handleRowClick = (orderId: string) => {
-        navigate({ to: '/orders/$id', params: { id: orderId } });
+        navigate({ to: '/orders/$id', params: { id: orderId }, search: { tab: undefined } });
     };
 
     const handleCreateOrder = () => {

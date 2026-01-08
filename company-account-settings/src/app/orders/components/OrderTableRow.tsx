@@ -45,11 +45,6 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
                 </div>
             </td>
 
-            {/* Type Column */}
-            <td className="px-4 py-4 align-middle">
-                <OrderTypeBadge type={order.type} />
-            </td>
-
             {/* Name Column (Name + Location) */}
             <td className="px-4 py-4 align-middle">
                 <div className="flex flex-col gap-0.5 items-start justify-center">
@@ -66,6 +61,11 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
                         </div>
                     )}
                 </div>
+            </td>
+
+            {/* Type Column */}
+            <td className="px-4 py-4 align-middle">
+                <OrderTypeBadge type={order.type} />
             </td>
 
             {/* Status */}

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Chip } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import type { OrderStatus } from '@/types/order.types';
@@ -20,11 +21,8 @@ export function OrderStatusBadge({
         <Chip
             variant="soft"
             size={size}
-            className="gap-1 px-3.5"
-            style={{
-                color: config.color,
-                backgroundColor: `color-mix(in oklab, ${config.color}, transparent 85%)`
-            }}
+            className="badge-soft-dynamic gap-1 px-3.5"
+            style={{ '--badge-color': config.color } as React.CSSProperties}
         >
             {showIcon && config.icon && (
                 <Icon icon={config.icon} className="w-3 h-3" />

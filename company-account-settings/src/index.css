@@ -736,6 +736,12 @@
     outline: 2px solid var(--focus);
   }
 
+  /* Dynamic Soft Badge utility for components using status/type colors */
+  .badge-soft-dynamic {
+    color: var(--badge-color);
+    background-color: color-mix(in oklab, var(--badge-color) 15%, transparent);
+  }
+
   /* ============================================
      LIQUID GLASS NAVIGATION
      iOS 26-style frosted glass component

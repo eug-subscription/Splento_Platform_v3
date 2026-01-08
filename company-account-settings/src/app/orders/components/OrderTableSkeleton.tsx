@@ -12,17 +12,17 @@ export function OrderTableSkeleton() {
                         <Skeleton className="w-16 h-4 rounded-lg" />
                     </td>
 
-                    {/* Type */}
-                    <td className="px-4 py-4">
-                        <Skeleton className="w-24 h-6 rounded-full" />
-                    </td>
-
                     {/* Name + Location */}
                     <td className="px-4 py-4">
                         <div className="flex flex-col gap-2">
                             <Skeleton className="w-32 h-4 rounded-lg" />
                             <Skeleton className="w-24 h-3 rounded-lg" />
                         </div>
+                    </td>
+
+                    {/* Type */}
+                    <td className="px-4 py-4">
+                        <Skeleton className="w-24 h-6 rounded-full" />
                     </td>
 
                     {/* Status */}

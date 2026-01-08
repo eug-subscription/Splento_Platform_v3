@@ -32,8 +32,8 @@ interface ColumnConfig {
 
 const COLUMNS: ColumnConfig[] = [
     { key: 'displayId', label: 'ID', sortable: true, align: 'left', className: 'w-44' },
-    { key: 'type', label: 'TYPE', sortable: true, align: 'left' },
     { key: 'clientName', label: 'NAME', sortable: true, align: 'left' },
+    { key: 'type', label: 'TYPE', sortable: true, align: 'left' },
     { key: 'status', label: 'STATUS', sortable: true, align: 'left' },
     { key: 'paymentStatus', label: 'PAYMENT', sortable: true, align: 'left' },
     { key: 'createdAt', label: 'CREATED AT', sortable: true, align: 'left' },
